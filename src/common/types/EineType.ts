@@ -4,6 +4,7 @@ import HttpDriver from "../../drivers/http";
 import WebsocketDriver from "../../drivers/ws/WebsocketDriver";
 import { MongoConfig } from "../../libs/db/types";
 import { EventType, EventTypeStr } from "./EventType";
+import { MessageChain } from "./MessageComponentType";
 import { MessageTypeStr, MessageType } from "./MessageType";
 
 /** mirai-api-http 适配器 */
@@ -118,8 +119,22 @@ export interface EineOption {
 
 export interface EventCallbackParams {
   name?: EineEventName | string;
-  app?: Eine;
+  eine?: Eine;
+  messageChain?: MessageChain;
+
+  quote?: (messageChain: MessageChain) => Promise<number | boolean>;
+  reply?: (messageChain: MessageChain) => Promise<number | boolean>;
+  recall?: () => Promise<boolean>;
+
+  accept?: () => Promise<boolean>;
+  deny?: () => Promise<boolean>;
+  ignore?: () => Promise<boolean>;
+  
   [key: string]: any;
+}
+
+export interface EventInterruptParams extends EventCallbackParams {
+  iterator: EventIterator;
 }
 
 export enum EventHandleResult {

@@ -7,10 +7,11 @@ npm install @eine-nineteen/eine --save-dev
 ```
 
 ```ts
-import Eine, { TextEquals } from "@eine-nineteen/eine";
-import { EventCallbackParams, EventHandleResult, SentBy, TextContains } from "@eine-nineteen/eine";
-import { Plain } from "@eine-nineteen/eine/dist/common/component";
+import Eine, { Comopnents, EventCallbackParams, EventHandleResult, SentBy, TextEquals } from "@eine-nineteen/eine";
 
+const { Plain, Image } = Comopnents;
+
+// new Eine(config: Parital<EineOptions>)
 const eine = new Eine({
   verifyKey: "YourVerifyKey",
   adapters: {
@@ -58,7 +59,10 @@ eine.on('FriendMessage', 'GroupMessage')(async ({
   // and use reply(messageChain), recall(messageChain), recall() to react...
 
   if (str.contains("hello!")) {
-    reply([Plain("Hi!")]);
+    reply([
+      Plain("Hi!"), 
+      Image.from("./hello.jpg") 
+    ]);
     return EventHandleResult.DONE;          // return DONE to block other events
   }
 
@@ -77,6 +81,7 @@ eine.on('FriendMessage', SentBy(MASTER), TextEquals("/shutdown"))(function*() {
   eine.shutdown(0);
   
   return EventHandleResult.DONE;      // this should never reached
-                                      // but you should return it when using wait() to do othewr things.
+                                      // but you should return it 
+                                      // when using wait() to do othewr things.
 });
 ```

@@ -1,0 +1,46 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HonorAction = exports.EventTypeStr = void 0;
+var EventTypeStr;
+(function (EventTypeStr) {
+    EventTypeStr["BOT_ONLINE_EVENT"] = "BotOnlineEvent";
+    EventTypeStr["BOT_OFFLINE_EVENT_ACTIVE"] = "BotOfflineEventActive";
+    EventTypeStr["BOT_OFFLINE_EVENT_FORCE"] = "BotOfflineEventForce";
+    EventTypeStr["BOT_OFFLINE_EVENT_DROPPED"] = "BotOfflineEventDropped";
+    EventTypeStr["BOT_RELOGIN_EVENT"] = "BotReloginEvent";
+    EventTypeStr["FRIEND_INPUT_STATUS_CHANGED_EVENT"] = "FriendInputStatusChangedEvent";
+    EventTypeStr["FRIEND_NICK_CHANGED_EVENT"] = "FriendNickChangedEvent";
+    EventTypeStr["FRIEND_RECALL_EVENT"] = "FriendRecallEvent";
+    EventTypeStr["BOT_GROUP_PERMISSION_CHANGE_EVENT"] = "BotGroupPermissionChangeEvent";
+    EventTypeStr["BOT_MUTE_EVENT"] = "BotMuteEvent";
+    EventTypeStr["BOT_UNMUTE_EVENT"] = "BotUnmuteEvent";
+    EventTypeStr["BOT_JOIN_GROUP_EVENT"] = "BotJoinGroupEvent";
+    EventTypeStr["BOT_LEAVE_EVENT_ACTIVE"] = "BotLeaveEventActive";
+    EventTypeStr["BOT_LEAVE_EVENT_KICK"] = "BotLeaveEventKick";
+    EventTypeStr["GROUP_RECALL_EVENT"] = "GroupRecallEvent";
+    EventTypeStr["GROUP_NAME_CHANGE_EVENT"] = "GroupNameChangeEvent";
+    EventTypeStr["GROUP_ENTRANCE_ANNOUNCEMENT_CHANGE_EVENT"] = "GroupEntranceAnnouncementChangeEvent";
+    EventTypeStr["GROUP_MUTE_ALL_EVENT"] = "GroupMuteAllEvent";
+    EventTypeStr["GROUP_ALLOW_ANONYMOUS_CHAT_EVENT"] = "GroupAllowAnonymousChatEvent";
+    EventTypeStr["GROUP_ALLOW_CONFESS_TALK_EVENT"] = "GroupAllowConfessTalkEvent";
+    EventTypeStr["GROUP_ALLOW_MEMBER_INVITE_EVENT"] = "GroupAllowMemberInviteEvent";
+    EventTypeStr["MEMBER_JOIN_EVENT"] = "MemberJoinEvent";
+    EventTypeStr["MEMBER_LEAVE_EVENT_KICK"] = "MemberLeaveEventKick";
+    EventTypeStr["MEMBER_LEAVE_EVENT_QUIT"] = "MemberLeaveEventQuit";
+    EventTypeStr["MEMBER_CARD_CHANGE_EVENT"] = "MemberCardChangeEvent";
+    EventTypeStr["MEMBER_SPECIAL_TITLE_CHANGE_EVENT"] = "MemberSpecialTitleChangeEvent";
+    EventTypeStr["MEMBER_PERMISSION_CHANGE_EVENT"] = "MemberPermissionChangeEvent";
+    EventTypeStr["MEMBER_MUTE_EVENT"] = "MemberMuteEvent";
+    EventTypeStr["MEMBER_UNMUTE_EVENT"] = "MemberUnmuteEvent";
+    EventTypeStr["MEMBER_HONOR_CHANGE_EVENT"] = "MemberHonorChangeEvent";
+    EventTypeStr["NEW_FRIEND_REQUEST_EVENT"] = "NewFriendRequestEvent";
+    EventTypeStr["MEMBER_JOIN_REQUEST_EVENT"] = "MemberJoinRequestEvent";
+    EventTypeStr["BOT_INVITED_JOIN_GROUP_REQUEST_EVENT"] = "BotInvitedJoinGroupRequestEvent";
+    EventTypeStr["COMMAND_EXECUTED_EVENT"] = "CommandExecutedEvent";
+})(EventTypeStr = exports.EventTypeStr || (exports.EventTypeStr = {}));
+var HonorAction;
+(function (HonorAction) {
+    HonorAction["ACHIEVE"] = "achieve";
+    HonorAction["LOSE"] = "lose";
+})(HonorAction = exports.HonorAction || (exports.HonorAction = {}));
+//# sourceMappingURL=EventType.js.map

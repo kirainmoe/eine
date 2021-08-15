@@ -9,7 +9,13 @@ npm install @eine-nineteen/eine --save-dev
 # Simple Usage
 
 ```ts
-import Eine, { Comopnents, EventCallbackParams, EventHandleResult, SentBy, TextEquals } from "@eine-nineteen/eine";
+import Eine, { 
+  Comopnents, 
+  EventCallbackParams, 
+  EventHandleResult, 
+  SentBy, 
+  TextEquals
+} from "@eine-nineteen/eine";
 
 const { Plain, Image } = Comopnents;
 
@@ -58,7 +64,7 @@ eine.on('FriendMessage', 'GroupMessage')(async ({
   str,
 }: Partial<EventCallbackParams>) => {
   // Do something with messageChain, sender, str(serialized messageChain)...
-  // and use reply(messageChain), recall(messageChain), recall() to react...
+  // and use reply(messageChain), quote(messageChain), recall() to react...
 
   if (str.contains("hello!")) {
     reply([

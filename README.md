@@ -6,6 +6,8 @@
 npm install @eine-nineteen/eine --save-dev
 ```
 
+# Simple Usage
+
 ```ts
 import Eine, { Comopnents, EventCallbackParams, EventHandleResult, SentBy, TextEquals } from "@eine-nineteen/eine";
 
@@ -85,3 +87,16 @@ eine.on('FriendMessage', SentBy(MASTER), TextEquals("/shutdown"))(function*() {
                                       // when using wait() to do othewr things.
 });
 ```
+
+# Advanced
+
+- Eine provided an simple GUI admin panel. You can visit `http://[hostname]:9119` to use the panel.
+- Eine provided an asynchronized encapsulation of node-canvas called `EinePainter`. Check `eine.painter` for more detail.
+- Eine provided a logging system `eine.logger`. You can use `logLevel` option to control the level of logs.
+
+
+# License
+
+Copyright(c) 2021 @kirainmoe
+
+MIT License

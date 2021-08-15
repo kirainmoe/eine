@@ -5,7 +5,7 @@ const types_1 = require("./types");
 /** Framework 全局名称 */
 exports.EINE = "Eine";
 /** Framework 版本 */
-exports.EINE_VERSION = "1.0.0";
+exports.EINE_VERSION = "0.0.5";
 /** Eine Framework 实例化默认选项 */
 exports.EINE_DEFAULT_OPTIONS = {
     adapters: {},

@@ -13,7 +13,7 @@ import asStr from "./asStr";
  * @returns boolean
  */
 export const SentBy = (id: number) => {
-  return (message: MessageType, str: string) => message.sender.id === id;
+  return (message: MessageType, str?: string) => message.sender.id === id;
 };
 
 /**
@@ -22,7 +22,7 @@ export const SentBy = (id: number) => {
  * @returns boolean
  */
 export const SentToGroup = (groupId: number) => {
-  return (message: MessageType, str: string) =>
+  return (message: MessageType, str?: string) =>
     message.type === MessageTypeStr.GROUP_MESSAGE && (message.sender as GroupMessageSender).group.id === groupId;
 };
 
@@ -32,7 +32,7 @@ export const SentToGroup = (groupId: number) => {
  * @returns boolean
  */
 export const TextContains = (text: string) => {
-  return (message: MessageType, str: string) => {
+  return (message: MessageType, str?: string) => {
     return message.messageChain
       .filter((message) => (message as MessageComponentType).type === MessageComponentTypeStr.PLAIN)
       .map((plain) => asStr(plain))
@@ -47,7 +47,7 @@ export const TextContains = (text: string) => {
  * @returns boolean
  */
 export const TextEquals = (text: string) => {
-  return (message: MessageType, str: string) => {
+  return (message: MessageType, str?: string) => {
     return (
       message.messageChain
         .filter((message) => (message as MessageComponentType).type === MessageComponentTypeStr.PLAIN)

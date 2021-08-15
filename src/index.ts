@@ -48,7 +48,7 @@ import EineServer from "./server";
 import serializeMessage from "./utils/serializeMessage";
 import injectExtraProperty from "./utils/injectExtraProperty";
 
-class Eine {
+export class Eine {
   /** Eine Framework 实例化选项 */
   private eineOptions: EineOption = EINE_DEFAULT_OPTIONS;
 
@@ -603,4 +603,9 @@ class Eine {
   static Axios = axios;
 }
 
-export = Eine;
+export * from "./common";
+export * from "./drivers";
+export * from "./libs";
+export * from "./utils";
+
+export default Eine;

@@ -1,8 +1,12 @@
 {
   "name": "@eine-nineteen/eine",
-  "version": "1.0.0",
-  "description": "Eine Framework",
-  "main": "index.js",
+  "version": "0.0.5",
+  "description": "[WIP] Eine Framework",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "exports": {
+    "./": "./dist/"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && cp -r prebuild dist/server/build"

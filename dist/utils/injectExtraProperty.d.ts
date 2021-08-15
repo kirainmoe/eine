@@ -12,7 +12,7 @@ export declare const injectExtraProperty: (event: EineEventName, payload: any, e
     reply: (messageChain: MessageChain) => any;
     quote: (messageChain: MessageChain) => any;
     recall: () => any;
-    wait: (iterator: EventIterator, filter: EventFilter) => import("../common/types").EventHandleResult;
+    wait: (iterator: EventIterator, filter: EventFilter) => import("..").EventHandleResult;
     accept?: undefined;
     deny?: undefined;
     ignore?: undefined;

@@ -5,7 +5,7 @@ import EineDB from "./libs/db/EineDB";
 import HttpDriver from "./drivers/http";
 import WebsocketDriver from "./drivers/ws";
 import EineServer from "./server";
-declare class Eine {
+export declare class Eine {
     /** Eine Framework 实例化选项 */
     private eineOptions;
     /** Driver 实例集合 */
@@ -17,7 +17,7 @@ declare class Eine {
     private bindInternalEvents;
     /** 检查工作空间是否存在 */
     checkAppWorkspace(): true | undefined;
-    getOption(key: keyof EineOption): string | number | boolean | Adapter.AdapterSetting | Partial<import("./libs/db/types").MongoConfig> | import("./common/types").EineServerOptions;
+    getOption(key: keyof EineOption): string | number | boolean | Adapter.AdapterSetting | Partial<import("./libs").MongoConfig> | import("./common").EineServerOptions;
     getVersion(): string;
     /** 重启 BOT */
     relaunch(): Promise<void>;
@@ -107,4 +107,8 @@ declare class Eine {
     static DB: typeof EineDB;
     static Axios: import("axios").AxiosStatic;
 }
-export = Eine;
+export * from "./common";
+export * from "./drivers";
+export * from "./libs";
+export * from "./utils";
+export default Eine;

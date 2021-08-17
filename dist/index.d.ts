@@ -1,7 +1,8 @@
 import { Adapter, EineEventName, EineOption, EventCallback, EventFilter, EventGenerator, EventHandleResult, EventIterator, MessageEventType, MessageTypeStr, SenderType } from "./common/types";
 import EineLogger from "./libs/logger";
 import EinePainter from "./libs/painter";
-import EineDB from "./libs/db/EineDB";
+import EineDB from "./libs/db";
+import EineScheduler from "./libs/scheduler";
 import HttpDriver from "./drivers/http";
 import WebsocketDriver from "./drivers/ws";
 import EineServer from "./server";
@@ -102,6 +103,9 @@ export declare class Eine {
     get ws(): WebsocketDriver | undefined;
     get server(): EineServer | null;
     private _server;
+    /** ------------------------ 调度任务系统 ------------------------ */
+    get scheduler(): EineScheduler | null;
+    private _scheduler;
     static Logger: typeof EineLogger;
     static Painter: typeof EinePainter;
     static DB: typeof EineDB;

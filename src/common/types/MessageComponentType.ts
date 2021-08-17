@@ -108,7 +108,7 @@ export interface Quote {
   origin: MessageChain;
 }
 
-/** @成员信息 */
+/** at 成员信息 */
 export interface At {
   type: MessageComponentTypeStr.AT;
   
@@ -119,7 +119,7 @@ export interface At {
   display: string;
 }
 
-/** @全体成员 信息 */
+/** at 全体成员 信息 */
 export interface AtAll {
   type: MessageComponentTypeStr.AT_ALL;
 }

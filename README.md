@@ -66,7 +66,7 @@ eine.on('FriendMessage', 'GroupMessage')(async ({
   // Do something with messageChain, sender, str(serialized messageChain)...
   // and use reply(messageChain), quote(messageChain), recall() to react...
 
-  if (str.contains("hello!")) {
+  if (str.includes("hello!")) {
     reply([
       Plain("Hi!"), 
       Image.from("./hello.jpg") 

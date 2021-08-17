@@ -218,7 +218,6 @@ export default class HttpDriver {
 
   /**
    * 获取插件版本
-   * @returns Promise<{version: string} | null>
    */
   public async about() {
     try {
@@ -354,7 +353,7 @@ export default class HttpDriver {
    * 上传图片
    * @param target
    * @param type
-   * @returns
+   * @returns Promise
    */
   public async uploadImage(target: string | PreloadFile, type: ContextType) {
     try {
@@ -389,7 +388,7 @@ export default class HttpDriver {
    * 上传语音文件
    * @param target
    * @param type
-   * @returns
+   * @returns Promise
    */
   public async uploadVoice(target: string | PreloadFile, type: ContextType) {
     try {
@@ -425,7 +424,7 @@ export default class HttpDriver {
    * @param target 目标文件，路径或使用 File.from(string | Buffer | ReadStream) 构造
    * @param type 上传类型，目前只支持 group
    * @param path 上传目录，空为根目录
-   * @returns
+   * @returns Promise
    */
   public async uploadFile(target: string | PreloadFile, type: string, path: string = "") {
     try {

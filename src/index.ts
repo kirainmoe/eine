@@ -35,13 +35,14 @@ import { GroupTarget, Myself } from "./common/sender";
 /* Eine: libraries */
 import EineLogger from "./libs/logger";
 import EinePainter from "./libs/painter";
-import EineDB from "./libs/db/EineDB";
+import EineDB from "./libs/db";
+import EineScheduler from "./libs/scheduler";
 
-/* Eine Adapter drivers */
+/* Eine: Adapter drivers */
 import HttpDriver, {HttpDriverOptions} from "./drivers/http";
 import WebsocketDriver, { WebsocketDriverOptions } from "./drivers/ws";
 
-/* Eine Admin Panel server */
+/* Eine: Admin Panel server */
 import EineServer from "./server";
 
 /* Eine: small tools */
@@ -62,6 +63,7 @@ export class Eine {
     };
     this._logger = new EineLogger(this.eineOptions.logLevel, this.eineOptions.botName);
     this._painter = new EinePainter(this);
+    this._scheduler = new EineScheduler(this);
     this.eventHandler = new Map();
     this.interruptQueue = new Map();
 
@@ -595,6 +597,10 @@ export class Eine {
   /* ------------------------ AdminPanel 服务器 ------------------------ */
   public get server() { return this._server; }
   private _server: EineServer | null = null;
+
+  /** ------------------------ 调度任务系统 ------------------------ */
+  public get scheduler() { return this._scheduler; }
+  private _scheduler: EineScheduler | null = null;
 
   /* 静态类型定义 */
   static Logger = EineLogger;

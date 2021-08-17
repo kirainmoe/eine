@@ -34,11 +34,12 @@ const sender_1 = require("./common/sender");
 /* Eine: libraries */
 const logger_1 = __importDefault(require("./libs/logger"));
 const painter_1 = __importDefault(require("./libs/painter"));
-const EineDB_1 = __importDefault(require("./libs/db/EineDB"));
-/* Eine Adapter drivers */
+const db_1 = __importDefault(require("./libs/db"));
+const scheduler_1 = __importDefault(require("./libs/scheduler"));
+/* Eine: Adapter drivers */
 const http_1 = __importDefault(require("./drivers/http"));
 const ws_1 = __importDefault(require("./drivers/ws"));
-/* Eine Admin Panel server */
+/* Eine: Admin Panel server */
 const server_1 = __importDefault(require("./server"));
 /* Eine: small tools */
 const serializeMessage_1 = __importDefault(require("./utils/serializeMessage"));
@@ -55,6 +56,7 @@ class Eine {
         };
         this._logger = new logger_1.default(this.eineOptions.logLevel, this.eineOptions.botName);
         this._painter = new painter_1.default(this);
+        this._scheduler = new scheduler_1.default(this);
         this.eventHandler = new Map();
         this.interruptQueue = new Map();
         this.logger.info("Launching {}...", chalk_1.default.cyan(this.eineOptions.botName));
@@ -65,7 +67,7 @@ class Eine {
         this.checkAppWorkspace();
         this.bindInternalEvents();
         if (this.eineOptions.enableDatabase) {
-            this._db = new EineDB_1.default(this.eineOptions.mongoConfig, this);
+            this._db = new db_1.default(this.eineOptions.mongoConfig, this);
             await this.db?.connect();
         }
         if (this.eineOptions.enableServer) {
@@ -484,10 +486,13 @@ class Eine {
     /* ------------------------ AdminPanel 服务器 ------------------------ */
     get server() { return this._server; }
     _server = null;
+    /** ------------------------ 调度任务系统 ------------------------ */
+    get scheduler() { return this._scheduler; }
+    _scheduler = null;
     /* 静态类型定义 */
     static Logger = logger_1.default;
     static Painter = painter_1.default;
-    static DB = EineDB_1.default;
+    static DB = db_1.default;
     static Axios = axios_1.default;
 }
 __decorate([

@@ -93,11 +93,14 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#adapters" class="tsd-kind-icon">adapters</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#appDirectory" class="tsd-kind-icon">app<wbr>Directory</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#botName" class="tsd-kind-icon">bot<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#enableConcurrent" class="tsd-kind-icon">enable<wbr>Concurrent</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#enableDatabase" class="tsd-kind-icon">enable<wbr>Database</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#enableMessageLog" class="tsd-kind-icon">enable<wbr>Message<wbr>Log</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#enableServer" class="tsd-kind-icon">enable<wbr>Server</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#enableVerify" class="tsd-kind-icon">enable<wbr>Verify</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#logLevel" class="tsd-kind-icon">log<wbr>Level</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#maxConcurrentNumber" class="tsd-kind-icon">max<wbr>Concurrent<wbr>Number</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#messageBatchCount" class="tsd-kind-icon">message<wbr>Batch<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#messagePullingMode" class="tsd-kind-icon">message<wbr>Pulling<wbr>Mode</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#mongoConfig" class="tsd-kind-icon">mongo<wbr>Config</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="Types.EineOption.html#pollInterval" class="tsd-kind-icon">poll<wbr>Interval</a></li>
@@ -119,7 +122,7 @@
 					<div class="tsd-signature tsd-kind-icon">adapters<span class="tsd-signature-symbol">:</span> <a href="Types.AdapterSetting.html" class="tsd-signature-type" data-tsd-kind="Interface">AdapterSetting</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L88">common/types/EineType.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L88">common/types/EineType.ts:88</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -134,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">app<wbr>Directory<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L109">common/types/EineType.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L112">common/types/EineType.ts:112</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -149,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">bot<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L70">common/types/EineType.ts:70</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L70">common/types/EineType.ts:70</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -159,12 +162,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="enableConcurrent" class="tsd-anchor"></a>
+					<h3>enable<wbr>Concurrent</h3>
+					<div class="tsd-signature tsd-kind-icon">enable<wbr>Concurrent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L121">common/types/EineType.ts:121</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>是否并发模式</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="enableDatabase" class="tsd-anchor"></a>
 					<h3>enable<wbr>Database</h3>
 					<div class="tsd-signature tsd-kind-icon">enable<wbr>Database<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L100">common/types/EineType.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L103">common/types/EineType.ts:103</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -179,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">enable<wbr>Message<wbr>Log<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L97">common/types/EineType.ts:97</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L100">common/types/EineType.ts:100</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -194,7 +212,7 @@
 					<div class="tsd-signature tsd-kind-icon">enable<wbr>Server<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L112">common/types/EineType.ts:112</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L115">common/types/EineType.ts:115</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -209,7 +227,7 @@
 					<div class="tsd-signature tsd-kind-icon">enable<wbr>Verify<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L79">common/types/EineType.ts:79</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L79">common/types/EineType.ts:79</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -224,7 +242,7 @@
 					<div class="tsd-signature tsd-kind-icon">log<wbr>Level<span class="tsd-signature-symbol">:</span> <a href="../enums/Types.LogLevel.html" class="tsd-signature-type" data-tsd-kind="Enumeration">LogLevel</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L85">common/types/EineType.ts:85</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L85">common/types/EineType.ts:85</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -234,12 +252,42 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="maxConcurrentNumber" class="tsd-anchor"></a>
+					<h3>max<wbr>Concurrent<wbr>Number</h3>
+					<div class="tsd-signature tsd-kind-icon">max<wbr>Concurrent<wbr>Number<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L124">common/types/EineType.ts:124</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>最大并发进程数</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="messageBatchCount" class="tsd-anchor"></a>
+					<h3>message<wbr>Batch<wbr>Count</h3>
+					<div class="tsd-signature tsd-kind-icon">message<wbr>Batch<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L97">common/types/EineType.ts:97</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>单次轮询的消息数量</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="messagePullingMode" class="tsd-anchor"></a>
 					<h3>message<wbr>Pulling<wbr>Mode</h3>
 					<div class="tsd-signature tsd-kind-icon">message<wbr>Pulling<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/Types.MessagePullingMode.html" class="tsd-signature-type" data-tsd-kind="Enumeration">MessagePullingMode</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L91">common/types/EineType.ts:91</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L91">common/types/EineType.ts:91</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -254,7 +302,7 @@
 					<div class="tsd-signature tsd-kind-icon">mongo<wbr>Config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="Types.DBType.MongoConfig.html" class="tsd-signature-type" data-tsd-kind="Interface">MongoConfig</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L103">common/types/EineType.ts:103</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L106">common/types/EineType.ts:106</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -269,7 +317,7 @@
 					<div class="tsd-signature tsd-kind-icon">poll<wbr>Interval<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L94">common/types/EineType.ts:94</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L94">common/types/EineType.ts:94</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -284,7 +332,7 @@
 					<div class="tsd-signature tsd-kind-icon">qq<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L73">common/types/EineType.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L73">common/types/EineType.ts:73</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -299,7 +347,7 @@
 					<div class="tsd-signature tsd-kind-icon">response<wbr>Timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L106">common/types/EineType.ts:106</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L109">common/types/EineType.ts:109</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -314,7 +362,7 @@
 					<div class="tsd-signature tsd-kind-icon">server<span class="tsd-signature-symbol">:</span> <a href="Types.EineServerOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">EineServerOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L115">common/types/EineType.ts:115</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L118">common/types/EineType.ts:118</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -329,7 +377,7 @@
 					<div class="tsd-signature tsd-kind-icon">single<wbr>Mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L82">common/types/EineType.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L82">common/types/EineType.ts:82</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -344,7 +392,7 @@
 					<div class="tsd-signature tsd-kind-icon">verify<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2589c6e/src/common/types/EineType.ts#L76">common/types/EineType.ts:76</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/common/types/EineType.ts#L76">common/types/EineType.ts:76</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -412,6 +460,9 @@
 								<a href="Types.EineOption.html#botName" class="tsd-kind-icon">bot<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="Types.EineOption.html#enableConcurrent" class="tsd-kind-icon">enable<wbr>Concurrent</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="Types.EineOption.html#enableDatabase" class="tsd-kind-icon">enable<wbr>Database</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -425,6 +476,12 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="Types.EineOption.html#logLevel" class="tsd-kind-icon">log<wbr>Level</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="Types.EineOption.html#maxConcurrentNumber" class="tsd-kind-icon">max<wbr>Concurrent<wbr>Number</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="Types.EineOption.html#messageBatchCount" class="tsd-kind-icon">message<wbr>Batch<wbr>Count</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="Types.EineOption.html#messagePullingMode" class="tsd-kind-icon">message<wbr>Pulling<wbr>Mode</a>

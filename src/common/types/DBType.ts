@@ -1,4 +1,5 @@
-import { MessageChain, SenderType, SendTarget } from "../../common/types";
+import { SenderType, SendTarget } from "../../common/types";
+import { MessageChain } from "../../common/types/MessageComponentType";
 
 export interface MongoConfig {
   host: string;

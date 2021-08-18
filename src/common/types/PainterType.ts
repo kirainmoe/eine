@@ -1,4 +1,4 @@
-export namespace EinePainterType {
+export namespace PainterType {
   export interface Font {
     family: string;
     path: string;
@@ -101,4 +101,4 @@ export namespace EinePainterType {
   }
 }
 
-export default EinePainterType;
+export default PainterType;

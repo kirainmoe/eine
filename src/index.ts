@@ -8,7 +8,7 @@ import bind from 'bind-decorator';
 
 /* Eine: typescript types */
 import {
-  Adapter,
+  AdapterDriverInterface,
   EineEventName,
   EineEventTypeStr,
   EineOption,
@@ -18,19 +18,19 @@ import {
   EventHandler,
   EventHandleResult,
   EventIterator,
-  EventTypeStr,
   InterruptHandler,
-  MessageChain,
   messageEventType,
   MessageEventType,
   MessagePullingMode,
   MessageTypeStr,
   SenderType,
 } from "./common/types";
+import { MessageChain } from "./common/types/MessageComponentType";
+import { EventTypeStr } from "./common/types/EventType";
 
 /* Eine: constant & preset values */
 import {EINE, EINE_DEFAULT_OPTIONS, EINE_VERSION} from "./common/constant";
-import { GroupTarget, Myself } from "./common/sender";
+import { GroupTarget, Myself } from "./common/sendTarget";
 
 /* Eine: libraries */
 import EineLogger from "./libs/logger";
@@ -49,12 +49,18 @@ import EineServer from "./server";
 import serializeMessage from "./utils/serializeMessage";
 import injectExtraProperty from "./utils/injectExtraProperty";
 
+/**
+ * @package @eine-nineteen/eine
+ * @module Eine
+ * @author Yume<kirainmoe@gmail.com>
+ * @licence MIT
+ */
 export class Eine {
   /** Eine Framework 实例化选项 */
   private eineOptions: EineOption = EINE_DEFAULT_OPTIONS;
 
   /** Driver 实例集合 */
-  public adapters: Adapter.AdapterDriverInterface = {};
+  public adapters: AdapterDriverInterface = {};
 
   constructor(options: Partial<EineOption> = {}) {
     this.eineOptions = {
@@ -595,10 +601,12 @@ export class Eine {
   public get ws() { return this.adapters.ws; }
 
   /* ------------------------ AdminPanel 服务器 ------------------------ */
+  /** EineServer 管理面板服务器 */
   public get server() { return this._server; }
   private _server: EineServer | null = null;
 
   /** ------------------------ 调度任务系统 ------------------------ */
+  /** EineScheduler 计划任务调度器 */
   public get scheduler() { return this._scheduler; }
   private _scheduler: EineScheduler | null = null;
 
@@ -610,8 +618,7 @@ export class Eine {
 }
 
 export * from "./common";
-export * from "./drivers";
-export * from "./libs";
-export * from "./utils";
+export * as Utils from "./utils";
+export * as Filters from "./utils/internalFilter";
 
 export default Eine;

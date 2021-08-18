@@ -1,6 +1,6 @@
-import { Adapter } from "../../common/types";
+import { HttpAdapterSetting } from "../../common/types";
 /** HttpDriver 实例化选项 */
-export interface HttpDriverOptions extends Adapter.HttpAdapterSetting {
+export interface HttpDriverOptions extends HttpAdapterSetting {
     qq: number;
     verifyKey: string;
     enableVerify: boolean;

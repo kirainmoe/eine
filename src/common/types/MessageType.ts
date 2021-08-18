@@ -1,4 +1,4 @@
-import { Friend, GroupInfo, GroupMember, GroupPermission } from "./CommonType";
+import { Friend, GroupMember } from "./CommonType";
 
 import { MessageChain } from "./MessageComponentType";
 

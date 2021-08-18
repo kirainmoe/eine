@@ -1,5 +1,6 @@
 import Eine from "../..";
-import { ContextType, EditableMemberInfo, Friend, FriendRequestOperate, GroupConfig, GroupInfo, GroupMember, InvitedJoinGroupRequestOperate, MemberJoinRequestOpearte, MessageChain, MessageType, Profile } from "../../common/types";
+import { ContextType, EditableMemberInfo, Friend, FriendRequestOperate, GroupConfig, GroupInfo, GroupMember, InvitedJoinGroupRequestOperate, MemberJoinRequestOpearte, MessageType, Profile } from "../../common/types";
+import { MessageChain } from "../../common/types/MessageComponentType";
 import EineLogger from "../../libs/logger";
 import { WebsocketDriverOptions, WebsocketSessionState } from "./types";
 /**
@@ -38,7 +39,6 @@ export default class WebsocketDriver {
     /**
      * 通过 websocket 发送消息并等待响应
      * @param payload 消息内容
-     * @returns
      */
     private sendAndWaitResponse;
     /**
@@ -46,7 +46,6 @@ export default class WebsocketDriver {
      * @param message 消息内容
      * @param resolve
      * @param reject
-     * @returns
      */
     private resolveMessage;
     /**
@@ -68,12 +67,12 @@ export default class WebsocketDriver {
      * @param command 命令字
      * @param content 数据对象
      * @param subCommand 子命令字，可为 null
-     * @returns
+     * @returns Promise<any>
      */
     command: (command: string, content?: any, subCommand?: string | null) => Promise<any>;
     /**
      * 获取插件版本
-     * @returns Promise<{version: string} | null>
+     * @returns Promise
      */
     about(): Promise<{
         version: string;

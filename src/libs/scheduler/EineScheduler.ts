@@ -2,7 +2,7 @@ import cron from "node-cron";
 import Eine from "../..";
 import EineLogger from "../logger";
 
-import { Every, FromEvery, RangeType, ScheduleRuleItem, ScheduleRuleItemType, When, } from "./types";
+import { Every, FromEvery, RangeType, ScheduleRuleItem, ScheduleRuleItemType, When, } from "../../common/types/SchedulerType";
 
 /** EineScheduer: 计划任务调度器 */
 export default class EineScheduler {

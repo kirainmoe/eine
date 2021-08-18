@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const EineLogger_1 = __importDefault(require("./EineLogger"));
+var EineLogger_1 = __importDefault(require("./EineLogger"));
 exports.default = EineLogger_1.default;
 __exportStar(require("./EineLogger"), exports);
 //# sourceMappingURL=index.js.map

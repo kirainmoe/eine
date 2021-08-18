@@ -1,4 +1,4 @@
-import { MessageComponentTypeStr } from "../common/types";
+import { MessageComponentTypeStr } from "../common/types/MessageComponentType";
 
 export const asStr = (target: any): string => {
   if (typeof target === 'string')

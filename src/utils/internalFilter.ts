@@ -1,10 +1,7 @@
-import {
-  GroupMessageSender,
-  MessageComponentType,
-  MessageComponentTypeStr,
-  MessageType,
-  MessageTypeStr,
-} from "../common/types";
+import { GroupMessageSender, MessageType, MessageTypeStr } from "../common/types";
+
+import { MessageComponentTypeStr, MessageComponentType } from "../common/types/MessageComponentType";
+
 import asStr from "./asStr";
 
 /**

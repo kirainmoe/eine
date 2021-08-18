@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.serializeMessage = void 0;
-const asStr_1 = __importDefault(require("./asStr"));
-const serializeMessage = (messageChain) => {
-    return messageChain.map(message => asStr_1.default(message)).filter(item => item.length > 0).join(' ');
+var asStr_1 = __importDefault(require("./asStr"));
+var serializeMessage = function (messageChain) {
+    return messageChain.map(function (message) { return asStr_1.default(message); }).filter(function (item) { return item.length > 0; }).join(' ');
 };
 exports.serializeMessage = serializeMessage;
 exports.default = exports.serializeMessage;

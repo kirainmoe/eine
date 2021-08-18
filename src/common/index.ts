@@ -1,3 +1,3 @@
-export * as Comopnents from "./component";
-export * as Senders from "./sender";
-export * from "./types";
+export * as Components from "./component";
+export * as SendTargets from "./sendTarget";
+export * as Types from "./types";

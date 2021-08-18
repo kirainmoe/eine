@@ -1,16 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EineUserRole = exports.EineEventTypeStr = exports.EventHandleResult = exports.MessagePullingMode = exports.LogLevel = exports.Adapter = void 0;
+exports.EineUserRole = exports.EineEventTypeStr = exports.EventHandleResult = exports.MessagePullingMode = exports.LogLevel = void 0;
 /** mirai-api-http 适配器 */
-var Adapter;
-(function (Adapter) {
-    /** 支持的适配器类型 = {HTTP, WS} */
-    let AdapterType;
-    (function (AdapterType) {
-        AdapterType["HTTP"] = "http";
-        AdapterType["WS"] = "ws";
-    })(AdapterType || (AdapterType = {}));
-})(Adapter = exports.Adapter || (exports.Adapter = {}));
+/** 支持的适配器类型 = {HTTP, WS} */
+var AdapterType;
+(function (AdapterType) {
+    AdapterType["HTTP"] = "http";
+    AdapterType["WS"] = "ws";
+})(AdapterType || (AdapterType = {}));
 /** 日志等级 = {VERBOSE, INFO, WARNING, ERROR, NONE} */
 var LogLevel;
 (function (LogLevel) {
@@ -28,11 +25,13 @@ var MessagePullingMode;
     /** 使用 Websocket Client 模式与服务器建立连接获取推送 */
     MessagePullingMode[MessagePullingMode["PASSIVE_WS"] = 1] = "PASSIVE_WS";
 })(MessagePullingMode = exports.MessagePullingMode || (exports.MessagePullingMode = {}));
+/** 事件处理结果 */
 var EventHandleResult;
 (function (EventHandleResult) {
     EventHandleResult[EventHandleResult["DONE"] = 0] = "DONE";
     EventHandleResult[EventHandleResult["CONTINUE"] = 1] = "CONTINUE";
 })(EventHandleResult = exports.EventHandleResult || (exports.EventHandleResult = {}));
+/** Eine 框架自有事件类型 */
 var EineEventTypeStr;
 (function (EineEventTypeStr) {
     EineEventTypeStr["MESSAGE"] = "Message";
@@ -47,6 +46,7 @@ var EineEventTypeStr;
     EineEventTypeStr["AFTER_MONGO_CLOSE"] = "AfterMongoClose";
     EineEventTypeStr["AFTER_SERVER_START"] = "AfterServerStart";
 })(EineEventTypeStr = exports.EineEventTypeStr || (exports.EineEventTypeStr = {}));
+/** Eine 用户角色类型 { MASTER, ADMINISTRATOR, USER } */
 var EineUserRole;
 (function (EineUserRole) {
     EineUserRole[EineUserRole["MASTER"] = 0] = "MASTER";

@@ -70,7 +70,7 @@ export interface Quote {
     /** 被引用回复的原消息的 MessageChain 对象 */
     origin: MessageChain;
 }
-/** @成员信息 */
+/** at 成员信息 */
 export interface At {
     type: MessageComponentTypeStr.AT;
     /** 群员 QQ 号 */
@@ -78,7 +78,7 @@ export interface At {
     /** At 时显示的文字，发送消息时无效，自动使用群名片 */
     display: string;
 }
-/** @全体成员 信息 */
+/** at 全体成员 信息 */
 export interface AtAll {
     type: MessageComponentTypeStr.AT_ALL;
 }

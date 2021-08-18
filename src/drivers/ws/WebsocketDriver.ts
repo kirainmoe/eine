@@ -13,20 +13,23 @@ import {
   GroupMember,
   InvitedJoinGroupRequestOperate,
   MemberJoinRequestOpearte,
-  MessageChain,
-  MessageComponentTypeStr,
   MessageType,
   MessageTypeStr,
-  PreloadFile,
   Profile,
 } from "../../common/types";
+
+import {
+  MessageChain,
+  MessageComponentTypeStr,
+  PreloadFile,
+} from "../../common/types/MessageComponentType";
 
 import EineLogger from "../../libs/logger";
 
 import { Plain } from "../../common/component";
 
 import { WebsocketDriverOptions, WebsocketSessionState } from "./types";
-import { FriendTarget, GroupTarget, TempTarget } from "../../common/sender";
+import { FriendTarget, GroupTarget, TempTarget } from "../../common/sendTarget";
 
 /**
  * mirai-api-http: Websocket Adapter Driver
@@ -107,7 +110,6 @@ export default class WebsocketDriver {
   /**
    * 通过 websocket 发送消息并等待响应
    * @param payload 消息内容
-   * @returns
    */
   private sendAndWaitResponse(payload: any) {
     return new Promise((resolve, reject) => {
@@ -163,7 +165,6 @@ export default class WebsocketDriver {
    * @param message 消息内容
    * @param resolve
    * @param reject
-   * @returns
    */
   private resolveMessage = (
     message: string,
@@ -290,7 +291,7 @@ export default class WebsocketDriver {
    * @param command 命令字
    * @param content 数据对象
    * @param subCommand 子命令字，可为 null
-   * @returns
+   * @returns Promise<any>
    */
   public command = (command: string, content: any = {}, subCommand: string | null = null): Promise<any> =>
     this.sendAndWaitResponse({
@@ -304,7 +305,7 @@ export default class WebsocketDriver {
 
   /**
    * 获取插件版本
-   * @returns Promise<{version: string} | null>
+   * @returns Promise
    */
   public async about() {
     try {

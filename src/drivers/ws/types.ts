@@ -1,7 +1,7 @@
-import { Adapter } from "../../common/types";
+import { WebsocketAdapterSetting } from "../../common/types";
 
 /** WebsocketDriver 实例化选项 */
-export interface WebsocketDriverOptions extends Adapter.WebsocketAdapterSetting {
+export interface WebsocketDriverOptions extends WebsocketAdapterSetting {
   qq: number;
   verifyKey: string;
   enableVerify: boolean;

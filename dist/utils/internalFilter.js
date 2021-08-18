@@ -4,15 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TextEquals = exports.TextContains = exports.SentToGroup = exports.SentBy = void 0;
-const types_1 = require("../common/types");
-const asStr_1 = __importDefault(require("./asStr"));
+var types_1 = require("../common/types");
+var MessageComponentType_1 = require("../common/types/MessageComponentType");
+var asStr_1 = __importDefault(require("./asStr"));
 /**
  * 消息是否由特定 QQ 号发送
  * @param id QQ 号
  * @returns boolean
  */
-const SentBy = (id) => {
-    return (message, str) => message.sender.id === id;
+var SentBy = function (id) {
+    return function (message, str) { return message.sender.id === id; };
 };
 exports.SentBy = SentBy;
 /**
@@ -20,8 +21,10 @@ exports.SentBy = SentBy;
  * @param groupId 群号
  * @returns boolean
  */
-const SentToGroup = (groupId) => {
-    return (message, str) => message.type === types_1.MessageTypeStr.GROUP_MESSAGE && message.sender.group.id === groupId;
+var SentToGroup = function (groupId) {
+    return function (message, str) {
+        return message.type === types_1.MessageTypeStr.GROUP_MESSAGE && message.sender.group.id === groupId;
+    };
 };
 exports.SentToGroup = SentToGroup;
 /**
@@ -29,11 +32,11 @@ exports.SentToGroup = SentToGroup;
  * @param text 指定内容
  * @returns boolean
  */
-const TextContains = (text) => {
-    return (message, str) => {
+var TextContains = function (text) {
+    return function (message, str) {
         return message.messageChain
-            .filter((message) => message.type === types_1.MessageComponentTypeStr.PLAIN)
-            .map((plain) => asStr_1.default(plain))
+            .filter(function (message) { return message.type === MessageComponentType_1.MessageComponentTypeStr.PLAIN; })
+            .map(function (plain) { return asStr_1.default(plain); })
             .join(" ")
             .includes(text);
     };
@@ -44,11 +47,11 @@ exports.TextContains = TextContains;
  * @param text 指定内容
  * @returns boolean
  */
-const TextEquals = (text) => {
-    return (message, str) => {
+var TextEquals = function (text) {
+    return function (message, str) {
         return (message.messageChain
-            .filter((message) => message.type === types_1.MessageComponentTypeStr.PLAIN)
-            .map((plain) => asStr_1.default(plain))
+            .filter(function (message) { return message.type === MessageComponentType_1.MessageComponentTypeStr.PLAIN; })
+            .map(function (plain) { return asStr_1.default(plain); })
             .join(" ") === text);
     };
 };

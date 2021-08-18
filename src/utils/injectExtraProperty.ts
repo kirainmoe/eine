@@ -4,14 +4,15 @@ import {
   EineEventName,
   EventFilter,
   EventIterator,
-  EventTypeStr,
   FriendRequestOperate,
   InvitedJoinGroupRequestOperate,
   MemberJoinRequestOpearte,
-  MessageChain,
   messageEventType,
   MessageTypeStr,
 } from "../common/types";
+
+import { MessageChain } from "../common/types/MessageComponentType";
+import { EventTypeStr } from "../common/types/EventType";
 
 import serializeMessage from "./serializeMessage";
 
@@ -20,7 +21,7 @@ import serializeMessage from "./serializeMessage";
  * @param event 事件名称
  * @param payload 事件携带
  * @param eineInstance Eine 实例
- * @returns 
+ * @returns object
  */
 export const injectExtraProperty = (event: EineEventName, payload: any = null, eineInstance: Eine) => {
   // 好友消息、群消息、临时消息和陌生人消息

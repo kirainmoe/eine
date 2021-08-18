@@ -1,4 +1,5 @@
-import { MessageChain, MessageTypeStr, SenderType } from '../../../common/types';
+import { MessageTypeStr, SenderType } from '../../../common/types';
+import { MessageChain } from "../../../common/types/MessageComponentType";
 import { EineWebsocketHandlerType } from "../types";
 export declare const pushMessage: ({ type, sender, messageChain, str }: {
     type: MessageTypeStr;

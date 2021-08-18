@@ -1,6 +1,7 @@
 import Eine from "../../index";
 import EineLogger from "../../libs/logger/EineLogger";
-import { ContextType, EditableMemberInfo, Friend, FriendRequestOperate, GroupConfig, GroupInfo, GroupMember, InvitedJoinGroupRequestOperate, MemberJoinRequestOpearte, MessageChain, MessageEventType, MessageType, PreloadFile, Profile } from "../../common/types";
+import { ContextType, EditableMemberInfo, Friend, FriendRequestOperate, GroupConfig, GroupInfo, GroupMember, InvitedJoinGroupRequestOperate, MemberJoinRequestOpearte, MessageEventType, MessageType, Profile } from "../../common/types";
+import { MessageChain, PreloadFile } from "../../common/types/MessageComponentType";
 import { HttpDriverOptions, HttpSessionState } from "./types";
 /**
  * mirai-api-http: Http Adapter Driver
@@ -63,7 +64,6 @@ export default class HttpDriver {
     fetchMessage(): Promise<MessageEventType[]>;
     /**
      * 获取插件版本
-     * @returns Promise<{version: string} | null>
      */
     about(): Promise<{
         version: string;
@@ -112,7 +112,7 @@ export default class HttpDriver {
      * 上传图片
      * @param target
      * @param type
-     * @returns
+     * @returns Promise
      */
     uploadImage(target: string | PreloadFile, type: ContextType): Promise<{
         imageId: any;
@@ -122,7 +122,7 @@ export default class HttpDriver {
      * 上传语音文件
      * @param target
      * @param type
-     * @returns
+     * @returns Promise
      */
     uploadVoice(target: string | PreloadFile, type: ContextType): Promise<{
         voiceId: any;
@@ -133,7 +133,7 @@ export default class HttpDriver {
      * @param target 目标文件，路径或使用 File.from(string | Buffer | ReadStream) 构造
      * @param type 上传类型，目前只支持 group
      * @param path 上传目录，空为根目录
-     * @returns
+     * @returns Promise
      */
     uploadFile(target: string | PreloadFile, type: string, path?: string): Promise<null | undefined>;
     /**

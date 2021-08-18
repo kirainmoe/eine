@@ -15,18 +15,21 @@ import {
   GroupMember,
   InvitedJoinGroupRequestOperate,
   MemberJoinRequestOpearte,
-  MessageChain,
-  MessageComponentTypeStr,
   MessageEventType,
   MessageType,
   MessageTypeStr,
-  PreloadFile,
   Profile,
 } from "../../common/types";
 
+import {
+  MessageChain,
+  MessageComponentTypeStr,
+  PreloadFile,
+} from "../../common/types/MessageComponentType";
+
 import { upload, wrappedGet, wrappedPost } from "../../utils/request";
 import { HttpDriverOptions, HttpSessionState } from "./types";
-import { FriendTarget, GroupTarget, TempTarget } from "../../common/sender";
+import { FriendTarget, GroupTarget, TempTarget } from "../../common/sendTarget";
 import { Plain } from "../../common/component";
 
 /**

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { CanvasGradient, JpegConfig, NodeCanvasRenderingContext2D, PngConfig } from "canvas";
 import Eine from "../..";
-import EinePainterType from "./types";
+import { PainterType } from "../../common/types";
 export default class EinePainter {
     private logger;
     private canvas;
@@ -55,7 +55,7 @@ export default class EinePainter {
      * @param height 画布高度
      * @param backgroundFill
      */
-    create(width: number, height: number, backgroundFill?: EinePainterType.Color): this;
+    create(width: number, height: number, backgroundFill?: PainterType.Color): this;
     /**
      * 擦除矩形区域，从 (fromX, fromY) 开始，宽度为 width, 高度为 height 的矩形
      * @param fromX
@@ -148,13 +148,13 @@ export default class EinePainter {
      * @param fill 填充颜色 (true) 或只绘制边框 (false)
      */
     roundedRect(fromX: number, fromY: number, width: number, height: number, radius: number, fill?: boolean): this;
-    backgroundColor: (color: CanvasGradient | EinePainterType.Color) => this;
-    fillColor: (color: CanvasGradient | EinePainterType.Color) => this;
-    fontColor: (color: CanvasGradient | EinePainterType.Color) => this;
-    set fillStyle(color: string | EinePainterType.RGB | EinePainterType.RGBA);
-    borderColor: (color: CanvasGradient | EinePainterType.Color) => this;
-    strokeColor: (color: CanvasGradient | EinePainterType.Color) => this;
-    set strokeStyle(color: string | EinePainterType.RGB | EinePainterType.RGBA);
+    backgroundColor: (color: CanvasGradient | PainterType.Color) => this;
+    fillColor: (color: CanvasGradient | PainterType.Color) => this;
+    fontColor: (color: CanvasGradient | PainterType.Color) => this;
+    set fillStyle(color: string | PainterType.RGB | PainterType.RGBA);
+    borderColor: (color: CanvasGradient | PainterType.Color) => this;
+    strokeColor: (color: CanvasGradient | PainterType.Color) => this;
+    set strokeStyle(color: string | PainterType.RGB | PainterType.RGBA);
     alpha: (alpha: number) => this;
     set globalAlpha(alpha: number);
     lineWidth: (value: number) => this;
@@ -170,14 +170,14 @@ export default class EinePainter {
      * @param to 渐变终点
      * @param stops 渐变颜色插值点
      */
-    linearGradient: (from: [number, number], to: [number, number], stops: EinePainterType.GradientStop[]) => this;
+    linearGradient: (from: [number, number], to: [number, number], stops: PainterType.GradientStop[]) => this;
     /**
      * 创建圆形渐变
      * @param from 渐变起始圆圆心、半径
      * @param to 渐变终止圆圆心、半径
      * @param stops 渐变颜色插值点
      */
-    radialGradient: (from: [number, number, number], to: [number, number, number], stops: EinePainterType.GradientStop[]) => this;
+    radialGradient: (from: [number, number, number], to: [number, number, number], stops: PainterType.GradientStop[]) => this;
     /**
      * 设置阴影
      * @param offsetX 阴影在 x 轴延伸的距离
@@ -185,7 +185,7 @@ export default class EinePainter {
      * @param blur 阴影的模糊程度
      * @param shadowColor 阴影颜色
      */
-    shadow: (offsetX: number, offsetY: number, blur: number, shadowColor: EinePainterType.Color) => this;
+    shadow: (offsetX: number, offsetY: number, blur: number, shadowColor: PainterType.Color) => this;
     /**
      * 应用字体设置到 context
      * @private
@@ -206,12 +206,12 @@ export default class EinePainter {
      * 设置文字样式 (fontSize, fontFamily)
      * @param style
      */
-    setFontStyle: (style: Partial<EinePainterType.FontStyle>) => this;
+    setFontStyle: (style: Partial<PainterType.FontStyle>) => this;
     /**
      * 设置行样式 (textAlign, textBaseline, direction, lineHeight)
      * @param style
      */
-    setLineStyle: (style: Partial<EinePainterType.LineStyle>) => this;
+    setLineStyle: (style: Partial<PainterType.LineStyle>) => this;
     /**
      * 绘制单行文字（填充）
      * @param text 文字内容
@@ -273,7 +273,7 @@ export default class EinePainter {
      * @param align 对齐方式
      * @param margin 边距
      */
-    imageBlock(source: string | Buffer, align?: CanvasTextAlign, margin?: Partial<EinePainterType.PainterMargin>): this;
+    imageBlock(source: string | Buffer, align?: CanvasTextAlign, margin?: Partial<PainterType.PainterMargin>): this;
     /**
      * 执行图片绘制
      * @param source 图片来源

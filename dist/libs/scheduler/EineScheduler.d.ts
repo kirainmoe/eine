@@ -1,5 +1,5 @@
 import Eine from "../..";
-import { RangeType } from "./types";
+import { RangeType } from "../../common/types/SchedulerType";
 /** EineScheduer: 计划任务调度器 */
 export default class EineScheduler {
     /** 日志记录器 */

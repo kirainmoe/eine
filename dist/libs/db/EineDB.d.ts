@@ -1,7 +1,8 @@
 import { Filter } from "mongodb";
 import Eine from "../..";
-import { MessageChain, MessageTypeStr, SenderType, SendTarget } from "../../common/types";
-import { MongoConfig } from "./types";
+import { MessageTypeStr, SenderType, SendTarget } from "../../common/types";
+import { MessageChain } from "../../common/types/MessageComponentType";
+import { MongoConfig } from "../../common/types/DBType";
 export default class EineDB {
     private config;
     private mongoUrl;
@@ -43,7 +44,7 @@ export default class EineDB {
      * @param username 用户名
      * @param password 密码
      * @param role 角色
-     * @returns Promise<{uid: number, payload: InsertManyResult<Document>}>
+     * @returns Promise
      */
     createUser(username: string, password: string, role: number): Promise<{
         uid: number;

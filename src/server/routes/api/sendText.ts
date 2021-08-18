@@ -1,9 +1,11 @@
 import { EineRouteHandlerType } from "../types";
 import { check } from "express-validator";
 
-import authenticate from "../../flow/authenticate";
-import { MessageChain, messageEventType, MessageTypeStr } from "../../../common/types";
+import { messageEventType, MessageTypeStr } from "../../../common/types";
+import { MessageChain } from "../../../common/types/MessageComponentType";
 import { Plain } from "../../../common/component";
+
+import authenticate from "../../flow/authenticate";
 
 async function sendText({ req, res, eine, server, db }: EineRouteHandlerType) {
   await server.ensureInstalled(res);

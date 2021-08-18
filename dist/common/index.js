@@ -18,12 +18,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Senders = exports.Comopnents = void 0;
-exports.Comopnents = __importStar(require("./component"));
-exports.Senders = __importStar(require("./sender"));
-__exportStar(require("./types"), exports);
+exports.Types = exports.SendTargets = exports.Components = void 0;
+exports.Components = __importStar(require("./component"));
+exports.SendTargets = __importStar(require("./sendTarget"));
+exports.Types = __importStar(require("./types"));
 //# sourceMappingURL=index.js.map

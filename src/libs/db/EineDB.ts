@@ -7,7 +7,6 @@ import {
   EineEventTypeStr,
   FriendMessageSender,
   GroupMessageSender,
-  MessageChain,
   MessageTypeStr,
   SenderType,
   SendTarget,
@@ -15,9 +14,11 @@ import {
   TempMessageSender,
 } from "../../common/types";
 
+import { MessageChain } from "../../common/types/MessageComponentType";
+
 import EineLogger from "../logger";
 
-import { MongoConfig } from "./types";
+import { MongoConfig } from "../../common/types/DBType";
 
 export default class EineDB {
   private config: MongoConfig;
@@ -248,7 +249,7 @@ export default class EineDB {
    * @param username 用户名
    * @param password 密码
    * @param role 角色
-   * @returns Promise<{uid: number, payload: InsertManyResult<Document>}>
+   * @returns Promise
    */
   public async createUser(username: string, password: string, role: number) {
     this.ensureDatabaseConnected();

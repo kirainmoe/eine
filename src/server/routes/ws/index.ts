@@ -1,7 +1,8 @@
 import { createHash } from 'crypto';
 import { v4 } from 'uuid';
 import * as ws from 'ws';
-import { MessageChain, MessageTypeStr, SenderType } from '../../../common/types';
+import { MessageTypeStr, SenderType } from '../../../common/types';
+import { MessageChain } from "../../../common/types/MessageComponentType";
 import { EineWebsocketHandlerType } from "../types";
 
 const authorizedTokens = new Map<string, string>();

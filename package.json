@@ -1,6 +1,6 @@
 {
   "name": "@eine-nineteen/eine",
-  "version": "0.0.7",
+  "version": "0.0.13",
   "description": "[WIP] Eine Framework",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && cp -r prebuild dist/server/build",
-    "docs": "jsdoc src -r -c jsdoc.json -d ./docs"
+    "docs": "typedoc src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -23,15 +23,7 @@
   },
   "homepage": "https://github.com/kirainmoe/eine#readme",
   "dependencies": {
-    "@types/cors": "^2.8.12",
-    "@types/express": "^4.17.13",
-    "@types/express-ws": "^3.0.1",
-    "@types/node": "^16.4.13",
-    "@types/node-cron": "^2.0.4",
-    "@types/uuid": "^8.3.1",
-    "@types/ws": "^7.4.7",
     "axios": "^0.21.1",
-    "bind-decorator": "^1.0.11",
     "canvas": "^2.8.0",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
@@ -44,12 +36,19 @@
     "moment": "^2.29.1",
     "mongodb": "^4.1.0",
     "node-cron": "^3.0.0",
-    "typescript": "^4.3.5",
     "uuid": "^8.3.2",
     "ws": "^8.0.0"
   },
   "devDependencies": {
-    "better-docs": "^2.3.2",
-    "jsdoc": "^3.6.7"
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/express-ws": "^3.0.1",
+    "@types/node": "^16.4.13",
+    "@types/node-cron": "^2.0.4",
+    "@types/uuid": "^8.3.1",
+    "@types/ws": "^7.4.7",
+    "bind-decorator": "^1.0.11",
+    "typedoc": "^0.21.5",
+    "typescript": "^4.3.5"
   }
 }

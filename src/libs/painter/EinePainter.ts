@@ -13,7 +13,7 @@ import imageSize from "image-size";
 
 import Eine from "../..";
 import EineLogger from "../logger/EineLogger";
-import EinePainterType from "./types";
+import { PainterType } from "../../common/types";
 
 export default class EinePainter {
   private logger: EineLogger;
@@ -23,14 +23,14 @@ export default class EinePainter {
 
   private width: number = 0;
   private height: number = 0;
-  private canvasFillColor: EinePainterType.Color = "#ffffff";
-  private buffer: EinePainterType.Buffer[] = [];
-  private fontStyle: EinePainterType.FontStyle = {
+  private canvasFillColor: PainterType.Color = "#ffffff";
+  private buffer: PainterType.Buffer[] = [];
+  private fontStyle: PainterType.FontStyle = {
     fontSize: 16,
     fontFamily: "sans-serif",
     fontWeight: "",
   };
-  private lineStyle: EinePainterType.LineStyle = {
+  private lineStyle: PainterType.LineStyle = {
     textAlign: "start",
     textBaseline: "alphabetic",
     direction: "inherit",
@@ -41,7 +41,7 @@ export default class EinePainter {
 
   private shouldAutoAdjustHeight: boolean = false;
 
-  private static fontList: Map<string, EinePainterType.Font> = new Map();
+  private static fontList: Map<string, PainterType.Font> = new Map();
 
   /**
    * 导入字体
@@ -52,7 +52,7 @@ export default class EinePainter {
    */
   public static importFont(path: string, name: string, weight?: string, style?: string) {
     if (this.fontList.has(name)) return;
-    const font: EinePainterType.Font = {
+    const font: PainterType.Font = {
       path,
       family: name,
       weight,
@@ -88,7 +88,7 @@ export default class EinePainter {
    * 将颜色转换为 CSS 字符串表示
    * @param color 支持各种类型，如 "white", "#fff", [0,0,0], [255,255,255,0.3]
    */
-  private parseColor = (color: EinePainterType.Color | CanvasGradient) => {
+  private parseColor = (color: PainterType.Color | CanvasGradient) => {
     if (color instanceof CanvasGradient) return color;
     if (typeof color === "string") return color;
     const type = color.length === 3 ? "rgb" : "rgba";
@@ -124,7 +124,7 @@ export default class EinePainter {
    * @param height 画布高度
    * @param backgroundFill
    */
-  public create(width: number, height: number, backgroundFill: EinePainterType.Color = "#ffffff") {
+  public create(width: number, height: number, backgroundFill: PainterType.Color = "#ffffff") {
     this.canvas = createCanvas((this.width = width), (this.height = height));
     this.ctx = this.canvas.getContext("2d");
     this.buffer = [];
@@ -285,18 +285,18 @@ export default class EinePainter {
     return fill ? this.fill() : this.stroke();
   }
 
-  public backgroundColor = (color: CanvasGradient | EinePainterType.Color) =>
+  public backgroundColor = (color: CanvasGradient | PainterType.Color) =>
     this.add(this.assign, [this.ctx, "fillStyle", this.parseColor(color)], this);
   public fillColor = this.backgroundColor;
   public fontColor = this.backgroundColor; // todo: fontColor as distinct color
-  public set fillStyle(color: string | EinePainterType.RGB | EinePainterType.RGBA) {
+  public set fillStyle(color: string | PainterType.RGB | PainterType.RGBA) {
     this.backgroundColor(color);
   }
 
-  public borderColor = (color: CanvasGradient | EinePainterType.Color) =>
+  public borderColor = (color: CanvasGradient | PainterType.Color) =>
     this.add(this.assign, [this.ctx, "strokeStyle", this.parseColor(color)], this);
   public strokeColor = this.borderColor;
-  public set strokeStyle(color: string | EinePainterType.RGB | EinePainterType.RGBA) {
+  public set strokeStyle(color: string | PainterType.RGB | PainterType.RGBA) {
     this.borderColor(color);
   }
 
@@ -343,7 +343,7 @@ export default class EinePainter {
    * @param to 渐变终点
    * @param stops 渐变颜色插值点
    */
-  public linearGradient = (from: [number, number], to: [number, number], stops: EinePainterType.GradientStop[]) => {
+  public linearGradient = (from: [number, number], to: [number, number], stops: PainterType.GradientStop[]) => {
     const [fx, fy] = from,
       [tx, ty] = to;
     const gradient = this.ctx!.createLinearGradient(fx, fy, tx, ty);
@@ -362,7 +362,7 @@ export default class EinePainter {
   public radialGradient = (
     from: [number, number, number],
     to: [number, number, number],
-    stops: EinePainterType.GradientStop[]
+    stops: PainterType.GradientStop[]
   ) => {
     const [fx, fy, fr] = from,
       [tx, ty, tr] = to;
@@ -380,7 +380,7 @@ export default class EinePainter {
    * @param blur 阴影的模糊程度
    * @param shadowColor 阴影颜色
    */
-  public shadow = (offsetX: number, offsetY: number, blur: number, shadowColor: EinePainterType.Color) => {
+  public shadow = (offsetX: number, offsetY: number, blur: number, shadowColor: PainterType.Color) => {
     this.assign(this.ctx, "shadowOffsetX", offsetX);
     this.assign(this.ctx, "shadowOffsetY", offsetY);
     this.assign(this.ctx, "shadowBlur", blur);
@@ -406,7 +406,7 @@ export default class EinePainter {
    * 缓存当前 context 字体设置
    * @private
    */
-  private cacheCurrentFontSetting(): EinePainterType.CanvasFontStyle {
+  private cacheCurrentFontSetting(): PainterType.CanvasFontStyle {
     return {
       font: this.ctx!.font,
       textAlign: this.ctx!.textAlign,
@@ -420,7 +420,7 @@ export default class EinePainter {
    * @param fontSetting
    * @private
    */
-  private restoreFontSetting(fontSetting: EinePainterType.CanvasFontStyle) {
+  private restoreFontSetting(fontSetting: PainterType.CanvasFontStyle) {
     this.ctx!.font = fontSetting.font;
     this.ctx!.textAlign = fontSetting.textAlign;
     this.ctx!.textBaseline = fontSetting.textBaseline;
@@ -431,7 +431,7 @@ export default class EinePainter {
    * 设置文字样式 (fontSize, fontFamily)
    * @param style
    */
-  public setFontStyle = (style: Partial<EinePainterType.FontStyle>) => {
+  public setFontStyle = (style: Partial<PainterType.FontStyle>) => {
     this.fontStyle = { ...this.fontStyle, ...style };
     this.add(
       this.assign,
@@ -451,7 +451,7 @@ export default class EinePainter {
    * 设置行样式 (textAlign, textBaseline, direction, lineHeight)
    * @param style
    */
-  public setLineStyle = (style: Partial<EinePainterType.LineStyle>) => {
+  public setLineStyle = (style: Partial<PainterType.LineStyle>) => {
     this.lineStyle = { ...this.lineStyle, ...style };
     this.add(this.assign, [this.ctx, "textAlign", this.lineStyle.textAlign], this);
     this.add(this.assign, [this.ctx, "textBaseline", this.lineStyle.textBaseline], this);
@@ -515,7 +515,7 @@ export default class EinePainter {
     const lineHeight = Math.max(this.lineStyle.lineHeight, 1.2 * actualBoxHeight);
 
     let currentY = fromY + actualBoundingBoxAscent;
-    const cmdBuffer: EinePainterType.Buffer[] = [];
+    const cmdBuffer: PainterType.Buffer[] = [];
 
     const lines = text.split("\n");
     for (const line of lines) {
@@ -533,7 +533,7 @@ export default class EinePainter {
         cmdBuffer.push({
           command: fill ? this.fillText : this.strokeText,
           args: [currentLine.join(""), fromX, currentY],
-        } as EinePainterType.Buffer);
+        } as PainterType.Buffer);
 
         currentLine = [];
         currentX = 0;
@@ -570,25 +570,25 @@ export default class EinePainter {
    * (内部 API) 保存当前 canvas context 状态
    * @private
    */
-  private cacheCurrentContextState = (): EinePainterType.CanvasState => {
+  private cacheCurrentContextState = (): PainterType.CanvasState => {
     const contextState: any = {};
-    for (const key of EinePainterType.canvasStateProps) {
+    for (const key of PainterType.canvasStateProps) {
       contextState[key] = (this.ctx as any)[key];
     }
-    return contextState as EinePainterType.CanvasState;
+    return contextState as PainterType.CanvasState;
   };
 
   /**
    * (内部 API) 恢复 canvas context 状态
    * @param state
    */
-  private restoreContextState = (state: EinePainterType.CanvasState) => {
+  private restoreContextState = (state: PainterType.CanvasState) => {
     for (const key in state) {
       if (!state.hasOwnProperty(key)) continue;
       if (key === "lineDash") {
         this.ctx?.setLineDash(state.lineDash);
       } else {
-        (this.ctx as any)[key] = state[key as keyof EinePainterType.CanvasState];
+        (this.ctx as any)[key] = state[key as keyof PainterType.CanvasState];
       }
     }
   };
@@ -662,7 +662,7 @@ export default class EinePainter {
   public imageBlock(
     source: string | Buffer,
     align: CanvasTextAlign = "center",
-    margin: Partial<EinePainterType.PainterMargin> = {}
+    margin: Partial<PainterType.PainterMargin> = {}
   ) {
     const actualMargin = {
       top: this.lastLinePosY,

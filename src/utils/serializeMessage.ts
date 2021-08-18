@@ -1,4 +1,4 @@
-import {MessageChain} from "../common/types";
+import { MessageChain } from "../common/types/MessageComponentType";
 import asStr from "./asStr";
 
 export const serializeMessage = (messageChain: MessageChain) => {

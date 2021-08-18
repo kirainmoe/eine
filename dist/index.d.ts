@@ -1,4 +1,4 @@
-import { Adapter, EineEventName, EineOption, EventCallback, EventFilter, EventGenerator, EventHandleResult, EventIterator, MessageEventType, MessageTypeStr, SenderType } from "./common/types";
+import { AdapterDriverInterface, EineEventName, EineOption, EventCallback, EventFilter, EventGenerator, EventHandleResult, EventIterator, MessageEventType, MessageTypeStr, SenderType } from "./common/types";
 import EineLogger from "./libs/logger";
 import EinePainter from "./libs/painter";
 import EineDB from "./libs/db";
@@ -6,11 +6,17 @@ import EineScheduler from "./libs/scheduler";
 import HttpDriver from "./drivers/http";
 import WebsocketDriver from "./drivers/ws";
 import EineServer from "./server";
+/**
+ * @package @eine-nineteen/eine
+ * @module Eine
+ * @author Yume<kirainmoe@gmail.com>
+ * @licence MIT
+ */
 export declare class Eine {
     /** Eine Framework 实例化选项 */
     private eineOptions;
     /** Driver 实例集合 */
-    adapters: Adapter.AdapterDriverInterface;
+    adapters: AdapterDriverInterface;
     constructor(options?: Partial<EineOption>);
     /** 初始化 */
     init(): Promise<void>;
@@ -18,7 +24,7 @@ export declare class Eine {
     private bindInternalEvents;
     /** 检查工作空间是否存在 */
     checkAppWorkspace(): true | undefined;
-    getOption(key: keyof EineOption): string | number | boolean | Adapter.AdapterSetting | Partial<import("./libs").MongoConfig> | import("./common").EineServerOptions;
+    getOption(key: keyof EineOption): string | number | boolean | import("./common/types").AdapterSetting | Partial<import("./libs/db").MongoConfig> | import("./common/types").EineServerOptions;
     getVersion(): string;
     /** 重启 BOT */
     relaunch(): Promise<void>;
@@ -101,9 +107,11 @@ export declare class Eine {
     get http(): HttpDriver | undefined;
     /** 获取 Websocket Adapter 实例 */
     get ws(): WebsocketDriver | undefined;
+    /** EineServer 管理面板服务器 */
     get server(): EineServer | null;
     private _server;
     /** ------------------------ 调度任务系统 ------------------------ */
+    /** EineScheduler 计划任务调度器 */
     get scheduler(): EineScheduler | null;
     private _scheduler;
     static Logger: typeof EineLogger;
@@ -112,7 +120,6 @@ export declare class Eine {
     static Axios: import("axios").AxiosStatic;
 }
 export * from "./common";
-export * from "./drivers";
-export * from "./libs";
-export * from "./utils";
+export * as Utils from "./utils";
+export * as Filters from "./utils/internalFilter";
 export default Eine;

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function magic({ res, server }) {
+function magic(_a) {
+    var res = _a.res, server = _a.server;
     server.generateMagicToken();
     res.json({
         code: 200,

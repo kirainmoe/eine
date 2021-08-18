@@ -27,7 +27,7 @@ export const Image = (image: Partial<Omit<ComponentType.Image, 'type'>>) => ({
   ...image,
 });
 
-Image.from = (file: string | ReadStream | Buffer): ComponentType.PreloadFile => {
+export const ImageFrom = (file: string | ReadStream | Buffer): ComponentType.PreloadFile => {
   return {
     type: MessageComponentTypeStr.PRELOAD,
     originType: MessageComponentTypeStr.IMAGE,
@@ -40,7 +40,7 @@ export const FlashImage = (flashImage: Partial<Omit<ComponentType.FlashImage, 't
   ...flashImage,
 });
 
-FlashImage.from = (file: string | ReadStream | Buffer): ComponentType.PreloadFile => {
+export const FlashImageFrom = (file: string | ReadStream | Buffer): ComponentType.PreloadFile => {
   return {
     type: MessageComponentTypeStr.PRELOAD,
     originType: MessageComponentTypeStr.FLASH_IMAGE,
@@ -53,7 +53,7 @@ export const Voice = (voice: Partial<Omit<ComponentType.Voice, 'type'>>): Compon
   ...voice,
 });
 
-Voice.from = (file: string | ReadStream | Buffer): ComponentType.PreloadFile => {
+export const VoiceFrom = (file: string | ReadStream | Buffer): ComponentType.PreloadFile => {
   return {
     type: MessageComponentTypeStr.PRELOAD,
     originType: MessageComponentTypeStr.VOICE,
@@ -117,7 +117,8 @@ export const File = (id: string, name: string, size: number): ComponentType.File
   size,
 });
 
-File.from = (file: string | ReadStream | Buffer, uploadPath: string, filename: string): ComponentType.PreloadFile => {
+
+export const FileFrom = (file: string | ReadStream | Buffer, uploadPath: string, filename: string): ComponentType.PreloadFile => {
   return {
     type: MessageComponentTypeStr.PRELOAD,
     originType: MessageComponentTypeStr.FILE,

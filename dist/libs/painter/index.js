@@ -13,8 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const EinePainter_1 = __importDefault(require("./EinePainter"));
+var EinePainter_1 = __importDefault(require("./EinePainter"));
 exports.default = EinePainter_1.default;
 __exportStar(require("./EinePainter"), exports);
-__exportStar(require("./types"), exports);
 //# sourceMappingURL=index.js.map

@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const WebsocketDriver_1 = __importDefault(require("./WebsocketDriver"));
+var WebsocketDriver_1 = __importDefault(require("./WebsocketDriver"));
 __exportStar(require("./WebsocketDriver"), exports);
 __exportStar(require("./types"), exports);
 exports.default = WebsocketDriver_1.default;

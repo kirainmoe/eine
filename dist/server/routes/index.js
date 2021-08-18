@@ -23,14 +23,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ws = exports.panel = exports.api = void 0;
-const apiInstall = __importStar(require("./api/install"));
-const apiPublicInfo = __importStar(require("./api/publicInfo"));
-const apiLogin = __importStar(require("./api/login"));
-const apiAccountInfo = __importStar(require("./api/accountInfo"));
-const apiGroupInfo = __importStar(require("./api/groupInfo"));
-const apiSendText = __importStar(require("./api/sendText"));
-const magic_1 = __importDefault(require("./api/magic"));
-const panelInstall = __importStar(require("./panel/install"));
+var apiInstall = __importStar(require("./api/install"));
+var apiPublicInfo = __importStar(require("./api/publicInfo"));
+var apiLogin = __importStar(require("./api/login"));
+var apiAccountInfo = __importStar(require("./api/accountInfo"));
+var apiGroupInfo = __importStar(require("./api/groupInfo"));
+var apiSendText = __importStar(require("./api/sendText"));
+var magic_1 = __importDefault(require("./api/magic"));
+var panelInstall = __importStar(require("./panel/install"));
 exports.api = {
     accountInfo: apiAccountInfo.default,
     install: apiInstall.default,

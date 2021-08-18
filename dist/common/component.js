@@ -1,118 +1,121 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.File = exports.ForwardMessage = exports.MusicShare = exports.Dice = exports.Poke = exports.App = exports.Json = exports.Xml = exports.Voice = exports.FlashImage = exports.Image = exports.Plain = exports.Face = exports.AtAll = exports.At = void 0;
-const MessageComponentType_1 = require("./types/MessageComponentType");
-const At = (target) => ({
+exports.FileFrom = exports.File = exports.ForwardMessage = exports.MusicShare = exports.Dice = exports.Poke = exports.App = exports.Json = exports.Xml = exports.VoiceFrom = exports.Voice = exports.FlashImageFrom = exports.FlashImage = exports.ImageFrom = exports.Image = exports.Plain = exports.Face = exports.AtAll = exports.At = void 0;
+var MessageComponentType_1 = require("./types/MessageComponentType");
+var At = function (target) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.AT,
-    target,
+    target: target,
     display: '',
-});
+}); };
 exports.At = At;
-const AtAll = () => ({
+var AtAll = function () { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.AT_ALL,
-});
+}); };
 exports.AtAll = AtAll;
-const Face = (face) => ({
-    type: MessageComponentType_1.MessageComponentTypeStr.FACE,
-    ...(typeof face === 'number' ? { faceId: face } : { name: face })
-});
+var Face = function (face) { return (__assign({ type: MessageComponentType_1.MessageComponentTypeStr.FACE }, (typeof face === 'number' ? { faceId: face } : { name: face }))); };
 exports.Face = Face;
-const Plain = (text) => ({
+var Plain = function (text) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.PLAIN,
-    text,
-});
+    text: text,
+}); };
 exports.Plain = Plain;
-const Image = (image) => ({
-    type: MessageComponentType_1.MessageComponentTypeStr.IMAGE,
-    ...image,
-});
+var Image = function (image) { return (__assign({ type: MessageComponentType_1.MessageComponentTypeStr.IMAGE }, image)); };
 exports.Image = Image;
-exports.Image.from = (file) => {
+var ImageFrom = function (file) {
     return {
         type: MessageComponentType_1.MessageComponentTypeStr.PRELOAD,
         originType: MessageComponentType_1.MessageComponentTypeStr.IMAGE,
-        file,
+        file: file,
     };
 };
-const FlashImage = (flashImage) => ({
-    type: MessageComponentType_1.MessageComponentTypeStr.FLASH_IMAGE,
-    ...flashImage,
-});
+exports.ImageFrom = ImageFrom;
+var FlashImage = function (flashImage) { return (__assign({ type: MessageComponentType_1.MessageComponentTypeStr.FLASH_IMAGE }, flashImage)); };
 exports.FlashImage = FlashImage;
-exports.FlashImage.from = (file) => {
+var FlashImageFrom = function (file) {
     return {
         type: MessageComponentType_1.MessageComponentTypeStr.PRELOAD,
         originType: MessageComponentType_1.MessageComponentTypeStr.FLASH_IMAGE,
-        file,
+        file: file,
     };
 };
-const Voice = (voice) => ({
-    type: MessageComponentType_1.MessageComponentTypeStr.VOICE,
-    ...voice,
-});
+exports.FlashImageFrom = FlashImageFrom;
+var Voice = function (voice) { return (__assign({ type: MessageComponentType_1.MessageComponentTypeStr.VOICE }, voice)); };
 exports.Voice = Voice;
-exports.Voice.from = (file) => {
+var VoiceFrom = function (file) {
     return {
         type: MessageComponentType_1.MessageComponentTypeStr.PRELOAD,
         originType: MessageComponentType_1.MessageComponentTypeStr.VOICE,
-        file,
+        file: file,
     };
 };
-const Xml = (xml) => ({
+exports.VoiceFrom = VoiceFrom;
+var Xml = function (xml) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.XML,
-    xml,
-});
+    xml: xml,
+}); };
 exports.Xml = Xml;
-const Json = (json) => ({
+var Json = function (json) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.JSON,
-    json,
-});
+    json: json,
+}); };
 exports.Json = Json;
-const App = (app) => ({
+var App = function (app) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.APP,
-    app,
-});
+    app: app,
+}); };
 exports.App = App;
-const Poke = (name) => ({
+var Poke = function (name) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.POKE,
-    name,
-});
+    name: name,
+}); };
 exports.Poke = Poke;
-const Dice = (value) => ({
+var Dice = function (value) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.DICE,
-    value,
-});
+    value: value,
+}); };
 exports.Dice = Dice;
-const MusicShare = (kind, title, summary, jumpUrl, pictureUrl, musicUrl, brief) => ({
+var MusicShare = function (kind, title, summary, jumpUrl, pictureUrl, musicUrl, brief) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.MUSIC_SHARE,
-    kind,
-    title,
-    summary,
-    jumpUrl,
-    pictureUrl,
-    musicUrl,
-    brief,
-});
+    kind: kind,
+    title: title,
+    summary: summary,
+    jumpUrl: jumpUrl,
+    pictureUrl: pictureUrl,
+    musicUrl: musicUrl,
+    brief: brief,
+}); };
 exports.MusicShare = MusicShare;
-const ForwardMessage = (nodeList) => ({
+var ForwardMessage = function (nodeList) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.FORWARD_MESSAGE,
-    nodeList
-});
+    nodeList: nodeList
+}); };
 exports.ForwardMessage = ForwardMessage;
-const File = (id, name, size) => ({
+var File = function (id, name, size) { return ({
     type: MessageComponentType_1.MessageComponentTypeStr.FILE,
-    id,
-    name,
-    size,
-});
+    id: id,
+    name: name,
+    size: size,
+}); };
 exports.File = File;
-exports.File.from = (file, uploadPath, filename) => {
+var FileFrom = function (file, uploadPath, filename) {
     return {
         type: MessageComponentType_1.MessageComponentTypeStr.PRELOAD,
         originType: MessageComponentType_1.MessageComponentTypeStr.FILE,
-        file,
-        filename,
+        file: file,
+        filename: filename,
         path: uploadPath,
     };
 };
+exports.FileFrom = FileFrom;
 //# sourceMappingURL=component.js.map

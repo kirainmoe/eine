@@ -9,15 +9,11 @@ npm install @eine-nineteen/eine --save-dev
 # Simple Usage
 
 ```ts
-import Eine, { 
-  Comopnents, 
-  EventCallbackParams, 
-  EventHandleResult, 
-  SentBy, 
-  TextEquals
-} from "@eine-nineteen/eine";
+import Eine, { Components, Filters, Types } from "@eine-nineteen/eine";
 
-const { Plain, Image } = Comopnents;
+const { Plain, ImageFrom } = Components;
+const { SentBy, TextEquals } = Filters;
+const { EventHandleResult } = Types;
 
 // new Eine(config: Parital<EineOptions>)
 const eine = new Eine({
@@ -54,6 +50,7 @@ eine.init()
     console.log("MyProfile: ", profile);
   });
 
+// Register an event listener:
 // eine.on(eventType: EineEventType)(handler: EventCallback)
 eine.on('FriendMessage', 'GroupMessage')(async ({
   messageChain,
@@ -62,14 +59,14 @@ eine.on('FriendMessage', 'GroupMessage')(async ({
   reply,
   sender,
   str,
-}: Partial<EventCallbackParams>) => {
+}: Partial<Types.EventCallbackParams>) => {
   // Do something with messageChain, sender, str(serialized messageChain)...
-  // and use reply(messageChain), quote(messageChain), recall() to react...
+  // and use reply(messageChain), recall(messageChain), recall() to react...
 
-  if (str.includes("hello!")) {
-    reply([
+  if (str.contains("hello!")) {
+    reply!([
       Plain("Hi!"), 
-      Image.from("./hello.jpg") 
+      ImageFrom("./hello.jpg") 
     ]);
     return EventHandleResult.DONE;          // return DONE to block other events
   }
@@ -80,12 +77,12 @@ eine.on('FriendMessage', 'GroupMessage')(async ({
 // with Eine's wait mechanism, you can easily write an interactive procedure:
 const MASTER = 10001;
 eine.on('FriendMessage', SentBy(MASTER), TextEquals("/shutdown"))(function*() {
-  const { iterator, sender, reply, wait } = yield null;
-  reply(["send /confirm to shutdown BOT."]);
+  const { iterator, sender, reply, wait }: Types.EventInterruptParams = yield null;
+  reply!(["send /confirm to shutdown BOT."]);
 
   // wait(iterator: EventIterator, filters: EventFilter)
   const { messageChain } = yield wait(iterator, TextEquals("/confirm"));    
-  reply(["BOT is shutting down."]);
+  reply!(["BOT is shutting down."]);
   eine.shutdown(0);
   
   return EventHandleResult.DONE;      // this should never reached

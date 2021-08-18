@@ -1,44 +1,42 @@
 import Eine from "../../";
 
 import HttpDriver from "../../drivers/http";
-import WebsocketDriver from "../../drivers/ws/WebsocketDriver";
-import { MongoConfig } from "../../libs/db/types";
-import { EventType, EventTypeStr } from "./EventType";
+import WebsocketDriver from "../../drivers/ws";
+import { MongoConfig } from "./DBType";
+import { EventTypeStr } from "./EventType";
 import { MessageChain } from "./MessageComponentType";
-import { MessageTypeStr, MessageType } from "./MessageType";
+import { MessageTypeStr } from "./MessageType";
 
 /** mirai-api-http 适配器 */
-export namespace Adapter {
-  /** 支持的适配器类型 = {HTTP, WS} */
-  enum AdapterType {
-    HTTP = 'http',
-    WS = 'ws',
-  }
+/** 支持的适配器类型 = {HTTP, WS} */
+enum AdapterType {
+  HTTP = 'http',
+  WS = 'ws',
+}
 
-  /** HTTP 适配器选项 */
-  export interface HttpAdapterSetting {
-    host: string;
-    port: number;
-  }
+/** HTTP 适配器选项 */
+export interface HttpAdapterSetting {
+  host: string;
+  port: number;
+}
 
-  /** WS (Websocket) 适配器选项 */
-  export interface WebsocketAdapterSetting {
-    host: string;
-    port: number;
-    reservedSyncId?: number;
-  }
+/** WS (Websocket) 适配器选项 */
+export interface WebsocketAdapterSetting {
+  host: string;
+  port: number;
+  reservedSyncId?: number;
+}
 
-  /** 适配器设置集合 */
-  export interface AdapterSetting {
-    http?: HttpAdapterSetting;
-    ws?: WebsocketAdapterSetting;
-  }
+/** 适配器设置集合 */
+export interface AdapterSetting {
+  http?: HttpAdapterSetting;
+  ws?: WebsocketAdapterSetting;
+}
 
-  /** 适配器驱动实例集合 */
-  export interface AdapterDriverInterface {
-    http?: HttpDriver;
-    ws?: WebsocketDriver;
-  }
+/** 适配器驱动实例集合 */
+export interface AdapterDriverInterface {
+  http?: HttpDriver;
+  ws?: WebsocketDriver;
 }
 
 /** 日志等级 = {VERBOSE, INFO, WARNING, ERROR, NONE} */
@@ -87,7 +85,7 @@ export interface EineOption {
   logLevel: LogLevel;
 
   /** 适配器信息设置 */
-  adapters: Adapter.AdapterSetting;
+  adapters: AdapterSetting;
 
   /** 信息拉取方式 */
   messagePullingMode: MessagePullingMode;
@@ -117,6 +115,7 @@ export interface EineOption {
   server: EineServerOptions;
 }
 
+/** 事件处理回调函数 参数类型 */
 export interface EventCallbackParams {
   name?: EineEventName | string;
   eine?: Eine;
@@ -133,15 +132,18 @@ export interface EventCallbackParams {
   [key: string]: any;
 }
 
+/** 中断处理回调函数 参数类型 */
 export interface EventInterruptParams extends EventCallbackParams {
   iterator: EventIterator;
 }
 
+/** 事件处理结果 */
 export enum EventHandleResult {
   DONE = 0,
   CONTINUE = 1,
 }
 
+/** Eine 框架自有事件类型 */
 export enum EineEventTypeStr {
   MESSAGE = 'Message',
   SEND_MESSAGE = 'SendMessage',
@@ -160,16 +162,25 @@ export enum EineEventTypeStr {
   AFTER_SERVER_START = 'AfterServerStart',
 }
 
+/** 事件处理回调函数类型 */
 export type EventCallback = (params: Partial<EventCallbackParams> | any) => (EventHandleResult | Promise<EventHandleResult>) | void;
+
+/** 中断 generator function 迭代器类型 */
 export type EventIterator = Generator<any, EventHandleResult | void, any>;
+
+/** 中断 generator */
 export type EventGenerator = () => EventIterator;
+
+/** 事件过滤器函数类型 */
 export type EventFilter = (message: any, str?: string) => boolean;
 
+/** 事件处理器类型 */
 export interface EventHandler {
   filters: EventFilter[];
   callback: EventCallback | EventGenerator;
 }
 
+/** 中断处理器类型 */
 export interface InterruptHandler {
   filter: EventFilter;
   iterator: EventIterator;
@@ -177,8 +188,10 @@ export interface InterruptHandler {
   lifetime: number;
 }
 
+/** Eine 可处理的事件类型名称 */
 export type EineEventName = EventTypeStr | MessageTypeStr | EineEventTypeStr | string;
 
+/** Eine 用户角色类型 { MASTER, ADMINISTRATOR, USER } */
 export enum EineUserRole {
   MASTER = 0,
   ADMINISTRATOR = 1,

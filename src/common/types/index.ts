@@ -2,13 +2,22 @@
  * Eine Framework - Typescript Types File (类型定义文件)
  */
 
-import { EventType } from "./EventType";
+import { EventType, EventTypeStr } from "./EventType";
+import { MessageComponentTypeStr } from "./MessageComponentType";
 import { MessageType } from "./MessageType";
 
 export * from "./EineType";
-export * from "./EventType";
 export * from "./CommonType";
 export * from "./MessageType";
-export * from "./MessageComponentType";
+export * as PainterType from "./PainterType";
+export * as DBType from "./DBType";
+export * as SchedulerType from "./SchedulerType";
+export * as BotEventType from "./EventType";
+export * as MessageComponentType from "./MessageComponentType";
+
+export {
+  MessageComponentTypeStr,
+  EventTypeStr,
+};
 
 export type MessageEventType = MessageType | EventType;

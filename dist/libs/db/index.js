@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const EineDB_1 = __importDefault(require("./EineDB"));
+var EineDB_1 = __importDefault(require("./EineDB"));
 exports.default = EineDB_1.default;
 __exportStar(require("./EineDB"), exports);
-__exportStar(require("./types"), exports);
+__exportStar(require("../../common/types/DBType"), exports);
 //# sourceMappingURL=index.js.map

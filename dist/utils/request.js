@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.wrappedGet = exports.wrappedPost = exports.upload = exports.get = exports.post = void 0;
-const axios_1 = __importDefault(require("axios"));
-const presetHeaders = {
+var axios_1 = __importDefault(require("axios"));
+var presetHeaders = {
     'User-Agent': 'Mozilla/5.0 (Eine)',
     'X-Requested-With': 'XMLHttpRequest'
 };
@@ -16,7 +16,7 @@ const presetHeaders = {
  * @param headers 自定义请求头 (optional)
  * @returns Promise<AxiosResponse<any>>
  */
-const post = (url, data, headers) => {
+var post = function (url, data, headers) {
     return axios_1.default.post(url, data, {
         headers: Object.assign({}, presetHeaders, headers),
     });
@@ -29,9 +29,9 @@ exports.post = post;
  * @param headers 自定义请求头 (optional)
  * @returns Promise<AxiosResponse<any>>
  */
-const get = (url, params, headers) => {
+var get = function (url, params, headers) {
     return axios_1.default.get(url, {
-        params,
+        params: params,
         headers: Object.assign({}, presetHeaders, headers),
     });
 };
@@ -43,20 +43,20 @@ exports.get = get;
  * @param headers 自定义请求头 (options)
  * @returns Promise<AxiosResponse<any>>
  */
-const upload = (url, form, headers) => {
+var upload = function (url, form, headers) {
     return axios_1.default.post(url, form, {
         headers: Object.assign({}, presetHeaders, headers, form.getHeaders()),
     });
 };
 exports.upload = upload;
-const wrappedPost = (url, data, headers) => {
+var wrappedPost = function (url, data, headers) {
     return exports.post(url, data, headers)
-        .then(response => {
+        .then(function (response) {
         if (response.status !== 200) {
             throw new Error(response.statusText);
         }
         if (response.data.code !== 0) {
-            throw new Error(`${response.data.msg} (${response.data.code})`);
+            throw new Error(response.data.msg + " (" + response.data.code + ")");
         }
         return {
             data: response.data.data,
@@ -66,14 +66,14 @@ const wrappedPost = (url, data, headers) => {
     });
 };
 exports.wrappedPost = wrappedPost;
-const wrappedGet = (url, params, headers) => {
+var wrappedGet = function (url, params, headers) {
     return exports.get(url, params, headers)
-        .then(response => {
+        .then(function (response) {
         if (response.status !== 200) {
             throw new Error(response.statusText);
         }
         if (response.data.code !== undefined && response.data.code !== 0) {
-            throw new Error(`${response.data.msg} (${response.data.code})`);
+            throw new Error(response.data.msg + " (" + response.data.code + ")");
         }
         return {
             data: response.data.data,

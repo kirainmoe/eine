@@ -67,6 +67,8 @@ export interface EineOption {
     messagePullingMode: MessagePullingMode;
     /** 轮询模式下拉取消息的时间间隔，单位：ms */
     pollInterval: number;
+    /** 单次轮询的消息数量 */
+    messageBatchCount: number;
     /** 是否 Log 收到的信息 */
     enableMessageLog: boolean;
     /** 是否启用数据库，当 enableDatabase = false 时，自动忽略 mongoConfig */
@@ -81,6 +83,10 @@ export interface EineOption {
     enableServer: boolean;
     /** Eine Admin Panel 配置 */
     server: EineServerOptions;
+    /** 是否并发模式 */
+    enableConcurrent: boolean;
+    /** 最大并发进程数 */
+    maxConcurrentNumber: number;
 }
 /** 事件处理回调函数 参数类型 */
 export interface EventCallbackParams {
@@ -116,7 +122,8 @@ export declare enum EineEventTypeStr {
     AFTER_HTTP_BIND = "AfterHttpBind",
     AFTER_MONGO_CONNECTED = "AfterMongoConnected",
     AFTER_MONGO_CLOSE = "AfterMongoClose",
-    AFTER_SERVER_START = "AfterServerStart"
+    AFTER_SERVER_START = "AfterServerStart",
+    PROCESS_MESSAGE = "ProcessMessage"
 }
 /** 事件处理回调函数类型 */
 export declare type EventCallback = (params: Partial<EventCallbackParams> | any) => (EventHandleResult | Promise<EventHandleResult>) | void;
@@ -145,4 +152,9 @@ export declare enum EineUserRole {
     MASTER = 0,
     ADMINISTRATOR = 1,
     USER = 2
+}
+/** Eine Concurrency Mode: 集群角色 */
+export declare enum ClusterRole {
+    PRIMARY = 0,
+    SECONDARY = 1
 }

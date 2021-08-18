@@ -51,6 +51,7 @@ var EineServer = /** @class */ (function () {
     function EineServer(eine) {
         this.magicToken = "";
         this.expireTime = 0;
+        this.pushMessage = routes_1.ws.pushMessage;
         this.eine = eine;
         this.db = eine.db;
         this.logger = eine.logger;
@@ -153,8 +154,6 @@ var EineServer = /** @class */ (function () {
         this.app.get("/panel/:path", sendHtmlDirectly);
         this.app.get("/", sendHtmlDirectly);
         this.app.ws('/ws', wrapWsRouter(routes_1.ws.default));
-        // 注册 websocket 推送事件
-        this.eine.on('Message')(routes_1.ws.pushMessage);
     };
     EineServer.prototype.logRequestMiddleware = function (req, res, next) {
         var _this = this;

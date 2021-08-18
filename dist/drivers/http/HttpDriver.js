@@ -121,6 +121,8 @@ var HttpDriver = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.fetchMessage()];
                     case 1:
                         messages = _a.sent();
+                        if (messages === null)
+                            return [2 /*return*/];
                         this.eine.resolveMessageAndEvent(messages);
                         return [2 /*return*/];
                 }
@@ -134,12 +136,18 @@ var HttpDriver = /** @class */ (function () {
      * 会话认证流程
      * @returns Promise<string>
      */
-    HttpDriver.prototype.verify = function () {
+    HttpDriver.prototype.verify = function (knownSession) {
         return __awaiter(this, void 0, void 0, function () {
             var response, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        if (knownSession === null || knownSession === void 0 ? void 0 : knownSession.length) {
+                            this.logger.verbose("verify: using known sessionKey: {}", knownSession);
+                            this._session = knownSession;
+                            this._sessionState = types_2.HttpSessionState.VERIFIED;
+                            return [2 /*return*/, this.session];
+                        }
                         if (!this.options.enableVerify) {
                             this.logger.verbose("verify @ HttpDriver: verify is disabled, skipping.");
                         }
@@ -272,7 +280,7 @@ var HttpDriver = /** @class */ (function () {
                         _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, request_1.wrappedGet(this.api("fetchMessage"), {
                                 sessionKey: this.session,
-                                count: 10,
+                                count: this.eine.getOption("messageBatchCount"),
                             })];
                     case 1: return [2 /*return*/, (_a.sent()).data];
                     case 2:

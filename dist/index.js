@@ -79,6 +79,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Filters = exports.Utils = exports.Eine = void 0;
+var cluster_1 = __importDefault(require("cluster"));
 var child_process_1 = require("child_process");
 var fs_1 = require("fs");
 var constants_1 = require("constants");
@@ -87,6 +88,7 @@ var axios_1 = __importDefault(require("axios"));
 var bind_decorator_1 = __importDefault(require("bind-decorator"));
 /* Eine: typescript types */
 var types_1 = require("./common/types");
+var EventType_1 = require("./common/types/EventType");
 /* Eine: constant & preset values */
 var constant_1 = require("./common/constant");
 var sendTarget_1 = require("./common/sendTarget");
@@ -127,7 +129,20 @@ var Eine = /** @class */ (function () {
         this._scheduler = new scheduler_1.default(this);
         this.eventHandler = new Map();
         this.interruptQueue = new Map();
-        this.logger.info("Launching {}...", chalk_1.default.cyan(this.eineOptions.botName));
+        this.clusterRole = this.eineOptions.enableConcurrent
+            ? cluster_1.default.isWorker
+                ? types_1.ClusterRole.SECONDARY
+                : types_1.ClusterRole.PRIMARY
+            : types_1.ClusterRole.PRIMARY;
+        if (this.clusterRole === types_1.ClusterRole.PRIMARY) {
+            this.logger.info("Launching {}...", chalk_1.default.cyan(this.eineOptions.botName));
+        }
+        else {
+            this.logger.info("Concurrent Mode: secondary node {} launched.", process.env.EINE_PROCESS_INDEX);
+            // 并发进程不支持 Websocket 模式
+            this.eineOptions.messagePullingMode = types_1.MessagePullingMode.POLLING;
+            this.eineOptions.messageBatchCount = 1;
+        }
     }
     /** 初始化 */
     Eine.prototype.init = function () {
@@ -136,8 +151,10 @@ var Eine = /** @class */ (function () {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        this.logger.info("Initializing framework features.");
-                        this.checkAppWorkspace();
+                        if (this.clusterRole === types_1.ClusterRole.PRIMARY) {
+                            this.logger.info("Initializing framework features.");
+                            this.checkAppWorkspace();
+                        }
                         this.bindInternalEvents();
                         if (!this.eineOptions.enableDatabase) return [3 /*break*/, 2];
                         this._db = new db_1.default(this.eineOptions.mongoConfig, this);
@@ -146,6 +163,7 @@ var Eine = /** @class */ (function () {
                         _c.sent();
                         _c.label = 2;
                     case 2:
+                        if (!(this.clusterRole === types_1.ClusterRole.PRIMARY)) return [3 /*break*/, 6];
                         if (!this.eineOptions.enableServer) return [3 /*break*/, 5];
                         if (!!this.eineOptions.enableDatabase) return [3 /*break*/, 3];
                         this.logger.warn("EineServer: panel requires database. please check `enableDatabase` option.");
@@ -159,7 +177,8 @@ var Eine = /** @class */ (function () {
                     case 5:
                         this.logger.info("{} {} {}", chalk_1.default.green("Initialization completed, bot"), chalk_1.default.cyan(this.eineOptions.botName), chalk_1.default.green("is ready."));
                         this.logger.info("🎩 {} (v{})", chalk_1.default.red("Powered by " + constant_1.EINE + " Framework"), constant_1.EINE_VERSION);
-                        return [2 /*return*/];
+                        _c.label = 6;
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -199,18 +218,33 @@ var Eine = /** @class */ (function () {
             }
         }
     };
+    /**
+     * 根据关键字获取 EineOptions 的值
+     * @param key 关键字
+     * @returns any
+     */
     Eine.prototype.getOption = function (key) {
         return this.eineOptions[key];
     };
+    /**
+     * 获取 Eine 版本号
+     * @returns number
+     */
     Eine.prototype.getVersion = function () {
         return constant_1.EINE_VERSION;
     };
     /* ------------------------ 生命周期 ------------------------ */
     /** 重启 BOT */
     Eine.prototype.relaunch = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
+                if (this.clusterRole !== types_1.ClusterRole.PRIMARY) {
+                    (_a = process.send) === null || _a === void 0 ? void 0 : _a.call(process, "EINE_COMMAND_RELAUNCH");
+                    return [2 /*return*/];
+                }
+                console.log(cluster_1.default.workers);
                 this.logger.info("received `relaunch` command, {} will be relaunched in 3 secs.", this.eineOptions.botName);
                 setTimeout(function () {
                     var child = child_process_1.spawn(process.argv[0], process.argv.slice(1), {
@@ -230,9 +264,14 @@ var Eine = /** @class */ (function () {
      * @param exitCode 返回码
      */
     Eine.prototype.shutdown = function (exitCode) {
+        var _a;
         if (exitCode === void 0) { exitCode = 0; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
+                if (this.clusterRole !== types_1.ClusterRole.PRIMARY) {
+                    (_a = process.send) === null || _a === void 0 ? void 0 : _a.call(process, "EINE_COMMAND_SHUTDOWN");
+                    return [2 /*return*/];
+                }
                 this.logger.info("received `shutdown` command, {} will be shutdown in 3 secs.", this.eineOptions.botName);
                 setTimeout(function () { return process.exit(exitCode); }, 3000);
                 return [2 /*return*/];
@@ -251,9 +290,11 @@ var Eine = /** @class */ (function () {
             return __generator(this, function (_a) {
                 adapters = this.eineOptions.adapters;
                 verifyPromises = [];
-                this.logger.info("Begin verify()");
-                this.logger.verbose("Run: beforeVerify hooks.");
-                this.dispatch(types_1.EineEventTypeStr.BEFORE_VERIFY, null);
+                if (this.clusterRole === types_1.ClusterRole.PRIMARY) {
+                    this.logger.info("Begin verify()");
+                    this.logger.verbose("Run: beforeVerify hooks.");
+                    this.dispatch(types_1.EineEventTypeStr.BEFORE_VERIFY, null);
+                }
                 if (!adapters.http && !adapters.ws) {
                     this.logger.error("Verify failed: no available adapter is found.");
                     this.logger.tips("Supported adapters are: 'http', 'ws'.");
@@ -262,12 +303,15 @@ var Eine = /** @class */ (function () {
                 }
                 if (adapters.http) {
                     this.adapters.http = new http_1.default(__assign(__assign({}, adapters.http), this.eineOptions), this);
-                    verifyPromises.push(this.adapters.http.verify().catch(function (err) {
+                    verifyPromises.push(this.adapters.http
+                        .verify(this.clusterRole === types_1.ClusterRole.PRIMARY ? undefined : process.env.EINE_HTTP_SESSION)
+                        .catch(function (err) {
                         _this.logger.error("HTTP adapter verify failed.");
                         delete _this.adapters.http;
                     }));
                 }
-                if (adapters.ws) {
+                // 只有主进程才建立 websocket 连接
+                if (adapters.ws && this.clusterRole === types_1.ClusterRole.PRIMARY) {
                     this.adapters.ws = new ws_1.default(__assign(__assign({}, adapters.ws), this.eineOptions), this);
                     verifyPromises.push(this.adapters.ws.verify().catch(function (err) {
                         _this.logger.error("Websocket adapter verify failed.");
@@ -275,8 +319,10 @@ var Eine = /** @class */ (function () {
                     }));
                 }
                 return [2 /*return*/, Promise.all(verifyPromises).then(function (result) {
-                        _this.logger.success("End verify(): All adapters are verified.");
-                        _this.dispatch(types_1.EineEventTypeStr.AFTER_VERIFY);
+                        if (_this.clusterRole === types_1.ClusterRole.PRIMARY) {
+                            _this.logger.success("End verify(): All adapters are verified.");
+                            _this.dispatch(types_1.EineEventTypeStr.AFTER_VERIFY);
+                        }
                         return result;
                     })];
             });
@@ -290,6 +336,12 @@ var Eine = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
+                if (this.clusterRole !== types_1.ClusterRole.PRIMARY) {
+                    if (this.eineOptions.messagePullingMode === types_1.MessagePullingMode.POLLING) {
+                        this.adapters.http.startPollingMessage(this.eineOptions.pollInterval);
+                    }
+                    return [2 /*return*/];
+                }
                 if (!this.adapters.http) {
                     this.logger.warn("No HTTP Adapter is configured. Skipping bind().");
                     return [2 /*return*/];
@@ -297,6 +349,7 @@ var Eine = /** @class */ (function () {
                 this.logger.info("Begin bind()");
                 this.logger.verbose("Run: beforeBind hooks.");
                 this.dispatch(types_1.EineEventTypeStr.BEFORE_BIND, null);
+                this.logger.verbose("beforeBind OK");
                 return [2 /*return*/, this.adapters.http.bind().then(function (result) {
                         _this.logger.success("End bind(): bind successfully.");
                         _this.dispatch(types_1.EineEventTypeStr.AFTER_BIND, null);
@@ -411,19 +464,32 @@ var Eine = /** @class */ (function () {
      * @param payload 事件附带内容
      */
     Eine.prototype.dispatch = function (event, payload) {
+        var _a;
         if (payload === void 0) { payload = null; }
         return __awaiter(this, void 0, void 0, function () {
-            var handlers, extraParams, group, interruptKey, interrupts, reservedInterrupts, currentTime, handleResult, i, interrupt, filterResult, _i, handlers_1, handler, filterResult, _a, _b, filter, _c, iterator, handleResult, cb, handleResult;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var handlers, extraParams, group, interruptKey, interrupts, reservedInterrupts, currentTime, handleResult, i, interrupt, filterResult, _i, handlers_1, handler, filterResult, _b, _c, filter, _d, iterator, handleResult, cb, handleResult;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
                         handlers = this.eventHandler.get(event);
                         extraParams = injectExtraProperty_1.default(event, payload, this);
                         if (!types_1.messageEventType.includes(event)) return [3 /*break*/, 5];
-                        // logMessage 的优先级应当高于 interrupt，因此不使用监听，在此显式调用
-                        this.logMessage(payload.sender, extraParams.messageStr);
-                        if (this.eineOptions.enableDatabase && this.db.isConnected) {
-                            this.db.saveIncomingMessage(event, payload.sender, event === types_1.MessageTypeStr.GROUP_MESSAGE ? sendTarget_1.GroupTarget(payload.sender.group.id) : sendTarget_1.Myself(), payload.messageChain);
+                        if (this.clusterRole === types_1.ClusterRole.PRIMARY) {
+                            // logMessage 的优先级应当高于 interrupt，因此不使用监听，在此显式调用
+                            this.logMessage(payload.sender, extraParams.messageStr);
+                            // 管理面板 pushMessage
+                            if (this.eineOptions.enableServer) {
+                                (_a = this.server) === null || _a === void 0 ? void 0 : _a.pushMessage({
+                                    type: event,
+                                    sender: payload.sender,
+                                    messageChain: payload.messageChain,
+                                    str: extraParams.messageStr,
+                                });
+                            }
+                            // 保存信息到数据库
+                            if (this.eineOptions.enableDatabase && this.db.isConnected) {
+                                this.db.saveIncomingMessage(event, payload.sender, event === types_1.MessageTypeStr.GROUP_MESSAGE ? sendTarget_1.GroupTarget(payload.sender.group.id) : sendTarget_1.Myself(), payload.messageChain);
+                            }
                         }
                         group = payload.sender.group;
                         interruptKey = JSON.stringify({
@@ -438,7 +504,7 @@ var Eine = /** @class */ (function () {
                         this.isResolvingInterrupt = true;
                         handleResult = types_1.EventHandleResult.CONTINUE;
                         i = 0;
-                        _d.label = 1;
+                        _e.label = 1;
                     case 1:
                         if (!(i < interrupts.length)) return [3 /*break*/, 4];
                         interrupt = interrupts[i];
@@ -448,13 +514,13 @@ var Eine = /** @class */ (function () {
                         }
                         return [4 /*yield*/, interrupt.filter(payload, extraParams.messageStr)];
                     case 2:
-                        filterResult = _d.sent();
+                        filterResult = _e.sent();
                         if (!filterResult || handleResult === types_1.EventHandleResult.DONE) {
                             reservedInterrupts.push(interrupt);
                             return [3 /*break*/, 3];
                         }
                         handleResult = interrupt.iterator.next(__assign(__assign({ eine: this, iterator: interrupt.iterator }, payload), extraParams)).value;
-                        _d.label = 3;
+                        _e.label = 3;
                     case 3:
                         i++;
                         return [3 /*break*/, 1];
@@ -464,41 +530,44 @@ var Eine = /** @class */ (function () {
                         if (handleResult === types_1.EventHandleResult.DONE) {
                             return [2 /*return*/];
                         }
-                        _d.label = 5;
+                        _e.label = 5;
                     case 5:
                         if (!handlers) return [3 /*break*/, 16];
                         _i = 0, handlers_1 = handlers;
-                        _d.label = 6;
+                        _e.label = 6;
                     case 6:
                         if (!(_i < handlers_1.length)) return [3 /*break*/, 16];
                         handler = handlers_1[_i];
                         if (!handler.filters) return [3 /*break*/, 12];
                         filterResult = true;
-                        _a = 0, _b = handler.filters;
-                        _d.label = 7;
+                        _b = 0, _c = handler.filters;
+                        _e.label = 7;
                     case 7:
-                        if (!(_a < _b.length)) return [3 /*break*/, 11];
-                        filter = _b[_a];
-                        _c = filterResult;
-                        if (!_c) return [3 /*break*/, 9];
+                        if (!(_b < _c.length)) return [3 /*break*/, 11];
+                        filter = _c[_b];
+                        _d = filterResult;
+                        if (!_d) return [3 /*break*/, 9];
                         return [4 /*yield*/, filter(payload, extraParams.messageStr)];
                     case 8:
-                        _c = (_d.sent());
-                        _d.label = 9;
+                        _d = (_e.sent());
+                        _e.label = 9;
                     case 9:
-                        filterResult = _c;
+                        filterResult = _d;
                         if (!filterResult)
                             return [3 /*break*/, 11];
-                        _d.label = 10;
+                        _e.label = 10;
                     case 10:
-                        _a++;
+                        _b++;
                         return [3 /*break*/, 7];
                     case 11:
                         if (!filterResult)
                             return [3 /*break*/, 15];
-                        _d.label = 12;
+                        _e.label = 12;
                     case 12:
                         if (!(Object.prototype.toString.call(handler.callback) === "[object GeneratorFunction]")) return [3 /*break*/, 13];
+                        if (this.clusterRole !== types_1.ClusterRole.PRIMARY) {
+                            return [3 /*break*/, 15];
+                        }
                         iterator = handler.callback();
                         iterator.next();
                         handleResult = iterator.next(__assign(__assign({ eine: this, iterator: iterator }, payload), extraParams)).value;
@@ -506,14 +575,18 @@ var Eine = /** @class */ (function () {
                             return [3 /*break*/, 16];
                         return [3 /*break*/, 15];
                     case 13:
+                        if (this.eineOptions.enableConcurrent &&
+                            this.clusterRole === types_1.ClusterRole.PRIMARY &&
+                            (types_1.messageEventType.includes(event) || EventType_1.botEventType.includes(event)))
+                            return [3 /*break*/, 15];
                         cb = handler.callback;
                         return [4 /*yield*/, cb(__assign(__assign({ eine: this }, payload), extraParams))];
                     case 14:
-                        handleResult = _d.sent();
+                        handleResult = _e.sent();
                         if (handleResult === types_1.EventHandleResult.DONE) {
                             return [2 /*return*/];
                         }
-                        _d.label = 15;
+                        _e.label = 15;
                     case 15:
                         _i++;
                         return [3 /*break*/, 6];
@@ -562,14 +635,25 @@ var Eine = /** @class */ (function () {
                 this.logger.warn("messagePullingMode will be switched from `PASSIVE_WS` to `POLLING`.");
                 this.eineOptions.messagePullingMode = types_1.MessagePullingMode.POLLING;
             }
-            else {
-                // todo: websocket connect
-            }
         }
     };
     /** bound Hook */
     Eine.prototype.afterBind = function () {
+        var _this = this;
+        var _a;
         this.logger.verbose("Run: afterBind hooks.");
+        for (var i = 0; this.eineOptions.enableConcurrent && i < this.eineOptions.maxConcurrentNumber; i++) {
+            cluster_1.default.fork({
+                EINE_PROCESS_INDEX: i,
+                EINE_PROCESS_SECONDARY: true,
+                EINE_HTTP_SESSION: (_a = this.adapters.http) === null || _a === void 0 ? void 0 : _a.session,
+            });
+            cluster_1.default.on("message", function (message) {
+                return _this.dispatch(types_1.EineEventTypeStr.PROCESS_MESSAGE, {
+                    message: message,
+                });
+            });
+        }
         if (this.eineOptions.messagePullingMode === types_1.MessagePullingMode.POLLING) {
             this.adapters.http.startPollingMessage(this.eineOptions.pollInterval);
         }
@@ -597,6 +681,16 @@ var Eine = /** @class */ (function () {
             this.db.saveOutgoingMessage(type, sendTarget_1.Myself(), target, messageChain);
         }
     };
+    Eine.prototype.recevingProcessMessage = function (_a) {
+        var message = _a.message;
+        console.log("Receving ", message);
+        if (message === "EINE_COMMAND_RELAUNCH") {
+            return this.relaunch();
+        }
+        if (message === "EINE_COMMAND_SHUTDOWN") {
+            return this.shutdown();
+        }
+    };
     Object.defineProperty(Eine.prototype, "db", {
         /* ------------------------ 文档数据库 ------------------------ */
         /** EineDB - MongoDB 封装 */
@@ -611,7 +705,7 @@ var Eine = /** @class */ (function () {
      */
     Eine.prototype.pickBest = function (property) {
         var _a;
-        if (!property)
+        if (!property && this.adapters.ws)
             return this.adapters.ws;
         if (property && ((_a = this.adapters.ws) === null || _a === void 0 ? void 0 : _a.hasOwnProperty(property)))
             return this.adapters.ws;

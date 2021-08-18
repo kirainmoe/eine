@@ -17,6 +17,8 @@ export declare class Eine {
     private eineOptions;
     /** Driver 实例集合 */
     adapters: AdapterDriverInterface;
+    /** 当前进程角色 */
+    private clusterRole;
     constructor(options?: Partial<EineOption>);
     /** 初始化 */
     init(): Promise<void>;
@@ -24,7 +26,16 @@ export declare class Eine {
     private bindInternalEvents;
     /** 检查工作空间是否存在 */
     checkAppWorkspace(): true | undefined;
+    /**
+     * 根据关键字获取 EineOptions 的值
+     * @param key 关键字
+     * @returns any
+     */
     getOption(key: keyof EineOption): string | number | boolean | import("./common/types").AdapterSetting | Partial<import("./libs/db").MongoConfig> | import("./common/types").EineServerOptions;
+    /**
+     * 获取 Eine 版本号
+     * @returns number
+     */
     getVersion(): string;
     /** 重启 BOT */
     relaunch(): Promise<void>;
@@ -95,6 +106,7 @@ export declare class Eine {
     private afterBind;
     /** after send message Hook */
     private afterSendMessage;
+    private recevingProcessMessage;
     /** EineDB - MongoDB 封装 */
     get db(): EineDB | null;
     private _db;

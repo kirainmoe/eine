@@ -24,6 +24,7 @@ export default class EinePainter {
      * @param style 样式 (italic)
      */
     static importFont(path: string, name: string, weight?: string, style?: string): void;
+    importFont: typeof EinePainter.importFont;
     constructor(eine: Eine);
     /** 获取 node-canvas 2D 上下文 */
     get context(): NodeCanvasRenderingContext2D | null;
@@ -148,15 +149,31 @@ export default class EinePainter {
      * @param fill 填充颜色 (true) 或只绘制边框 (false)
      */
     roundedRect(fromX: number, fromY: number, width: number, height: number, radius: number, fill?: boolean): this;
+    /**
+     * 设置背景填充颜色
+     * @param color 颜色值
+     */
     backgroundColor: (color: CanvasGradient | PainterType.Color) => this;
     fillColor: (color: CanvasGradient | PainterType.Color) => this;
     fontColor: (color: CanvasGradient | PainterType.Color) => this;
     set fillStyle(color: string | PainterType.RGB | PainterType.RGBA);
+    /**
+     * 设置边框填充颜色
+     * @param color 颜色值
+     */
     borderColor: (color: CanvasGradient | PainterType.Color) => this;
     strokeColor: (color: CanvasGradient | PainterType.Color) => this;
     set strokeStyle(color: string | PainterType.RGB | PainterType.RGBA);
+    /**
+     * 设置透明度
+     * @param alpha 透明度值
+     */
     alpha: (alpha: number) => this;
     set globalAlpha(alpha: number);
+    /**
+     * 设置绘制线宽
+     * @param value 线宽 (px)
+     */
     lineWidth: (value: number) => this;
     lineCap: (type: CanvasLineCap) => this;
     lineJoin: (type: CanvasLineJoin) => this;

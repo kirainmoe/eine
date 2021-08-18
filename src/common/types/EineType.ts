@@ -93,6 +93,9 @@ export interface EineOption {
   /** 轮询模式下拉取消息的时间间隔，单位：ms */
   pollInterval: number;
 
+  /** 单次轮询的消息数量 */
+  messageBatchCount: number;
+
   /** 是否 Log 收到的信息 */
   enableMessageLog: boolean;
 
@@ -113,6 +116,12 @@ export interface EineOption {
 
   /** Eine Admin Panel 配置 */
   server: EineServerOptions;
+
+  /** 是否并发模式 */
+  enableConcurrent: boolean;
+
+  /** 最大并发进程数 */
+  maxConcurrentNumber: number;
 }
 
 /** 事件处理回调函数 参数类型 */
@@ -160,6 +169,8 @@ export enum EineEventTypeStr {
   AFTER_MONGO_CLOSE = 'AfterMongoClose',
 
   AFTER_SERVER_START = 'AfterServerStart',
+
+  PROCESS_MESSAGE = 'ProcessMessage',
 }
 
 /** 事件处理回调函数类型 */
@@ -196,4 +207,10 @@ export enum EineUserRole {
   MASTER = 0,
   ADMINISTRATOR = 1,
   USER = 2,
+}
+
+/** Eine Concurrency Mode: 集群角色 */
+export enum ClusterRole {
+  PRIMARY,
+  SECONDARY,
 }

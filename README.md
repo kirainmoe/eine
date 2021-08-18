@@ -39,6 +39,11 @@ const eine = new Eine({
     password: 'admin',
     dbName: 'BOT',
   },
+
+  // [experiment] concurrency mode
+  // start many eine processes to handle events and messages
+  // use with caution!
+  enableConcurrent: true,
 });
 
 // start Eine

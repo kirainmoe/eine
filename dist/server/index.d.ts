@@ -13,6 +13,12 @@ export default class EineServer {
     startServer(): Promise<unknown>;
     /** 注册路由 */
     private registerRouters;
+    pushMessage: ({ type, sender, messageChain, str }: {
+        type: import("../common/types").MessageTypeStr;
+        sender: import("../common/types").SenderType;
+        messageChain: import("../common/types/MessageComponentType").MessageChain;
+        str: string;
+    }) => void;
     private logRequestMiddleware;
     private errorHandlerMiddleware;
     compareMagicToken(token: string): boolean;

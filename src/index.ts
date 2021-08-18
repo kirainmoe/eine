@@ -1,3 +1,4 @@
+import cluster from "cluster";
 import { spawn } from "child_process";
 import { accessSync, existsSync, lstatSync, mkdirSync } from "fs";
 import { R_OK, W_OK } from "constants";
@@ -9,6 +10,7 @@ import bind from 'bind-decorator';
 /* Eine: typescript types */
 import {
   AdapterDriverInterface,
+  ClusterRole,
   EineEventName,
   EineEventTypeStr,
   EineOption,
@@ -26,7 +28,7 @@ import {
   SenderType,
 } from "./common/types";
 import { MessageChain } from "./common/types/MessageComponentType";
-import { EventTypeStr } from "./common/types/EventType";
+import { botEventType, EventTypeStr } from "./common/types/EventType";
 
 /* Eine: constant & preset values */
 import {EINE, EINE_DEFAULT_OPTIONS, EINE_VERSION} from "./common/constant";
@@ -62,6 +64,9 @@ export class Eine {
   /** Driver 实例集合 */
   public adapters: AdapterDriverInterface = {};
 
+  /** 当前进程角色 */
+  private clusterRole: ClusterRole;
+
   constructor(options: Partial<EineOption> = {}) {
     this.eineOptions = {
       ...this.eineOptions,
@@ -72,16 +77,31 @@ export class Eine {
     this._scheduler = new EineScheduler(this);
     this.eventHandler = new Map();
     this.interruptQueue = new Map();
+    
+    this.clusterRole = this.eineOptions.enableConcurrent
+      ? cluster.isWorker
+        ? ClusterRole.SECONDARY
+        : ClusterRole.PRIMARY
+      : ClusterRole.PRIMARY;
 
-    this.logger.info("Launching {}...",  chalk.cyan(this.eineOptions.botName));
+    if (this.clusterRole === ClusterRole.PRIMARY) {
+      this.logger.info("Launching {}...",  chalk.cyan(this.eineOptions.botName));
+    } else {
+      this.logger.info("Concurrent Mode: secondary node {} launched.", process.env.EINE_PROCESS_INDEX);
+      // 并发进程不支持 Websocket 模式
+      this.eineOptions.messagePullingMode = MessagePullingMode.POLLING;
+      this.eineOptions.messageBatchCount = 1;
+    }
   }
 
   /** 初始化 */
   @bind
   public async init() {
-    this.logger.info("Initializing framework features.");
+    if (this.clusterRole === ClusterRole.PRIMARY) {
+      this.logger.info("Initializing framework features.");
+      this.checkAppWorkspace();
+    }
 
-    this.checkAppWorkspace();
     this.bindInternalEvents();
 
     if (this.eineOptions.enableDatabase) {
@@ -89,22 +109,24 @@ export class Eine {
       await this.db?.connect();
     }
 
-    if (this.eineOptions.enableServer) {
-      if (!this.eineOptions.enableDatabase) {
-        this.logger.warn("EineServer: panel requires database. please check `enableDatabase` option.");
-      } else {
-        this._server = new EineServer(this);
-        await this.server?.startServer();
+    if (this.clusterRole === ClusterRole.PRIMARY) {
+      if (this.eineOptions.enableServer) {
+        if (!this.eineOptions.enableDatabase) {
+          this.logger.warn("EineServer: panel requires database. please check `enableDatabase` option.");
+        } else {
+          this._server = new EineServer(this);
+          await this.server?.startServer();
+        }
       }
-    }
 
-    this.logger.info(
-      "{} {} {}",
-      chalk.green("Initialization completed, bot"),
-      chalk.cyan(this.eineOptions.botName),
-      chalk.green("is ready.")
-    );
-    this.logger.info("🎩 {} (v{})", chalk.red(`Powered by ${EINE} Framework`), EINE_VERSION);
+      this.logger.info(
+        "{} {} {}",
+        chalk.green("Initialization completed, bot"),
+        chalk.cyan(this.eineOptions.botName),
+        chalk.green("is ready.")
+      );
+      this.logger.info("🎩 {} (v{})", chalk.red(`Powered by ${EINE} Framework`), EINE_VERSION);  
+    }
   }
 
   /** 绑定内部事件 */
@@ -145,11 +167,20 @@ export class Eine {
     }
   }
 
+  /**
+   * 根据关键字获取 EineOptions 的值
+   * @param key 关键字
+   * @returns any
+   */
   @bind
   public getOption(key: keyof EineOption) {
     return this.eineOptions[key];
   }
 
+  /**
+   * 获取 Eine 版本号
+   * @returns number
+   */
   @bind
   public getVersion() {
     return EINE_VERSION;
@@ -159,6 +190,13 @@ export class Eine {
   /** 重启 BOT */
   @bind
   public async relaunch() {
+    if (this.clusterRole !== ClusterRole.PRIMARY) {
+      process.send?.("EINE_COMMAND_RELAUNCH");
+      return;
+    }
+
+    console.log(cluster.workers);
+
     this.logger.info("received `relaunch` command, {} will be relaunched in 3 secs.", this.eineOptions.botName);
     setTimeout(() => {
       const child = spawn(process.argv[0], process.argv.slice(1), {
@@ -178,6 +216,11 @@ export class Eine {
    */
   @bind
   public async shutdown(exitCode: number = 0) {
+    if (this.clusterRole !== ClusterRole.PRIMARY) {
+      process.send?.("EINE_COMMAND_SHUTDOWN");
+      return;
+    }
+
     this.logger.info("received `shutdown` command, {} will be shutdown in 3 secs.", this.eineOptions.botName);
     setTimeout(() => process.exit(exitCode), 3000);
   }
@@ -192,10 +235,11 @@ export class Eine {
     const { adapters } = this.eineOptions;
     const verifyPromises = [];
 
-    this.logger.info("Begin verify()");
-
-    this.logger.verbose("Run: beforeVerify hooks.");
-    this.dispatch(EineEventTypeStr.BEFORE_VERIFY, null);
+    if (this.clusterRole === ClusterRole.PRIMARY) {
+      this.logger.info("Begin verify()");
+      this.logger.verbose("Run: beforeVerify hooks.");
+      this.dispatch(EineEventTypeStr.BEFORE_VERIFY, null);
+    }
 
     if (!adapters.http && !adapters.ws) {
       this.logger.error("Verify failed: no available adapter is found.");
@@ -214,14 +258,17 @@ export class Eine {
       );
 
       verifyPromises.push(
-        this.adapters.http.verify().catch((err) => {
-          this.logger.error("HTTP adapter verify failed.");
-          delete this.adapters.http;
-        })
+        this.adapters.http
+          .verify(this.clusterRole === ClusterRole.PRIMARY ? undefined : process.env.EINE_HTTP_SESSION)
+          .catch((err) => {
+            this.logger.error("HTTP adapter verify failed.");
+            delete this.adapters.http;
+          })
       );
     }
 
-    if (adapters.ws) {
+    // 只有主进程才建立 websocket 连接
+    if (adapters.ws && this.clusterRole === ClusterRole.PRIMARY) {
       this.adapters.ws = new WebsocketDriver(
         {
           ...adapters.ws,
@@ -239,8 +286,10 @@ export class Eine {
     }
 
     return Promise.all(verifyPromises).then((result) => {
-      this.logger.success("End verify(): All adapters are verified.");
-      this.dispatch(EineEventTypeStr.AFTER_VERIFY);
+      if (this.clusterRole === ClusterRole.PRIMARY) {
+        this.logger.success("End verify(): All adapters are verified.");
+        this.dispatch(EineEventTypeStr.AFTER_VERIFY);
+      }
       return result;
     });
   }
@@ -251,6 +300,13 @@ export class Eine {
    */
   @bind
   public async bind() {
+    if (this.clusterRole !== ClusterRole.PRIMARY) {
+      if (this.eineOptions.messagePullingMode === MessagePullingMode.POLLING) {
+        this.adapters.http!.startPollingMessage(this.eineOptions.pollInterval);
+      }
+      return;
+    }
+
     if (!this.adapters.http) {
       this.logger.warn("No HTTP Adapter is configured. Skipping bind().");
       return;
@@ -259,6 +315,7 @@ export class Eine {
     this.logger.info("Begin bind()");
     this.logger.verbose("Run: beforeBind hooks.");
     this.dispatch(EineEventTypeStr.BEFORE_BIND, null);
+    this.logger.verbose("beforeBind OK");
 
     return this.adapters.http.bind().then((result) => {
       this.logger.success("End bind(): bind successfully.");
@@ -397,17 +454,31 @@ export class Eine {
     // 事件为好友消息、群消息、临时消息或陌生人消息，注入参数和回复方法并记录
     // 如果有关于该消息来源的中断请求，优先响应该中断
     if (messageEventType.includes(event as MessageTypeStr)) {
-      // logMessage 的优先级应当高于 interrupt，因此不使用监听，在此显式调用
-      this.logMessage(payload.sender, extraParams.messageStr);
-      
-      if (this.eineOptions.enableDatabase && this.db!.isConnected) {
-        this.db!.saveIncomingMessage(
-          event as MessageTypeStr,
-          payload.sender,
-          event === MessageTypeStr.GROUP_MESSAGE ? GroupTarget(payload.sender.group.id) : Myself(),
-          payload.messageChain
-        );
+      if (this.clusterRole === ClusterRole.PRIMARY) {
+        // logMessage 的优先级应当高于 interrupt，因此不使用监听，在此显式调用
+        this.logMessage(payload.sender, extraParams.messageStr);
+
+        // 管理面板 pushMessage
+        if (this.eineOptions.enableServer) {
+          this.server?.pushMessage({
+            type: event as MessageTypeStr,
+            sender: payload.sender,
+            messageChain: payload.messageChain,
+            str: extraParams.messageStr,
+          });
+        }
+
+        // 保存信息到数据库
+        if (this.eineOptions.enableDatabase && this.db!.isConnected) {
+          this.db!.saveIncomingMessage(
+            event as MessageTypeStr,
+            payload.sender,
+            event === MessageTypeStr.GROUP_MESSAGE ? GroupTarget(payload.sender.group.id) : Myself(),
+            payload.messageChain
+          );
+        }
       }
+
 
       // 响应中断
       const group = (payload.sender as any).group;
@@ -445,7 +516,7 @@ export class Eine {
         if (handleResult === EventHandleResult.DONE) {
           return;
         }
-      }
+      } // if (interrupts)
     }
 
     // 处理事件回调
@@ -461,8 +532,12 @@ export class Eine {
           if (!filterResult) continue;
         }
 
-        // generator function
+        // generator function: 中断类型的生成器函数只在主进程处理
         if (Object.prototype.toString.call(handler.callback) === "[object GeneratorFunction]") {
+          if (this.clusterRole !== ClusterRole.PRIMARY) {
+            continue;
+          }
+
           const iterator = (handler.callback as EventGenerator)();
           iterator.next();
 
@@ -475,8 +550,14 @@ export class Eine {
 
           if (handleResult === EventHandleResult.DONE) break;
         }
-        // normal callback
+        // normal callback: 主进程不处理消息和 BOT 事件
         else {
+          if (
+            this.eineOptions.enableConcurrent &&
+            this.clusterRole === ClusterRole.PRIMARY &&
+            (messageEventType.includes(event as MessageTypeStr) || botEventType.includes(event as EventTypeStr))
+          )
+            continue;
           const cb = handler.callback as EventCallback;
           const handleResult: EventHandleResult | void = await cb({
             eine: this,
@@ -527,8 +608,6 @@ export class Eine {
         this.logger.warn("messagePullingMode will be switched from `PASSIVE_WS` to `POLLING`.");
 
         this.eineOptions.messagePullingMode = MessagePullingMode.POLLING;
-      } else {
-        // todo: websocket connect
       }
     }
   }
@@ -536,6 +615,20 @@ export class Eine {
   /** bound Hook */
   private afterBind() {
     this.logger.verbose("Run: afterBind hooks.");
+
+    for (let i = 0; this.eineOptions.enableConcurrent && i < this.eineOptions.maxConcurrentNumber; i++) {
+      cluster.fork({
+        EINE_PROCESS_INDEX: i, 
+        EINE_PROCESS_SECONDARY: true,
+        EINE_HTTP_SESSION: this.adapters.http?.session,
+      });
+
+      cluster.on("message", (message) =>
+        this.dispatch(EineEventTypeStr.PROCESS_MESSAGE, {
+          message,
+        })
+      );
+    }
 
     if (this.eineOptions.messagePullingMode === MessagePullingMode.POLLING) {
       this.adapters.http!.startPollingMessage(this.eineOptions.pollInterval);
@@ -574,6 +667,18 @@ export class Eine {
     }
   }
 
+  private recevingProcessMessage({ message }: {
+    message: string
+  }) {
+    console.log("Receving ", message);
+    if (message === "EINE_COMMAND_RELAUNCH") {
+      return this.relaunch();
+    }
+    if (message === "EINE_COMMAND_SHUTDOWN") {
+      return this.shutdown();
+    }
+  }
+
   /* ------------------------ 文档数据库 ------------------------ */
   /** EineDB - MongoDB 封装 */
   public get db() { return this._db; }
@@ -586,7 +691,7 @@ export class Eine {
    */
   @bind
   public pickBest(property?: string): any {
-    if (!property)
+    if (!property && this.adapters.ws)
       return this.adapters.ws;
     if (property && this.adapters.ws?.hasOwnProperty(property))
       return this.adapters.ws;

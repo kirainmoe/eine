@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HonorAction = exports.EventTypeStr = void 0;
+exports.botEventType = exports.HonorAction = exports.EventTypeStr = void 0;
 var EventTypeStr;
 (function (EventTypeStr) {
     EventTypeStr["BOT_ONLINE_EVENT"] = "BotOnlineEvent";
@@ -43,4 +43,5 @@ var HonorAction;
     HonorAction["ACHIEVE"] = "achieve";
     HonorAction["LOSE"] = "lose";
 })(HonorAction = exports.HonorAction || (exports.HonorAction = {}));
+exports.botEventType = Object.values(EventTypeStr);
 //# sourceMappingURL=EventType.js.map

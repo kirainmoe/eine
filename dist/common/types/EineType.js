@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EineUserRole = exports.EineEventTypeStr = exports.EventHandleResult = exports.MessagePullingMode = exports.LogLevel = void 0;
+exports.ClusterRole = exports.EineUserRole = exports.EineEventTypeStr = exports.EventHandleResult = exports.MessagePullingMode = exports.LogLevel = void 0;
 /** mirai-api-http 适配器 */
 /** 支持的适配器类型 = {HTTP, WS} */
 var AdapterType;
@@ -45,6 +45,7 @@ var EineEventTypeStr;
     EineEventTypeStr["AFTER_MONGO_CONNECTED"] = "AfterMongoConnected";
     EineEventTypeStr["AFTER_MONGO_CLOSE"] = "AfterMongoClose";
     EineEventTypeStr["AFTER_SERVER_START"] = "AfterServerStart";
+    EineEventTypeStr["PROCESS_MESSAGE"] = "ProcessMessage";
 })(EineEventTypeStr = exports.EineEventTypeStr || (exports.EineEventTypeStr = {}));
 /** Eine 用户角色类型 { MASTER, ADMINISTRATOR, USER } */
 var EineUserRole;
@@ -53,4 +54,10 @@ var EineUserRole;
     EineUserRole[EineUserRole["ADMINISTRATOR"] = 1] = "ADMINISTRATOR";
     EineUserRole[EineUserRole["USER"] = 2] = "USER";
 })(EineUserRole = exports.EineUserRole || (exports.EineUserRole = {}));
+/** Eine Concurrency Mode: 集群角色 */
+var ClusterRole;
+(function (ClusterRole) {
+    ClusterRole[ClusterRole["PRIMARY"] = 0] = "PRIMARY";
+    ClusterRole[ClusterRole["SECONDARY"] = 1] = "SECONDARY";
+})(ClusterRole = exports.ClusterRole || (exports.ClusterRole = {}));
 //# sourceMappingURL=EineType.js.map

@@ -25,13 +25,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GroupPermission = exports.EventTypeStr = exports.MessageComponentTypeStr = exports.MessageComponentType = exports.BotEventType = exports.SchedulerType = exports.DBType = exports.PainterType = void 0;
+exports.EventTypeStr = exports.MessageComponentTypeStr = exports.MessageComponentType = exports.BotEventType = exports.SchedulerType = exports.DBType = exports.PainterType = void 0;
 var EventType_1 = require("./EventType");
 Object.defineProperty(exports, "EventTypeStr", { enumerable: true, get: function () { return EventType_1.EventTypeStr; } });
 var MessageComponentType_1 = require("./MessageComponentType");
 Object.defineProperty(exports, "MessageComponentTypeStr", { enumerable: true, get: function () { return MessageComponentType_1.MessageComponentTypeStr; } });
-var CommonType_1 = require("./CommonType");
-Object.defineProperty(exports, "GroupPermission", { enumerable: true, get: function () { return CommonType_1.GroupPermission; } });
 __exportStar(require("./EineType"), exports);
 __exportStar(require("./CommonType"), exports);
 __exportStar(require("./MessageType"), exports);

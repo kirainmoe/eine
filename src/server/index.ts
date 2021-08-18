@@ -129,10 +129,9 @@ export default class EineServer {
     this.app.get("/", sendHtmlDirectly);
 
     (this.app as any).ws('/ws', wrapWsRouter(ws.default));
-
-    // 注册 websocket 推送事件
-    this.eine.on('Message')(ws.pushMessage);
   }
+
+  public pushMessage = ws.pushMessage;
 
   private logRequestMiddleware(req: Request, res: Response, next: any) {
     const end = res.end;

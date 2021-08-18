@@ -5,6 +5,7 @@ import { LogLevel } from "../../common/types";
 export default class EineLogger {
     private level;
     private prefix;
+    private clusterPrefix;
     constructor(level: LogLevel, prefix: string);
     /**
      * 获取当前时间格式化字符串

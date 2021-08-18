@@ -41,7 +41,7 @@ export default class HttpDriver {
      * 会话认证流程
      * @returns Promise<string>
      */
-    verify(): Promise<string>;
+    verify(knownSession?: string): Promise<string>;
     /**
      * 会话与账号身份绑定流程
      * @returns Promise<boolean>

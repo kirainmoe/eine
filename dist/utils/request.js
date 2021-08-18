@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.wrappedGet = exports.wrappedPost = exports.upload = exports.get = exports.post = void 0;
 var axios_1 = __importDefault(require("axios"));
+var cluster_1 = __importDefault(require("cluster"));
 var presetHeaders = {
     'User-Agent': 'Mozilla/5.0 (Eine)',
     'X-Requested-With': 'XMLHttpRequest'
@@ -73,6 +74,13 @@ var wrappedGet = function (url, params, headers) {
             throw new Error(response.statusText);
         }
         if (response.data.code !== undefined && response.data.code !== 0) {
+            if (cluster_1.default.isWorker && response.data.code === 5) {
+                return {
+                    data: null,
+                    headers: response.headers,
+                    payload: null
+                };
+            }
             throw new Error(response.data.msg + " (" + response.data.code + ")");
         }
         return {

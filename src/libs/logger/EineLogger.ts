@@ -1,3 +1,4 @@
+import cluster from "cluster";
 import moment from "moment";
 import chalk from "chalk";
 
@@ -10,10 +11,12 @@ import { asStr } from "../../utils/asStr";
 export default class EineLogger {
   private level: LogLevel;
   private prefix: string;
+  private clusterPrefix: string;
 
   constructor(level: LogLevel, prefix: string) {
+    this.clusterPrefix = cluster.isWorker ? ` (Worker ${process.env.EINE_PROCESS_INDEX})` : '';
     this.level = level;
-    this.prefix = `[${prefix}]`;
+    this.prefix = `[${prefix}${this.clusterPrefix}]`;
   }
 
   /**
@@ -116,7 +119,7 @@ export default class EineLogger {
   public message(sender: string, message: string) {
     console.log(
       chalk.bgWhite("MESG"),
-      chalk.gray(`<${sender}>`),
+      chalk.gray(`<${sender} ${this.clusterPrefix}>`),
       chalk.gray(this.getTimeString()),
       message
     );

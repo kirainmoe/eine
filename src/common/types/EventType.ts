@@ -329,3 +329,5 @@ export type EventType =
   | MemberJoinRequestEvent
   | BotInvitedJoinGroupRequestEvent
   | CommandExecutedEvent;
+
+export const botEventType = Object.values(EventTypeStr);

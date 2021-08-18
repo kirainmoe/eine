@@ -4,7 +4,7 @@ import { EineOption, LogLevel, MessagePullingMode } from "./types";
 export const EINE = "Eine";
 
 /** Framework 版本 */
-export const EINE_VERSION = "0.0.13";
+export const EINE_VERSION = "0.0.15";
 
 /** Eine Framework 实例化默认选项 */
 export const EINE_DEFAULT_OPTIONS: EineOption = {
@@ -12,11 +12,14 @@ export const EINE_DEFAULT_OPTIONS: EineOption = {
   appDirectory: './workspace',
   botName: EINE,
   mongoConfig: {},
+  enableConcurrent: false,
   enableDatabase: true,
   enableMessageLog: false,
   enableServer: true,
   enableVerify: true,
   logLevel: LogLevel.INFO,
+  maxConcurrentNumber: 4,
+  messageBatchCount: 10,
   messagePullingMode: MessagePullingMode.PASSIVE_WS,
   pollInterval: 50,
   qq: -1,

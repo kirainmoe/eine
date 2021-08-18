@@ -99,6 +99,8 @@ export default class HttpDriver {
   public startPollingMessage(interval: number) {
     this._pollingInterval = setInterval(async () => {
       const messages = await this.fetchMessage();
+      if (messages === null)
+        return;
       this.eine.resolveMessageAndEvent(messages);
     }, interval);
   }
@@ -111,7 +113,14 @@ export default class HttpDriver {
    * 会话认证流程
    * @returns Promise<string>
    */
-  public async verify() {
+  public async verify(knownSession?: string) {
+    if (knownSession?.length) {
+      this.logger.verbose("verify: using known sessionKey: {}", knownSession);
+      this._session = knownSession;
+      this._sessionState = HttpSessionState.VERIFIED;
+      return this.session;
+    }
+    
     if (!this.options.enableVerify) {
       this.logger.verbose("verify @ HttpDriver: verify is disabled, skipping.");
     }
@@ -210,7 +219,7 @@ export default class HttpDriver {
       return (
         await wrappedGet(this.api("fetchMessage"), {
           sessionKey: this.session,
-          count: 10,
+          count: this.eine.getOption("messageBatchCount"),
         })
       ).data as MessageEventType[];
     } catch (err) {

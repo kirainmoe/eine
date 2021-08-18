@@ -1,4 +1,5 @@
 import axios from "axios";
+import cluster from "cluster";
 import FormData from "form-data";
 
 const presetHeaders = {
@@ -73,6 +74,14 @@ export const wrappedGet = <T extends object, P extends object>(url: string, para
       }
 
       if (response.data.code !== undefined && response.data.code !== 0) {
+        if (cluster.isWorker && response.data.code === 5) {
+          return {
+            data: null,
+            headers: response.headers,
+            payload: null
+          };
+        }
+        
         throw new Error(`${response.data.msg} (${response.data.code})`);
       }
 

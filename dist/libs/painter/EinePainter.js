@@ -82,6 +82,7 @@ var EinePainter = /** @class */ (function () {
         this.lastLinePosX = 0;
         this.lastLinePosY = 0;
         this.shouldAutoAdjustHeight = false;
+        this.importFont = EinePainter.importFont;
         /** 上下文属性赋值辅助函数 */
         this.assign = function (target, key, value) { return (target[key] = value); };
         /**
@@ -216,16 +217,32 @@ var EinePainter = /** @class */ (function () {
                 _this.line(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
             return fill ? _this.fill() : _this.stroke();
         };
+        /**
+         * 设置背景填充颜色
+         * @param color 颜色值
+         */
         this.backgroundColor = function (color) {
             return _this.add(_this.assign, [_this.ctx, "fillStyle", _this.parseColor(color)], _this);
         };
         this.fillColor = this.backgroundColor;
         this.fontColor = this.backgroundColor; // todo: fontColor as distinct color
+        /**
+         * 设置边框填充颜色
+         * @param color 颜色值
+         */
         this.borderColor = function (color) {
             return _this.add(_this.assign, [_this.ctx, "strokeStyle", _this.parseColor(color)], _this);
         };
         this.strokeColor = this.borderColor;
+        /**
+         * 设置透明度
+         * @param alpha 透明度值
+         */
         this.alpha = function (alpha) { return _this.add(_this.assign, [_this.ctx, "globalAlpha", alpha], _this); };
+        /**
+         * 设置绘制线宽
+         * @param value 线宽 (px)
+         */
         this.lineWidth = function (value) { return _this.add(_this.assign, [_this.ctx, "lineWidth", value], _this); };
         this.lineCap = function (type) { return _this.add(_this.assign, [_this.ctx, "lineCap", type], _this); };
         this.lineJoin = function (type) { return _this.add(_this.assign, [_this.ctx, "lineJoin", type], _this); };

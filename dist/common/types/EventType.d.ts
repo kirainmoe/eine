@@ -247,3 +247,4 @@ export interface CommandExecutedEvent {
     args: MessageChain;
 }
 export declare type EventType = BotOnlineEvent | BotOfflineEventActive | BotOfflineEventForce | BotOfflineEventDropped | BotReloginEvent | FriendInputStatusChangedEvent | FriendNickChangedEvent | FriendRecallEvent | BotGroupPermissionChangeEvent | BotMuteEvent | BotUnmuteEvent | BotJoinGroupEvent | BotLeaveEventActive | BotLeaveEventKick | GroupRecallEvent | GroupNameChangeEvent | GroupEntranceAnnouncementChangeEvent | GroupMuteAllEvent | GroupAllowAnonymousChatEvent | GroupAllowConfessTalkEvent | GroupAllowMemberInviteEvent | MemberJoinEvent | MemberLeaveEventKick | MemberLeaveEventQuit | MemberCardChangeEvent | MemberSpecialTitleChangeEvent | MemberPermissionChangeEvent | MemberMuteEvent | MemberUnmuteEvent | MemberHonorChangeEvent | NewFriendRequestEvent | MemberJoinRequestEvent | BotInvitedJoinGroupRequestEvent | CommandExecutedEvent;
+export declare const botEventType: EventTypeStr[];

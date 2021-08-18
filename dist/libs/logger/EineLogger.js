@@ -8,6 +8,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var cluster_1 = __importDefault(require("cluster"));
 var moment_1 = __importDefault(require("moment"));
 var chalk_1 = __importDefault(require("chalk"));
 var types_1 = require("../../common/types");
@@ -17,8 +18,9 @@ var asStr_1 = require("../../utils/asStr");
  */
 var EineLogger = /** @class */ (function () {
     function EineLogger(level, prefix) {
+        this.clusterPrefix = cluster_1.default.isWorker ? " (Worker " + process.env.EINE_PROCESS_INDEX + ")" : '';
         this.level = level;
-        this.prefix = "[" + prefix + "]";
+        this.prefix = "[" + prefix + this.clusterPrefix + "]";
     }
     /**
      * 获取当前时间格式化字符串
@@ -106,7 +108,7 @@ var EineLogger = /** @class */ (function () {
             console.log(chalk_1.default.bgMagenta("TIPS"), chalk_1.default.magenta(this.prefix), chalk_1.default.gray(this.getTimeString()), this.formatString.apply(this, __spreadArray([message], args)));
     };
     EineLogger.prototype.message = function (sender, message) {
-        console.log(chalk_1.default.bgWhite("MESG"), chalk_1.default.gray("<" + sender + ">"), chalk_1.default.gray(this.getTimeString()), message);
+        console.log(chalk_1.default.bgWhite("MESG"), chalk_1.default.gray("<" + sender + " " + this.clusterPrefix + ">"), chalk_1.default.gray(this.getTimeString()), message);
     };
     EineLogger.prototype.essentialInfo = function (message) {
         var args = [];

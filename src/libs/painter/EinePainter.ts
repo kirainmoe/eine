@@ -62,6 +62,8 @@ export default class EinePainter {
     this.fontList.set(name, font);
   }
 
+  public importFont = EinePainter.importFont;
+
   constructor(eine: Eine) {
     this.logger = eine.logger;
   }
@@ -285,6 +287,10 @@ export default class EinePainter {
     return fill ? this.fill() : this.stroke();
   }
 
+  /**
+   * 设置背景填充颜色
+   * @param color 颜色值
+   */
   public backgroundColor = (color: CanvasGradient | PainterType.Color) =>
     this.add(this.assign, [this.ctx, "fillStyle", this.parseColor(color)], this);
   public fillColor = this.backgroundColor;
@@ -293,6 +299,10 @@ export default class EinePainter {
     this.backgroundColor(color);
   }
 
+  /**
+   * 设置边框填充颜色
+   * @param color 颜色值
+   */
   public borderColor = (color: CanvasGradient | PainterType.Color) =>
     this.add(this.assign, [this.ctx, "strokeStyle", this.parseColor(color)], this);
   public strokeColor = this.borderColor;
@@ -300,11 +310,19 @@ export default class EinePainter {
     this.borderColor(color);
   }
 
+  /**
+   * 设置透明度
+   * @param alpha 透明度值
+   */
   public alpha = (alpha: number) => this.add(this.assign, [this.ctx, "globalAlpha", alpha], this);
   public set globalAlpha(alpha: number) {
     this.alpha(alpha);
   }
 
+  /**
+   * 设置绘制线宽
+   * @param value 线宽 (px)
+   */
   public lineWidth = (value: number) => this.add(this.assign, [this.ctx, "lineWidth", value], this);
 
   public lineCap = (type: CanvasLineCap) => this.add(this.assign, [this.ctx, "lineCap", type], this);

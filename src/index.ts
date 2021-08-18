@@ -145,11 +145,20 @@ export class Eine {
     }
   }
 
+  /**
+   * 根据关键字获取 EineOptions 的值
+   * @param key 关键字
+   * @returns any
+   */
   @bind
   public getOption(key: keyof EineOption) {
     return this.eineOptions[key];
   }
 
+  /**
+   * 获取 Eine 版本号
+   * @returns number
+   */
   @bind
   public getVersion() {
     return EINE_VERSION;
@@ -399,6 +408,16 @@ export class Eine {
     if (messageEventType.includes(event as MessageTypeStr)) {
       // logMessage 的优先级应当高于 interrupt，因此不使用监听，在此显式调用
       this.logMessage(payload.sender, extraParams.messageStr);
+
+      // 管理面板 pushMessage
+      if (this.eineOptions.enableServer) {
+        this.server?.pushMessage({
+          type: event as MessageTypeStr,
+          sender: payload.sender,
+          messageChain: payload.messageChain,
+          str: extraParams.messageStr,
+        });
+      }
       
       if (this.eineOptions.enableDatabase && this.db!.isConnected) {
         this.db!.saveIncomingMessage(
@@ -527,8 +546,6 @@ export class Eine {
         this.logger.warn("messagePullingMode will be switched from `PASSIVE_WS` to `POLLING`.");
 
         this.eineOptions.messagePullingMode = MessagePullingMode.POLLING;
-      } else {
-        // todo: websocket connect
       }
     }
   }

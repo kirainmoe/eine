@@ -1,5 +1,7 @@
 # 🎩 Eine
 
+[API Document](https://kirainmoe.github.io/eine/)
+
 (WIP) Another TypeScript framework to build a QQ bot.
 
 ```bash

@@ -1,12 +1,9 @@
 {
   "name": "@eine-nineteen/eine",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "description": "[WIP] Eine Framework",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "exports": {
-    "./": "./dist/"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && cp -r prebuild dist/server/build",
@@ -24,6 +21,7 @@
   "homepage": "https://github.com/kirainmoe/eine#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "bind-decorator": "^1.0.11",
     "canvas": "^2.8.0",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
@@ -47,7 +45,6 @@
     "@types/node-cron": "^2.0.4",
     "@types/uuid": "^8.3.1",
     "@types/ws": "^7.4.7",
-    "bind-decorator": "^1.0.11",
     "typedoc": "^0.21.5",
     "typescript": "^4.3.5"
   }

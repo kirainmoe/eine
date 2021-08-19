@@ -129,6 +129,7 @@ export interface EventCallbackParams {
   name?: EineEventName | string;
   eine?: Eine;
   messageChain?: MessageChain;
+  messageStr?: string;
 
   quote?: (messageChain: MessageChain) => Promise<number | boolean>;
   reply?: (messageChain: MessageChain) => Promise<number | boolean>;

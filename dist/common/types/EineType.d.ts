@@ -93,6 +93,7 @@ export interface EventCallbackParams {
     name?: EineEventName | string;
     eine?: Eine;
     messageChain?: MessageChain;
+    messageStr?: string;
     quote?: (messageChain: MessageChain) => Promise<number | boolean>;
     reply?: (messageChain: MessageChain) => Promise<number | boolean>;
     recall?: () => Promise<boolean>;
@@ -132,7 +133,7 @@ export declare type EventIterator = Generator<any, EventHandleResult | void, any
 /** 中断 generator */
 export declare type EventGenerator = () => EventIterator;
 /** 事件过滤器函数类型 */
-export declare type EventFilter = (message: any, str?: string) => boolean;
+export declare type EventFilter = (message: any, str: string) => boolean;
 /** 事件处理器类型 */
 export interface EventHandler {
     filters: EventFilter[];

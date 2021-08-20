@@ -84,7 +84,9 @@ export default class EinePainter {
   }
 
   /** 上下文属性赋值辅助函数 */
-  private assign = (target: any, key: string, value: any) => (target[key] = value);
+  private assign = (target: any, key: string, value: any) => {
+    target[key] = value;
+  };
 
   /**
    * 将颜色转换为 CSS 字符串表示
@@ -518,14 +520,21 @@ export default class EinePainter {
     const currentFontSetting = this.cacheCurrentFontSetting();
     this.applyCurrentFontSetting();
 
+    const symX =
+      this.lineStyle.textAlign === "right"
+        ? this.width - fromX
+        : this.lineStyle.textAlign === "center"
+        ? Math.max(fromX, this.width - fromX)
+        : fromX;
+
     const lineWidth =
       maxWidth !== undefined
         ? maxWidth > 0
           ? maxWidth
-          : this.width - fromX
-        : this.width - fromX * 2 > 0
-        ? this.width - fromX * 2
-        : this.width - fromX;
+          : this.width - symX
+        : this.width - symX * 2 > 0
+        ? this.width - symX * 2
+        : this.width - symX;
 
     const characterMeasure = this.ctx.measureText("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
     const { actualBoundingBoxAscent, actualBoundingBoxDescent } = characterMeasure;
@@ -543,15 +552,13 @@ export default class EinePainter {
       }
 
       let currentLine: string[] = [];
-      let from = 0;
       let to = 0;
       let currentX = 0;
 
       const appendLine = () => {
-        cmdBuffer.push({
-          command: fill ? this.fillText : this.strokeText,
-          args: [currentLine.join(""), fromX, currentY],
-        } as PainterType.Buffer);
+        fill
+          ? this.fillText(currentLine.join(""), fromX, currentY)
+          : this.strokeText(currentLine.join(""), fromX, currentY);
 
         currentLine = [];
         currentX = 0;
@@ -560,9 +567,9 @@ export default class EinePainter {
 
       while (to < line.length) {
         const nextCharWidth = this.ctx.measureText(line[to]).width;
-        if (currentX + nextCharWidth <= lineWidth) {
+        if (currentX + nextCharWidth <= lineWidth || !currentLine.length) {
           currentLine.push(line[to]);
-          currentX += nextCharWidth;
+          currentX += this.lineStyle.textAlign === "center" ? nextCharWidth / 2 : nextCharWidth;
           to++;
         } else {
           appendLine();

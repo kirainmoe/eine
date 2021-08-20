@@ -11,7 +11,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./asStr"), exports);
+__exportStar(require("./avatar"), exports);
 __exportStar(require("./injectExtraProperty"), exports);
 __exportStar(require("./internalFilter"), exports);
 __exportStar(require("./serializeMessage"), exports);
+__exportStar(require("./request"), exports);
 //# sourceMappingURL=index.js.map

@@ -1,4 +1,4 @@
-import { Filter } from "mongodb";
+import { Db, Filter } from "mongodb";
 import Eine from "../..";
 import { MessageTypeStr, SenderType, SendTarget } from "../../common/types";
 import { MessageChain } from "../../common/types/MessageComponentType";
@@ -9,7 +9,8 @@ export default class EineDB {
     private client;
     private eine;
     private botId;
-    private db;
+    private _db;
+    get db(): Db | null;
     private logger;
     isConnected: boolean;
     constructor(config: Partial<MongoConfig>, eine: Eine);

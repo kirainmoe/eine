@@ -12,18 +12,18 @@ export declare const Face: (face: number | string) => {
 };
 export declare const Plain: (text: string) => ComponentType.Plain;
 export declare const Image: (image: Partial<Omit<ComponentType.Image, 'type'>>) => {
+    base64?: string | null | undefined;
     imageId?: string | undefined;
     url?: string | null | undefined;
     path?: string | null | undefined;
-    base64?: string | null | undefined;
     type: ComponentType.MessageComponentTypeStr;
 };
 export declare const ImageFrom: (file: string | ReadStream | Buffer) => ComponentType.PreloadFile;
 export declare const FlashImage: (flashImage: Partial<Omit<ComponentType.FlashImage, 'type'>>) => {
+    base64?: string | null | undefined;
     imageId?: string | undefined;
     url?: string | null | undefined;
     path?: string | null | undefined;
-    base64?: string | null | undefined;
     type: ComponentType.MessageComponentTypeStr;
 };
 export declare const FlashImageFrom: (file: string | ReadStream | Buffer) => ComponentType.PreloadFile;

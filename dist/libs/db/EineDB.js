@@ -53,7 +53,7 @@ var types_1 = require("../../common/types");
 var EineDB = /** @class */ (function () {
     function EineDB(config, eine) {
         this.botId = -1;
-        this.db = null;
+        this._db = null;
         this.isConnected = false;
         this.config = __assign({ host: "localhost", port: 27017, username: "", password: "", dbName: "eine_defualt_db" }, config);
         this.eine = eine;
@@ -63,6 +63,11 @@ var EineDB = /** @class */ (function () {
         this.mongoUrl = "mongodb://" + (username.length ? "" + username + (password.length ? ":" + password : "") + "@" : "") + host + ":" + port;
         this.client = new mongodb_1.MongoClient(this.mongoUrl);
     }
+    Object.defineProperty(EineDB.prototype, "db", {
+        get: function () { return this._db; },
+        enumerable: false,
+        configurable: true
+    });
     EineDB.prototype.ensureDatabaseConnected = function () {
         if (!this.isConnected || !this.db) {
             this.logger.error("EineDB: MongoDB is not connected. Cannot call any MongoDB method at this time.");
@@ -102,7 +107,7 @@ var EineDB = /** @class */ (function () {
                         return [4 /*yield*/, this.client.connect()];
                     case 1:
                         _b.sent();
-                        this.db = this.client.db(this.config.dbName);
+                        this._db = this.client.db(this.config.dbName);
                         _a = this.config, host = _a.host, port = _a.port, username = _a.username, password = _a.password;
                         logMongoUrl = "mongodb://" + (username.length ? "" + username + (password.length ? ":******" : "") + "@" : "") + host + ":" + port;
                         this.logger.verbose("EineDB: connected to MongoDB: {}", logMongoUrl);

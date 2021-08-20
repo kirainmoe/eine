@@ -4,6 +4,8 @@ import { RangeType } from "../../common/types/SchedulerType";
 export default class EineScheduler {
     /** 日志记录器 */
     private logger;
+    /** Eine 实例 */
+    private eine;
     /** 用户设置的 cron 规则 */
     private currentRule;
     /** 根据用户设置推断的 cron 规则 */

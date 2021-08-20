@@ -1,6 +1,9 @@
 import axios from "axios";
 import cluster from "cluster";
 import FormData from "form-data";
+import { createWriteStream, WriteStream } from "fs";
+import { promisify } from "util";
+import * as stream from "stream";
 
 const presetHeaders = {
   'User-Agent': 'Mozilla/5.0 (Eine)',
@@ -92,3 +95,17 @@ export const wrappedGet = <T extends object, P extends object>(url: string, para
       };
     });
 }
+
+const finished = promisify(stream.finished);
+
+export const download = <P extends object>(url: string, output: string, header?: P) => {
+  let writer: WriteStream = createWriteStream(output);
+  return axios.get(url, {
+    headers: header,
+    responseType: "stream"
+  })
+  .then(async response  => {
+    response.data.pipe(writer);
+    return finished(writer);
+  });
+};

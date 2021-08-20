@@ -9,6 +9,9 @@ export default class EineScheduler {
   /** 日志记录器 */
   private logger: EineLogger;
 
+  /** Eine 实例 */
+  private eine: Eine;
+
   /** 用户设置的 cron 规则 */
   private currentRule: ScheduleRuleItem[][] = this.createEmptyRule();
 
@@ -22,6 +25,7 @@ export default class EineScheduler {
   private overrideRule: string = "";
 
   public constructor(eine: Eine) {
+    this.eine = eine;
     this.logger = eine.logger;
   }
 
@@ -154,7 +158,7 @@ export default class EineScheduler {
       return false;
     }
 
-    cron.schedule(rule, job);
+    cron.schedule(rule, () => job({ eine: this.eine }));
     this.logger.verbose("Created crontab job, rule: {}, task: {}", rule, job.name);
     return true;
   }

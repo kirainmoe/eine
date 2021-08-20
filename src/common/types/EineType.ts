@@ -184,7 +184,7 @@ export type EventIterator = Generator<any, EventHandleResult | void, any>;
 export type EventGenerator = () => EventIterator;
 
 /** 事件过滤器函数类型 */
-export type EventFilter = (message: any, str?: string) => boolean;
+export type EventFilter = (message: any, str: string) => boolean;
 
 /** 事件处理器类型 */
 export interface EventHandler {

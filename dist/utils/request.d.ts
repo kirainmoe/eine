@@ -33,3 +33,4 @@ export declare const wrappedGet: <T extends object, P extends object>(url: strin
     headers: any;
     payload: any;
 }>;
+export declare const download: <P extends object>(url: string, output: string, header?: P | undefined) => Promise<void>;

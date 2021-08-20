@@ -31,7 +31,9 @@ export default class EineDB {
 
   private botId: number = -1;
 
-  private db: Db | null = null;
+  private _db: Db | null = null;
+
+  public get db() { return this._db; }
 
   private logger: EineLogger;
 
@@ -101,7 +103,7 @@ export default class EineDB {
     this.logger.verbose("EineDB: establishing connection with MongoDB..");
 
     await this.client.connect();
-    this.db = this.client.db(this.config.dbName);
+    this._db = this.client.db(this.config.dbName);
 
     const { host, port, username, password } = this.config;
     const logMongoUrl = `mongodb://${

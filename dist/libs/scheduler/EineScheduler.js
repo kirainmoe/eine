@@ -16,6 +16,7 @@ var EineScheduler = /** @class */ (function () {
         this.currentValue = [];
         /** 覆盖规则，规则优先级：override > current > inferred */
         this.overrideRule = "";
+        this.eine = eine;
         this.logger = eine.logger;
     }
     /** 创建新的计划任务，恢复初始状态 */
@@ -125,12 +126,13 @@ var EineScheduler = /** @class */ (function () {
             .join(" ");
     };
     EineScheduler.prototype.do = function (job) {
+        var _this = this;
         var rule = this.joinAsRule();
         if (!node_cron_1.default.validate(rule)) {
             this.logger.error("Failed to create cron job, crontab rule {} is invalid.", rule);
             return false;
         }
-        node_cron_1.default.schedule(rule, job);
+        node_cron_1.default.schedule(rule, function () { return job({ eine: _this.eine }); });
         this.logger.verbose("Created crontab job, rule: {}, task: {}", rule, job.name);
         return true;
     };

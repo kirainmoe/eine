@@ -84,7 +84,9 @@ var EinePainter = /** @class */ (function () {
         this.shouldAutoAdjustHeight = false;
         this.importFont = EinePainter.importFont;
         /** 上下文属性赋值辅助函数 */
-        this.assign = function (target, key, value) { return (target[key] = value); };
+        this.assign = function (target, key, value) {
+            target[key] = value;
+        };
         /**
          * 将颜色转换为 CSS 字符串表示
          * @param color 支持各种类型，如 "white", "#fff", [0,0,0], [255,255,255,0.3]
@@ -367,13 +369,18 @@ var EinePainter = /** @class */ (function () {
                 return _this;
             var currentFontSetting = _this.cacheCurrentFontSetting();
             _this.applyCurrentFontSetting();
+            var symX = _this.lineStyle.textAlign === "right"
+                ? _this.width - fromX
+                : _this.lineStyle.textAlign === "center"
+                    ? Math.max(fromX, _this.width - fromX)
+                    : fromX;
             var lineWidth = maxWidth !== undefined
                 ? maxWidth > 0
                     ? maxWidth
-                    : _this.width - fromX
-                : _this.width - fromX * 2 > 0
-                    ? _this.width - fromX * 2
-                    : _this.width - fromX;
+                    : _this.width - symX
+                : _this.width - symX * 2 > 0
+                    ? _this.width - symX * 2
+                    : _this.width - symX;
             var characterMeasure = _this.ctx.measureText("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
             var actualBoundingBoxAscent = characterMeasure.actualBoundingBoxAscent, actualBoundingBoxDescent = characterMeasure.actualBoundingBoxDescent;
             var actualBoxHeight = actualBoundingBoxAscent + Math.abs(actualBoundingBoxDescent);
@@ -387,23 +394,21 @@ var EinePainter = /** @class */ (function () {
                     return "continue";
                 }
                 var currentLine = [];
-                var from = 0;
                 var to = 0;
                 var currentX = 0;
                 var appendLine = function () {
-                    cmdBuffer.push({
-                        command: fill ? _this.fillText : _this.strokeText,
-                        args: [currentLine.join(""), fromX, currentY],
-                    });
+                    fill
+                        ? _this.fillText(currentLine.join(""), fromX, currentY)
+                        : _this.strokeText(currentLine.join(""), fromX, currentY);
                     currentLine = [];
                     currentX = 0;
                     currentY += lineHeight;
                 };
                 while (to < line.length) {
                     var nextCharWidth = _this.ctx.measureText(line[to]).width;
-                    if (currentX + nextCharWidth <= lineWidth) {
+                    if (currentX + nextCharWidth <= lineWidth || !currentLine.length) {
                         currentLine.push(line[to]);
-                        currentX += nextCharWidth;
+                        currentX += _this.lineStyle.textAlign === "center" ? nextCharWidth / 2 : nextCharWidth;
                         to++;
                     }
                     else {

@@ -35,5 +35,5 @@ export default class EineScheduler {
     dayOfWeek(): this;
     cronRule(rule: string): this;
     private joinAsRule;
-    do(job: (...args: any[]) => any): boolean;
+    do(job: (...args: any[]) => any): boolean | undefined;
 }

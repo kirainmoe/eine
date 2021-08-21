@@ -129,7 +129,7 @@ var Eine = /** @class */ (function () {
         this._scheduler = new scheduler_1.default(this);
         this.eventHandler = new Map();
         this.interruptQueue = new Map();
-        this.clusterRole = this.eineOptions.enableConcurrent
+        this._clusterRole = this.eineOptions.enableConcurrent
             ? cluster_1.default.isWorker
                 ? types_1.ClusterRole.SECONDARY
                 : types_1.ClusterRole.PRIMARY
@@ -144,6 +144,11 @@ var Eine = /** @class */ (function () {
             this.eineOptions.messageBatchCount = 1;
         }
     }
+    Object.defineProperty(Eine.prototype, "clusterRole", {
+        get: function () { return this._clusterRole; },
+        enumerable: false,
+        configurable: true
+    });
     /** 初始化 */
     Eine.prototype.init = function () {
         var _a, _b;
@@ -244,7 +249,6 @@ var Eine = /** @class */ (function () {
                     (_a = process.send) === null || _a === void 0 ? void 0 : _a.call(process, "EINE_COMMAND_RELAUNCH");
                     return [2 /*return*/];
                 }
-                console.log(cluster_1.default.workers);
                 this.logger.info("received `relaunch` command, {} will be relaunched in 3 secs.", this.eineOptions.botName);
                 setTimeout(function () {
                     var child = child_process_1.spawn(process.argv[0], process.argv.slice(1), {

@@ -1,4 +1,4 @@
-import { AdapterDriverInterface, EineEventName, EineOption, EventCallback, EventFilter, EventGenerator, EventHandleResult, EventIterator, MessageEventType, MessageTypeStr, SenderType } from "./common/types";
+import { AdapterDriverInterface, ClusterRole, EineEventName, EineOption, EventCallback, EventFilter, EventGenerator, EventHandleResult, EventIterator, MessageEventType, MessageTypeStr, SenderType } from "./common/types";
 import EineLogger from "./libs/logger";
 import EinePainter from "./libs/painter";
 import EineDB from "./libs/db";
@@ -18,7 +18,8 @@ export declare class Eine {
     /** Driver 实例集合 */
     adapters: AdapterDriverInterface;
     /** 当前进程角色 */
-    private clusterRole;
+    private _clusterRole;
+    get clusterRole(): ClusterRole;
     constructor(options?: Partial<EineOption>);
     /** 初始化 */
     init(): Promise<void>;

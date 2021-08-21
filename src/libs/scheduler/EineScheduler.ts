@@ -3,6 +3,7 @@ import Eine from "../..";
 import EineLogger from "../logger";
 
 import { Every, FromEvery, RangeType, ScheduleRuleItem, ScheduleRuleItemType, When, } from "../../common/types/SchedulerType";
+import { ClusterRole } from "../../common/types";
 
 /** EineScheduer: 计划任务调度器 */
 export default class EineScheduler {
@@ -152,6 +153,11 @@ export default class EineScheduler {
 
   public do(job: (...args: any[]) => any) {
     const rule = this.joinAsRule();
+
+    // ignore in secondary process
+    if (this.eine.clusterRole !== ClusterRole.PRIMARY) {
+      return;
+    }
 
     if (!cron.validate(rule)) {
       this.logger.error("Failed to create cron job, crontab rule {} is invalid.", rule);

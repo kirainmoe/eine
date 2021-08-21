@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var node_cron_1 = __importDefault(require("node-cron"));
 var SchedulerType_1 = require("../../common/types/SchedulerType");
+var types_1 = require("../../common/types");
 /** EineScheduer: 计划任务调度器 */
 var EineScheduler = /** @class */ (function () {
     function EineScheduler(eine) {
@@ -128,6 +129,10 @@ var EineScheduler = /** @class */ (function () {
     EineScheduler.prototype.do = function (job) {
         var _this = this;
         var rule = this.joinAsRule();
+        // ignore in secondary process
+        if (this.eine.clusterRole !== types_1.ClusterRole.PRIMARY) {
+            return;
+        }
         if (!node_cron_1.default.validate(rule)) {
             this.logger.error("Failed to create cron job, crontab rule {} is invalid.", rule);
             return false;

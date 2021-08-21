@@ -65,7 +65,8 @@ export class Eine {
   public adapters: AdapterDriverInterface = {};
 
   /** 当前进程角色 */
-  private clusterRole: ClusterRole;
+  private _clusterRole: ClusterRole;
+  public get clusterRole() { return this._clusterRole; }
 
   constructor(options: Partial<EineOption> = {}) {
     this.eineOptions = {
@@ -78,7 +79,7 @@ export class Eine {
     this.eventHandler = new Map();
     this.interruptQueue = new Map();
     
-    this.clusterRole = this.eineOptions.enableConcurrent
+    this._clusterRole = this.eineOptions.enableConcurrent
       ? cluster.isWorker
         ? ClusterRole.SECONDARY
         : ClusterRole.PRIMARY
@@ -194,8 +195,6 @@ export class Eine {
       process.send?.("EINE_COMMAND_RELAUNCH");
       return;
     }
-
-    console.log(cluster.workers);
 
     this.logger.info("received `relaunch` command, {} will be relaunched in 3 secs.", this.eineOptions.botName);
     setTimeout(() => {

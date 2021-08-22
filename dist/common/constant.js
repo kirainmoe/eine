@@ -5,7 +5,7 @@ var types_1 = require("./types");
 /** Framework 全局名称 */
 exports.EINE = "Eine";
 /** Framework 版本 */
-exports.EINE_VERSION = "0.0.20";
+exports.EINE_VERSION = "0.0.21";
 /** Eine Framework 实例化默认选项 */
 exports.EINE_DEFAULT_OPTIONS = {
     adapters: {},
@@ -26,7 +26,7 @@ exports.EINE_DEFAULT_OPTIONS = {
     responseTimeout: 5000,
     singleMode: false,
     server: {
-        host: '127.0.0.1',
+        host: '0.0.0.0',
         port: 9119,
     },
     verifyKey: '',

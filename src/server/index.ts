@@ -122,6 +122,7 @@ export default class EineServer {
     this.app.get("/api/public_info", api.publicInfo.validator, wrapRouter(api.publicInfo.handler));
     this.app.get("/api/group_info", api.groupInfo.validator, wrapRouter(api.groupInfo.handler));
     this.app.get("/api/refresh_magic_token", api.magic.validator, wrapRouter(api.magic.handler));
+    this.app.get("/api/friend_info", api.friendInfo.validator, wrapRouter(api.friendInfo.handler));
 
     this.app.get("/install", panel.install.validator, wrapRouter(panel.install.handler));
     this.app.get("/login", sendHtmlDirectly);

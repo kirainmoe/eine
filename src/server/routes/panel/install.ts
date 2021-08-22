@@ -6,7 +6,6 @@ async function install({ res, server, db }: EineRouteHandlerType) {
   if (isInstalled > 0) {
     return res.redirect("/login");
   }
-
   server.generateMagicToken();
   res.sendFile(path.join(path.dirname(path.dirname(__dirname)), "build", "index.html"));
 }

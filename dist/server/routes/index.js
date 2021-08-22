@@ -29,11 +29,13 @@ var apiLogin = __importStar(require("./api/login"));
 var apiAccountInfo = __importStar(require("./api/accountInfo"));
 var apiGroupInfo = __importStar(require("./api/groupInfo"));
 var apiSendText = __importStar(require("./api/sendText"));
+var apiFriendInfo = __importStar(require("./api/friendInfo"));
 var magic_1 = __importDefault(require("./api/magic"));
 var panelInstall = __importStar(require("./panel/install"));
 exports.api = {
     accountInfo: apiAccountInfo.default,
     install: apiInstall.default,
+    friendInfo: apiFriendInfo.default,
     groupInfo: apiGroupInfo.default,
     login: apiLogin.default,
     publicInfo: apiPublicInfo.default,

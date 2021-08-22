@@ -149,6 +149,7 @@ var EineServer = /** @class */ (function () {
         this.app.get("/api/public_info", routes_1.api.publicInfo.validator, wrapRouter(routes_1.api.publicInfo.handler));
         this.app.get("/api/group_info", routes_1.api.groupInfo.validator, wrapRouter(routes_1.api.groupInfo.handler));
         this.app.get("/api/refresh_magic_token", routes_1.api.magic.validator, wrapRouter(routes_1.api.magic.handler));
+        this.app.get("/api/friend_info", routes_1.api.friendInfo.validator, wrapRouter(routes_1.api.friendInfo.handler));
         this.app.get("/install", routes_1.panel.install.validator, wrapRouter(routes_1.panel.install.handler));
         this.app.get("/login", sendHtmlDirectly);
         this.app.get("/panel/:path", sendHtmlDirectly);

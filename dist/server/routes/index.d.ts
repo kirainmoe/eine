@@ -8,6 +8,10 @@ export declare const api: {
         handler: ({ req, res, logger, db, server }: import("./types").EineRouteHandlerType) => Promise<void | import("express").Response<any, Record<string, any>>>;
         validator: import("express-validator").ValidationChain[];
     };
+    friendInfo: {
+        handler: ({ req, res, eine, server, db }: import("./types").EineRouteHandlerType) => Promise<void>;
+        validator: import("express-validator").ValidationChain[];
+    };
     groupInfo: {
         handler: ({ req, res, eine, server, db }: import("./types").EineRouteHandlerType) => Promise<void>;
         validator: import("express-validator").ValidationChain[];

@@ -6,7 +6,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && cp -r prebuild dist/server/build",
+    "build": "tsc && cp -r prebuild/* dist/server/build",
     "docs": "typedoc src/index.ts"
   },
   "repository": {

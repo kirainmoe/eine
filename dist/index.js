@@ -86,6 +86,7 @@ var constants_1 = require("constants");
 var chalk_1 = __importDefault(require("chalk"));
 var axios_1 = __importDefault(require("axios"));
 var bind_decorator_1 = __importDefault(require("bind-decorator"));
+var uuid_1 = require("uuid");
 /* Eine: typescript types */
 var types_1 = require("./common/types");
 var EventType_1 = require("./common/types/EventType");
@@ -444,6 +445,7 @@ var Eine = /** @class */ (function () {
      * @param lifetime 中断等待最长时间，默认为 1 小时
      */
     Eine.prototype.wait = function (sender, type, iterator, filter, lifetime) {
+        var _this = this;
         var _a;
         if (lifetime === void 0) { lifetime = 3600000; }
         var group = sender.group;
@@ -453,14 +455,31 @@ var Eine = /** @class */ (function () {
             type: type,
         });
         var triggerTime = +new Date();
-        var interruptItem = { filter: filter, iterator: iterator, triggerTime: triggerTime, lifetime: lifetime };
+        var interruptId = uuid_1.v4();
+        var interruptItem = { interruptId: interruptId, filter: filter, iterator: iterator, triggerTime: triggerTime, lifetime: lifetime };
         if (this.interruptQueue.has(key)) {
             (_a = this.interruptQueue.get(key)) === null || _a === void 0 ? void 0 : _a.push(interruptItem);
         }
         else {
             this.interruptQueue.set(key, [interruptItem]);
         }
-        return types_1.EventHandleResult.DONE;
+        // 定时取消
+        setTimeout(function () { return _this.cancelWait(key, interruptId); }, lifetime);
+        return {
+            key: key,
+            interruptId: interruptId,
+        };
+    };
+    /**
+     * 取消中断
+     * @param key 中断 key
+     * @param interruptId 事件处理器 ID
+     */
+    Eine.prototype.cancelWait = function (key, interruptId) {
+        var queue = this.interruptQueue.get(key);
+        if (queue) {
+            this.interruptQueue.set(key, queue.filter(function (item) { return item.interruptId !== interruptId; }));
+        }
     };
     /**
      * 触发一个事件
@@ -770,6 +789,9 @@ var Eine = /** @class */ (function () {
     __decorate([
         bind_decorator_1.default
     ], Eine.prototype, "wait", null);
+    __decorate([
+        bind_decorator_1.default
+    ], Eine.prototype, "cancelWait", null);
     __decorate([
         bind_decorator_1.default
     ], Eine.prototype, "dispatch", null);

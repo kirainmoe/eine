@@ -145,6 +145,7 @@ export interface InterruptHandler {
     iterator: EventIterator;
     triggerTime: number;
     lifetime: number;
+    interruptId: string;
 }
 /** Eine 可处理的事件类型名称 */
 export declare type EineEventName = EventTypeStr | MessageTypeStr | EineEventTypeStr | string;

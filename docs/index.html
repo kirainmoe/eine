@@ -61,6 +61,7 @@
 				<a href="#🎩-eine" id="🎩-eine" style="color: inherit; text-decoration: none;">
 					<h1>🎩 Eine</h1>
 				</a>
+				<p><a href="https://kirainmoe.github.io/eine/">API Document</a></p>
 				<p>(WIP) Another TypeScript framework to build a QQ bot.</p>
 				<pre><code class="language-bash"><span style="color: #000000">npm install @eine-nineteen/eine --save-dev</span>
 </code></pre>
@@ -97,6 +98,11 @@
 <span style="color: #000000">    </span><span style="color: #001080">password:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;admin&#039;</span><span style="color: #000000">,</span>
 <span style="color: #000000">    </span><span style="color: #001080">dbName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;BOT&#039;</span><span style="color: #000000">,</span>
 <span style="color: #000000">  },</span>
+
+<span style="color: #000000">  </span><span style="color: #008000">// [experiment] concurrency mode</span>
+<span style="color: #000000">  </span><span style="color: #008000">// start many eine processes to handle events and messages</span>
+<span style="color: #000000">  </span><span style="color: #008000">// use with caution!</span>
+<span style="color: #000000">  </span><span style="color: #001080">enableConcurrent:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
 <span style="color: #000000">});</span>
 
 <span style="color: #008000">// start Eine</span>

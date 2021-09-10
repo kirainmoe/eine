@@ -1,4 +1,4 @@
-import { AdapterDriverInterface, ClusterRole, EineEventName, EineOption, EventCallback, EventFilter, EventGenerator, EventHandleResult, EventIterator, MessageEventType, MessageTypeStr, SenderType } from "./common/types";
+import { AdapterDriverInterface, ClusterRole, EineEventName, EineOption, EventCallback, EventFilter, EventGenerator, EventIterator, MessageEventType, MessageTypeStr, SenderType } from "./common/types";
 import EineLogger from "./libs/logger";
 import EinePainter from "./libs/painter";
 import EineDB from "./libs/db";
@@ -85,7 +85,16 @@ export declare class Eine {
      * @param filter 条件函数
      * @param lifetime 中断等待最长时间，默认为 1 小时
      */
-    wait(sender: SenderType, type: MessageTypeStr, iterator: EventIterator, filter: EventFilter, lifetime?: number): EventHandleResult;
+    wait(sender: SenderType, type: MessageTypeStr, iterator: EventIterator, filter: EventFilter, lifetime?: number): {
+        key: string;
+        interruptId: string;
+    };
+    /**
+     * 取消中断
+     * @param key 中断 key
+     * @param interruptId 事件处理器 ID
+     */
+    cancelWait(key: string, interruptId: string): void;
     /**
      * 触发一个事件
      * @param event 事件名称

@@ -6,6 +6,7 @@ import { R_OK, W_OK } from "constants";
 import chalk from "chalk";
 import axios from "axios";
 import bind from 'bind-decorator';
+import { v4 as uuidv4 } from "uuid";
 
 /* Eine: typescript types */
 import {
@@ -431,13 +432,34 @@ export class Eine {
       type,
     });
     const triggerTime = +new Date();
-    const interruptItem = { filter, iterator, triggerTime, lifetime };
+    const interruptId = uuidv4();
+    const interruptItem = { interruptId, filter, iterator, triggerTime, lifetime };
     if (this.interruptQueue.has(key)) {
       this.interruptQueue.get(key)?.push(interruptItem);
     } else {
       this.interruptQueue.set(key, [interruptItem]);
     }
-    return EventHandleResult.DONE;
+    
+    // 定时取消
+    setTimeout(() => this.cancelWait(key, interruptId), lifetime);
+
+    return {
+      key,
+      interruptId,
+    };
+  }
+
+  /**
+   * 取消中断
+   * @param key 中断 key
+   * @param interruptId 事件处理器 ID
+   */
+  @bind
+  public cancelWait(key: string, interruptId: string) {
+    const queue = this.interruptQueue.get(key);
+    if (queue) {
+      this.interruptQueue.set(key, queue.filter(item => item.interruptId !== interruptId));
+    }
   }
 
   /**
@@ -477,7 +499,6 @@ export class Eine {
           );
         }
       }
-
 
       // 响应中断
       const group = (payload.sender as any).group;

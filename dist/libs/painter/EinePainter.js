@@ -127,7 +127,7 @@ var EinePainter = /** @class */ (function () {
         this.move = function (x, y) { var _a; return _this.add((_a = _this.ctx) === null || _a === void 0 ? void 0 : _a.moveTo, [x, y]); };
         this.moveTo = this.move;
         /**
-         * 从当前笔触落点移动到 (x, y)
+         * 从当前笔触落点直线移动到 (x, y)
          * @param x
          * @param y
          */
@@ -250,12 +250,29 @@ var EinePainter = /** @class */ (function () {
         this.lineJoin = function (type) { return _this.add(_this.assign, [_this.ctx, "lineJoin", type], _this); };
         this.lineDashOffset = function (value) { return _this.add(_this.assign, [_this.ctx, "lineDashOffset", value], _this); };
         this.setLineDash = function (segments) { var _a; return _this.add((_a = _this.ctx) === null || _a === void 0 ? void 0 : _a.setLineDash, [segments]); };
+        /**
+         * 绘制线段，从 [fromX, fromY] 到 [toX, toY] 的线段
+         * @param fromX
+         * @param fromY
+         * @param toX
+         * @param toY
+         * @returns
+         */
         this.segment = function (fromX, fromY, toX, toY) {
             _this.begin();
             _this.move(fromX, fromY);
             _this.line(toX, toY);
             return _this.close();
         };
+        /**
+         * 绘制虚线，从 [fromX, fromY] 到 [toX, toY]，间隔为 dashInterval
+         * @param fromX
+         * @param fromY
+         * @param toX
+         * @param toY
+         * @param dashInterval
+         * @param dashOffset
+         */
         this.dash = function (fromX, fromY, toX, toY, dashInterval, dashOffset) {
             if (dashInterval === void 0) { dashInterval = [1, 1]; }
             if (dashOffset === void 0) { dashOffset = 0; }
@@ -835,7 +852,7 @@ var EinePainter = /** @class */ (function () {
      * @param mimeType image/jpeg
      * @param config
      */
-    EinePainter.prototype.toJPEGBuffer = function (mimeType, config) {
+    EinePainter.prototype.toJPEGBufferSync = function (mimeType, config) {
         if (!this.canvas)
             return new Buffer("");
         return this.canvas.toBuffer(mimeType, config);

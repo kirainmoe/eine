@@ -86,13 +86,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#_clusterRole" class="tsd-kind-icon">_cluster<wbr>Role</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#_db" class="tsd-kind-icon">_db</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#_logger" class="tsd-kind-icon">_logger</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#_painter" class="tsd-kind-icon">_painter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#_scheduler" class="tsd-kind-icon">_scheduler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#_server" class="tsd-kind-icon">_server</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="Eine.html#adapters" class="tsd-kind-icon">adapters</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#clusterRole" class="tsd-kind-icon">cluster<wbr>Role</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#eineOptions" class="tsd-kind-icon">eine<wbr>Options</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#eventHandler" class="tsd-kind-icon">event<wbr>Handler</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="Eine.html#interruptQueue" class="tsd-kind-icon">interrupt<wbr>Queue</a></li>
@@ -106,6 +106,7 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Eine.html#clusterRole" class="tsd-kind-icon">cluster<wbr>Role</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Eine.html#db" class="tsd-kind-icon">db</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Eine.html#http" class="tsd-kind-icon">http</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="Eine.html#importFont" class="tsd-kind-icon">import<wbr>Font</a></li>
@@ -124,6 +125,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="Eine.html#afterVerify" class="tsd-kind-icon">after<wbr>Verify</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Eine.html#bind" class="tsd-kind-icon">bind</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="Eine.html#bindInternalEvents" class="tsd-kind-icon">bind<wbr>Internal<wbr>Events</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Eine.html#cancelWait" class="tsd-kind-icon">cancel<wbr>Wait</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Eine.html#checkAppWorkspace" class="tsd-kind-icon">check<wbr>App<wbr>Workspace</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Eine.html#dispatch" class="tsd-kind-icon">dispatch</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="Eine.html#getOption" class="tsd-kind-icon">get<wbr>Option</a></li>
@@ -155,7 +157,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L70">index.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L72">index.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -172,77 +174,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_db" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _db</h3>
-					<div class="tsd-signature tsd-kind-icon">_db<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = null</span></div>
+					<a name="_clusterRole" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _cluster<wbr>Role</h3>
+					<div class="tsd-signature tsd-kind-icon">_cluster<wbr>Role<span class="tsd-signature-symbol">:</span> <a href="../enums/Types.ClusterRole.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ClusterRole</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L685">index.ts:685</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_logger" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _logger</h3>
-					<div class="tsd-signature tsd-kind-icon">_logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">default</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L333">index.ts:333</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_painter" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _painter</h3>
-					<div class="tsd-signature tsd-kind-icon">_painter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">default</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L597">index.ts:597</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_scheduler" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _scheduler</h3>
-					<div class="tsd-signature tsd-kind-icon">_scheduler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = null</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L716">index.ts:716</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_server" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _server</h3>
-					<div class="tsd-signature tsd-kind-icon">_server<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = null</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L711">index.ts:711</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="adapters" class="tsd-anchor"></a>
-					<h3>adapters</h3>
-					<div class="tsd-signature tsd-kind-icon">adapters<span class="tsd-signature-symbol">:</span> <a href="../interfaces/Types.AdapterDriverInterface.html" class="tsd-signature-type" data-tsd-kind="Interface">AdapterDriverInterface</a><span class="tsd-signature-symbol"> = {}</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L65">index.ts:65</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Driver 实例集合</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="clusterRole" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> cluster<wbr>Role</h3>
-					<div class="tsd-signature tsd-kind-icon">cluster<wbr>Role<span class="tsd-signature-symbol">:</span> <a href="../enums/Types.ClusterRole.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ClusterRole</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L68">index.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L69">index.ts:69</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -252,12 +189,77 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_db" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _db</h3>
+					<div class="tsd-signature tsd-kind-icon">_db<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L705">index.ts:705</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_logger" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _logger</h3>
+					<div class="tsd-signature tsd-kind-icon">_logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">default</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L333">index.ts:333</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_painter" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> _painter</h3>
+					<div class="tsd-signature tsd-kind-icon">_painter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">default</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L617">index.ts:617</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_scheduler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _scheduler</h3>
+					<div class="tsd-signature tsd-kind-icon">_scheduler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L736">index.ts:736</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_server" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _server</h3>
+					<div class="tsd-signature tsd-kind-icon">_server<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L731">index.ts:731</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="adapters" class="tsd-anchor"></a>
+					<h3>adapters</h3>
+					<div class="tsd-signature tsd-kind-icon">adapters<span class="tsd-signature-symbol">:</span> <a href="../interfaces/Types.AdapterDriverInterface.html" class="tsd-signature-type" data-tsd-kind="Interface">AdapterDriverInterface</a><span class="tsd-signature-symbol"> = {}</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L66">index.ts:66</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Driver 实例集合</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="eineOptions" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> eine<wbr>Options</h3>
 					<div class="tsd-signature tsd-kind-icon">eine<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="../interfaces/Types.EineOption.html" class="tsd-signature-type" data-tsd-kind="Interface">EineOption</a><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L62">index.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L63">index.ts:63</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -272,7 +274,7 @@
 					<div class="tsd-signature tsd-kind-icon">event<wbr>Handler<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/Types.EventHandler.html" class="tsd-signature-type" data-tsd-kind="Interface">EventHandler</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L357">index.ts:357</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L357">index.ts:357</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -287,7 +289,7 @@
 					<div class="tsd-signature tsd-kind-icon">interrupt<wbr>Queue<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/Types.InterruptHandler.html" class="tsd-signature-type" data-tsd-kind="Interface">InterruptHandler</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L360">index.ts:360</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L360">index.ts:360</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -302,7 +304,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Resolving<wbr>Interrupt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L363">index.ts:363</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L363">index.ts:363</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -317,7 +319,7 @@
 					<div class="tsd-signature tsd-kind-icon">Axios<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosStatic</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L722">index.ts:722</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L742">index.ts:742</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -327,7 +329,7 @@
 					<div class="tsd-signature tsd-kind-icon">DB<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L721">index.ts:721</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L741">index.ts:741</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -337,7 +339,7 @@
 					<div class="tsd-signature tsd-kind-icon">Logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L719">index.ts:719</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L739">index.ts:739</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -347,13 +349,30 @@
 					<div class="tsd-signature tsd-kind-icon">Painter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">default</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L720">index.ts:720</a></li>
+							<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L740">index.ts:740</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="clusterRole" class="tsd-anchor"></a>
+					<h3>cluster<wbr>Role</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> clusterRole<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/Types.ClusterRole.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ClusterRole</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L70">index.ts:70</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="../enums/Types.ClusterRole.html" class="tsd-signature-type" data-tsd-kind="Enumeration">ClusterRole</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="db" class="tsd-anchor"></a>
 					<h3>db</h3>
@@ -364,7 +383,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L684">index.ts:684</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L704">index.ts:704</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -386,7 +405,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L703">index.ts:703</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L723">index.ts:723</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -408,7 +427,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L594">index.ts:594</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L614">index.ts:614</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, weight<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, style<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h4>
@@ -469,7 +488,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L330">index.ts:330</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L330">index.ts:330</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -491,7 +510,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L591">index.ts:591</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L611">index.ts:611</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -513,7 +532,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L715">index.ts:715</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L735">index.ts:735</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -535,7 +554,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L710">index.ts:710</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L730">index.ts:730</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -557,7 +576,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L706">index.ts:706</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L726">index.ts:726</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -582,7 +601,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L616">index.ts:616</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L636">index.ts:636</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -604,7 +623,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L639">index.ts:639</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L659">index.ts:659</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -643,7 +662,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L601">index.ts:601</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L621">index.ts:621</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -665,7 +684,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L302">index.ts:302</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L302">index.ts:302</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -688,7 +707,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L133">index.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L135">index.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -696,6 +715,43 @@
 									<p>绑定内部事件</p>
 								</div>
 							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="cancelWait" class="tsd-anchor"></a>
+					<h3>cancel<wbr>Wait</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">cancel<wbr>Wait<span class="tsd-signature-symbol">(</span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, interruptId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L458">index.ts:458</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>取消中断</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>key: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>中断 key</p>
+									</div>
+								</li>
+								<li>
+									<h5>interruptId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>事件处理器 ID</p>
+									</div>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -710,7 +766,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L142">index.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L144">index.ts:144</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -732,7 +788,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L450">index.ts:450</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L471">index.ts:471</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -769,7 +825,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L176">index.ts:176</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L178">index.ts:178</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -801,7 +857,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L185">index.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L187">index.ts:187</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -824,7 +880,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L99">index.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L101">index.ts:101</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -846,7 +902,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L340">index.ts:340</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L340">index.ts:340</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -879,7 +935,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L371">index.ts:371</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L371">index.ts:371</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -930,7 +986,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L693">index.ts:693</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L713">index.ts:713</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -960,7 +1016,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L670">index.ts:670</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L690">index.ts:690</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -988,7 +1044,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L192">index.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L194">index.ts:194</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1010,7 +1066,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L581">index.ts:581</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L601">index.ts:601</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1041,7 +1097,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L218">index.ts:218</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L218">index.ts:218</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1072,7 +1128,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L234">index.ts:234</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L234">index.ts:234</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1089,13 +1145,13 @@
 					<a name="wait" class="tsd-anchor"></a>
 					<h3>wait</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">wait<span class="tsd-signature-symbol">(</span>sender<span class="tsd-signature-symbol">: </span><a href="../modules/Types.html#SenderType" class="tsd-signature-type" data-tsd-kind="Type alias">SenderType</a>, type<span class="tsd-signature-symbol">: </span><a href="../enums/Types.MessageTypeStr.html" class="tsd-signature-type" data-tsd-kind="Enumeration">MessageTypeStr</a>, iterator<span class="tsd-signature-symbol">: </span><a href="../modules/Types.html#EventIterator" class="tsd-signature-type" data-tsd-kind="Type alias">EventIterator</a>, filter<span class="tsd-signature-symbol">: </span><a href="../modules/Types.html#EventFilter" class="tsd-signature-type" data-tsd-kind="Type alias">EventFilter</a>, lifetime<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/Types.EventHandleResult.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EventHandleResult</a></li>
+						<li class="tsd-signature tsd-kind-icon">wait<span class="tsd-signature-symbol">(</span>sender<span class="tsd-signature-symbol">: </span><a href="../modules/Types.html#SenderType" class="tsd-signature-type" data-tsd-kind="Type alias">SenderType</a>, type<span class="tsd-signature-symbol">: </span><a href="../enums/Types.MessageTypeStr.html" class="tsd-signature-type" data-tsd-kind="Enumeration">MessageTypeStr</a>, iterator<span class="tsd-signature-symbol">: </span><a href="../modules/Types.html#EventIterator" class="tsd-signature-type" data-tsd-kind="Type alias">EventIterator</a>, filter<span class="tsd-signature-symbol">: </span><a href="../modules/Types.html#EventFilter" class="tsd-signature-type" data-tsd-kind="Type alias">EventFilter</a>, lifetime<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>interruptId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/20a8970/src/index.ts#L421">index.ts:421</a></li>
+									<li>Defined in <a href="https://github.com/kirainmoe/eine/blob/2bfdbd9/src/index.ts#L421">index.ts:421</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1136,7 +1192,15 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../enums/Types.EventHandleResult.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EventHandleResult</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>interruptId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>interrupt<wbr>Id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>key<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -1164,6 +1228,9 @@
 								<a href="Eine.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="Eine.html#_clusterRole" class="tsd-kind-icon">_cluster<wbr>Role</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="Eine.html#_db" class="tsd-kind-icon">_db</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
@@ -1180,9 +1247,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="Eine.html#adapters" class="tsd-kind-icon">adapters</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="Eine.html#clusterRole" class="tsd-kind-icon">cluster<wbr>Role</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="Eine.html#eineOptions" class="tsd-kind-icon">eine<wbr>Options</a>
@@ -1207,6 +1271,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
 								<a href="Eine.html#Painter" class="tsd-kind-icon">Painter</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="Eine.html#clusterRole" class="tsd-kind-icon">cluster<wbr>Role</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="Eine.html#db" class="tsd-kind-icon">db</a>
@@ -1246,6 +1313,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="Eine.html#bindInternalEvents" class="tsd-kind-icon">bind<wbr>Internal<wbr>Events</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="Eine.html#cancelWait" class="tsd-kind-icon">cancel<wbr>Wait</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="Eine.html#checkAppWorkspace" class="tsd-kind-icon">check<wbr>App<wbr>Workspace</a>

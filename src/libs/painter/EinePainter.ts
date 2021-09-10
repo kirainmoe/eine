@@ -165,7 +165,7 @@ export default class EinePainter {
   public moveTo = this.move;
 
   /**
-   * 从当前笔触落点移动到 (x, y)
+   * 从当前笔触落点直线移动到 (x, y)
    * @param x
    * @param y
    */
@@ -335,6 +335,14 @@ export default class EinePainter {
 
   public setLineDash = (segments: number[]) => this.add(this.ctx?.setLineDash, [segments]);
 
+  /**
+   * 绘制线段，从 [fromX, fromY] 到 [toX, toY] 的线段
+   * @param fromX 
+   * @param fromY 
+   * @param toX 
+   * @param toY 
+   * @returns 
+   */
   public segment = (fromX: number, fromY: number, toX: number, toY: number) => {
     this.begin();
     this.move(fromX, fromY);
@@ -342,6 +350,15 @@ export default class EinePainter {
     return this.close();
   };
 
+  /**
+   * 绘制虚线，从 [fromX, fromY] 到 [toX, toY]，间隔为 dashInterval
+   * @param fromX 
+   * @param fromY 
+   * @param toX 
+   * @param toY 
+   * @param dashInterval 
+   * @param dashOffset 
+   */
   public dash = (
     fromX: number,
     fromY: number,
@@ -844,7 +861,7 @@ export default class EinePainter {
    * @param mimeType image/jpeg
    * @param config
    */
-  public toJPEGBuffer(mimeType: "image/jpeg", config?: JpegConfig) {
+  public toJPEGBufferSync(mimeType: "image/jpeg", config?: JpegConfig) {
     if (!this.canvas) return new Buffer("");
     return this.canvas.toBuffer(mimeType, config);
   }

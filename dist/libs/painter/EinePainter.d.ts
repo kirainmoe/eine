@@ -77,7 +77,7 @@ export default class EinePainter {
     move: (x: number, y: number) => this;
     moveTo: (x: number, y: number) => this;
     /**
-     * 从当前笔触落点移动到 (x, y)
+     * 从当前笔触落点直线移动到 (x, y)
      * @param x
      * @param y
      */
@@ -179,7 +179,24 @@ export default class EinePainter {
     lineJoin: (type: CanvasLineJoin) => this;
     lineDashOffset: (value: number) => this;
     setLineDash: (segments: number[]) => this;
+    /**
+     * 绘制线段，从 [fromX, fromY] 到 [toX, toY] 的线段
+     * @param fromX
+     * @param fromY
+     * @param toX
+     * @param toY
+     * @returns
+     */
     segment: (fromX: number, fromY: number, toX: number, toY: number) => this;
+    /**
+     * 绘制虚线，从 [fromX, fromY] 到 [toX, toY]，间隔为 dashInterval
+     * @param fromX
+     * @param fromY
+     * @param toX
+     * @param toY
+     * @param dashInterval
+     * @param dashOffset
+     */
     dash: (fromX: number, fromY: number, toX: number, toY: number, dashInterval?: number[], dashOffset?: number) => void;
     /**
      * 创建线性渐变
@@ -365,7 +382,7 @@ export default class EinePainter {
      * @param mimeType image/jpeg
      * @param config
      */
-    toJPEGBuffer(mimeType: "image/jpeg", config?: JpegConfig): Buffer;
+    toJPEGBufferSync(mimeType: "image/jpeg", config?: JpegConfig): Buffer;
     /**
      * (异步) 输出为 Buffer
      */

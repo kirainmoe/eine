@@ -524,7 +524,7 @@ export class Eine {
             reservedInterrupts.push(interrupt);
             continue;
           }
-          handleResult = interrupt.iterator.next({
+          handleResult = await interrupt.iterator.next({
             eine: this,
             iterator: interrupt.iterator,
             ...payload,

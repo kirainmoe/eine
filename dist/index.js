@@ -496,7 +496,7 @@ var Eine = /** @class */ (function () {
                     case 0:
                         handlers = this.eventHandler.get(event);
                         extraParams = injectExtraProperty_1.default(event, payload, this);
-                        if (!types_1.messageEventType.includes(event)) return [3 /*break*/, 5];
+                        if (!types_1.messageEventType.includes(event)) return [3 /*break*/, 6];
                         if (this.clusterRole === types_1.ClusterRole.PRIMARY) {
                             // logMessage 的优先级应当高于 interrupt，因此不使用监听，在此显式调用
                             this.logMessage(payload.sender, extraParams.messageStr);
@@ -523,97 +523,99 @@ var Eine = /** @class */ (function () {
                         interrupts = this.interruptQueue.get(interruptKey);
                         reservedInterrupts = [];
                         currentTime = +new Date();
-                        if (!interrupts) return [3 /*break*/, 5];
+                        if (!interrupts) return [3 /*break*/, 6];
                         this.isResolvingInterrupt = true;
                         handleResult = types_1.EventHandleResult.CONTINUE;
                         i = 0;
                         _e.label = 1;
                     case 1:
-                        if (!(i < interrupts.length)) return [3 /*break*/, 4];
+                        if (!(i < interrupts.length)) return [3 /*break*/, 5];
                         interrupt = interrupts[i];
                         // 中断已经过期，不再响应
                         if (interrupt.triggerTime + interrupt.lifetime < currentTime) {
-                            return [3 /*break*/, 3];
+                            return [3 /*break*/, 4];
                         }
                         return [4 /*yield*/, interrupt.filter(payload, extraParams.messageStr)];
                     case 2:
                         filterResult = _e.sent();
                         if (!filterResult || handleResult === types_1.EventHandleResult.DONE) {
                             reservedInterrupts.push(interrupt);
-                            return [3 /*break*/, 3];
+                            return [3 /*break*/, 4];
                         }
-                        handleResult = interrupt.iterator.next(__assign(__assign({ eine: this, iterator: interrupt.iterator }, payload), extraParams)).value;
-                        _e.label = 3;
+                        return [4 /*yield*/, interrupt.iterator.next(__assign(__assign({ eine: this, iterator: interrupt.iterator }, payload), extraParams)).value];
                     case 3:
+                        handleResult = _e.sent();
+                        _e.label = 4;
+                    case 4:
                         i++;
                         return [3 /*break*/, 1];
-                    case 4:
+                    case 5:
                         this.interruptQueue.set(interruptKey, reservedInterrupts);
                         this.isResolvingInterrupt = false;
                         if (handleResult === types_1.EventHandleResult.DONE) {
                             return [2 /*return*/];
                         }
-                        _e.label = 5;
-                    case 5:
-                        if (!handlers) return [3 /*break*/, 16];
-                        _i = 0, handlers_1 = handlers;
                         _e.label = 6;
                     case 6:
-                        if (!(_i < handlers_1.length)) return [3 /*break*/, 16];
-                        handler = handlers_1[_i];
-                        if (!handler.filters) return [3 /*break*/, 12];
-                        filterResult = true;
-                        _b = 0, _c = handler.filters;
+                        if (!handlers) return [3 /*break*/, 17];
+                        _i = 0, handlers_1 = handlers;
                         _e.label = 7;
                     case 7:
-                        if (!(_b < _c.length)) return [3 /*break*/, 11];
+                        if (!(_i < handlers_1.length)) return [3 /*break*/, 17];
+                        handler = handlers_1[_i];
+                        if (!handler.filters) return [3 /*break*/, 13];
+                        filterResult = true;
+                        _b = 0, _c = handler.filters;
+                        _e.label = 8;
+                    case 8:
+                        if (!(_b < _c.length)) return [3 /*break*/, 12];
                         filter = _c[_b];
                         _d = filterResult;
-                        if (!_d) return [3 /*break*/, 9];
+                        if (!_d) return [3 /*break*/, 10];
                         return [4 /*yield*/, filter(payload, extraParams.messageStr)];
-                    case 8:
-                        _d = (_e.sent());
-                        _e.label = 9;
                     case 9:
-                        filterResult = _d;
-                        if (!filterResult)
-                            return [3 /*break*/, 11];
+                        _d = (_e.sent());
                         _e.label = 10;
                     case 10:
-                        _b++;
-                        return [3 /*break*/, 7];
-                    case 11:
+                        filterResult = _d;
                         if (!filterResult)
-                            return [3 /*break*/, 15];
-                        _e.label = 12;
+                            return [3 /*break*/, 12];
+                        _e.label = 11;
+                    case 11:
+                        _b++;
+                        return [3 /*break*/, 8];
                     case 12:
-                        if (!(Object.prototype.toString.call(handler.callback) === "[object GeneratorFunction]")) return [3 /*break*/, 13];
+                        if (!filterResult)
+                            return [3 /*break*/, 16];
+                        _e.label = 13;
+                    case 13:
+                        if (!(Object.prototype.toString.call(handler.callback) === "[object GeneratorFunction]")) return [3 /*break*/, 14];
                         if (this.clusterRole !== types_1.ClusterRole.PRIMARY) {
-                            return [3 /*break*/, 15];
+                            return [3 /*break*/, 16];
                         }
                         iterator = handler.callback();
                         iterator.next();
                         handleResult = iterator.next(__assign(__assign({ eine: this, iterator: iterator }, payload), extraParams)).value;
                         if (handleResult === types_1.EventHandleResult.DONE)
-                            return [3 /*break*/, 16];
-                        return [3 /*break*/, 15];
-                    case 13:
+                            return [3 /*break*/, 17];
+                        return [3 /*break*/, 16];
+                    case 14:
                         if (this.eineOptions.enableConcurrent &&
                             this.clusterRole === types_1.ClusterRole.PRIMARY &&
                             (types_1.messageEventType.includes(event) || EventType_1.botEventType.includes(event)))
-                            return [3 /*break*/, 15];
+                            return [3 /*break*/, 16];
                         cb = handler.callback;
                         return [4 /*yield*/, cb(__assign(__assign({ eine: this }, payload), extraParams))];
-                    case 14:
+                    case 15:
                         handleResult = _e.sent();
                         if (handleResult === types_1.EventHandleResult.DONE) {
                             return [2 /*return*/];
                         }
-                        _e.label = 15;
-                    case 15:
+                        _e.label = 16;
+                    case 16:
                         _i++;
-                        return [3 /*break*/, 6];
-                    case 16: return [2 /*return*/];
+                        return [3 /*break*/, 7];
+                    case 17: return [2 /*return*/];
                 }
             });
         });

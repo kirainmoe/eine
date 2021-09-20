@@ -524,12 +524,15 @@ export class Eine {
             reservedInterrupts.push(interrupt);
             continue;
           }
-          handleResult = await interrupt.iterator.next({
-            eine: this,
-            iterator: interrupt.iterator,
-            ...payload,
-            ...extraParams,
-          }).value;
+          
+          handleResult = (
+            await interrupt.iterator.next({
+              eine: this,
+              iterator: interrupt.iterator,
+              ...payload,
+              ...extraParams,
+            })
+          ).value;
         }
         this.interruptQueue.set(interruptKey, reservedInterrupts);
         this.isResolvingInterrupt = false;
@@ -561,12 +564,14 @@ export class Eine {
           const iterator = (handler.callback as EventGenerator)();
           iterator.next();
 
-          const handleResult = iterator.next({
-            eine: this,
-            iterator,
-            ...payload,
-            ...extraParams,
-          }).value;
+          const handleResult = (
+            await iterator.next({
+              eine: this,
+              iterator,
+              ...payload,
+              ...extraParams,
+            })
+          ).value;
 
           if (handleResult === EventHandleResult.DONE) break;
         }

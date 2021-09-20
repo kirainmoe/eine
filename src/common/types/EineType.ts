@@ -175,10 +175,12 @@ export enum EineEventTypeStr {
 }
 
 /** 事件处理回调函数类型 */
-export type EventCallback = (params: Partial<EventCallbackParams> | any) => (EventHandleResult | Promise<EventHandleResult>) | void;
+export type EventCallback = (params: Partial<EventCallbackParams> | any) => (EventHandleResult | Promise<EventHandleResult | void>) | void;
 
 /** 中断 generator function 迭代器类型 */
-export type EventIterator = Generator<any, EventHandleResult | Promise<EventHandleResult> | void, any>;
+export type EventIterator =
+  | Generator<any, EventHandleResult | void, any>
+  | AsyncGenerator<any, EventHandleResult | void, any>;
 
 /** 中断 generator */
 export type EventGenerator = () => EventIterator;

@@ -210,12 +210,13 @@ var EinePainter = /** @class */ (function () {
          * @param radius 半径
          * @param fill 填充颜色 (true) 或只绘制边框 (false)
          */
-        this.circle = function (center, radius, fill) {
+        this.circle = function (center, radius, fill, sample) {
             if (fill === void 0) { fill = true; }
-            var x = center[0], y = center[1], endAngle = Math.PI * 2.0;
+            if (sample === void 0) { sample = 200; }
+            var x = center[0], y = center[1], endAngle = Math.PI * 2.0, step = endAngle / sample;
             _this.begin();
             _this.move(x + radius, y);
-            for (var angle = 0; angle < endAngle; angle++)
+            for (var angle = 0; angle < endAngle; angle += step)
                 _this.line(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
             return fill ? _this.fill() : _this.stroke();
         };

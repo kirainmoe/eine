@@ -249,12 +249,13 @@ export default class EinePainter {
    * @param radius 半径
    * @param fill 填充颜色 (true) 或只绘制边框 (false)
    */
-  public circle = (center: [number, number], radius: number, fill: boolean = true) => {
+  public circle = (center: [number, number], radius: number, fill: boolean = true, sample = 200) => {
     const [x, y] = center,
-      endAngle = Math.PI * 2.0;
+      endAngle = Math.PI * 2.0,
+      step = endAngle / sample;
     this.begin();
     this.move(x + radius, y);
-    for (let angle = 0; angle < endAngle; angle++)
+    for (let angle = 0; angle < endAngle; angle += step)
       this.line(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
     return fill ? this.fill() : this.stroke();
   };

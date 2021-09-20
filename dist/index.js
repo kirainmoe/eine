@@ -542,9 +542,9 @@ var Eine = /** @class */ (function () {
                             reservedInterrupts.push(interrupt);
                             return [3 /*break*/, 4];
                         }
-                        return [4 /*yield*/, interrupt.iterator.next(__assign(__assign({ eine: this, iterator: interrupt.iterator }, payload), extraParams)).value];
+                        return [4 /*yield*/, interrupt.iterator.next(__assign(__assign({ eine: this, iterator: interrupt.iterator }, payload), extraParams))];
                     case 3:
-                        handleResult = _e.sent();
+                        handleResult = (_e.sent()).value;
                         _e.label = 4;
                     case 4:
                         i++;
@@ -557,11 +557,11 @@ var Eine = /** @class */ (function () {
                         }
                         _e.label = 6;
                     case 6:
-                        if (!handlers) return [3 /*break*/, 17];
+                        if (!handlers) return [3 /*break*/, 18];
                         _i = 0, handlers_1 = handlers;
                         _e.label = 7;
                     case 7:
-                        if (!(_i < handlers_1.length)) return [3 /*break*/, 17];
+                        if (!(_i < handlers_1.length)) return [3 /*break*/, 18];
                         handler = handlers_1[_i];
                         if (!handler.filters) return [3 /*break*/, 13];
                         filterResult = true;
@@ -586,36 +586,38 @@ var Eine = /** @class */ (function () {
                         return [3 /*break*/, 8];
                     case 12:
                         if (!filterResult)
-                            return [3 /*break*/, 16];
+                            return [3 /*break*/, 17];
                         _e.label = 13;
                     case 13:
-                        if (!(Object.prototype.toString.call(handler.callback) === "[object GeneratorFunction]")) return [3 /*break*/, 14];
+                        if (!(Object.prototype.toString.call(handler.callback) === "[object GeneratorFunction]")) return [3 /*break*/, 15];
                         if (this.clusterRole !== types_1.ClusterRole.PRIMARY) {
-                            return [3 /*break*/, 16];
+                            return [3 /*break*/, 17];
                         }
                         iterator = handler.callback();
                         iterator.next();
-                        handleResult = iterator.next(__assign(__assign({ eine: this, iterator: iterator }, payload), extraParams)).value;
-                        if (handleResult === types_1.EventHandleResult.DONE)
-                            return [3 /*break*/, 17];
-                        return [3 /*break*/, 16];
+                        return [4 /*yield*/, iterator.next(__assign(__assign({ eine: this, iterator: iterator }, payload), extraParams))];
                     case 14:
+                        handleResult = (_e.sent()).value;
+                        if (handleResult === types_1.EventHandleResult.DONE)
+                            return [3 /*break*/, 18];
+                        return [3 /*break*/, 17];
+                    case 15:
                         if (this.eineOptions.enableConcurrent &&
                             this.clusterRole === types_1.ClusterRole.PRIMARY &&
                             (types_1.messageEventType.includes(event) || EventType_1.botEventType.includes(event)))
-                            return [3 /*break*/, 16];
+                            return [3 /*break*/, 17];
                         cb = handler.callback;
                         return [4 /*yield*/, cb(__assign(__assign({ eine: this }, payload), extraParams))];
-                    case 15:
+                    case 16:
                         handleResult = _e.sent();
                         if (handleResult === types_1.EventHandleResult.DONE) {
                             return [2 /*return*/];
                         }
-                        _e.label = 16;
-                    case 16:
+                        _e.label = 17;
+                    case 17:
                         _i++;
                         return [3 /*break*/, 7];
-                    case 17: return [2 /*return*/];
+                    case 18: return [2 /*return*/];
                 }
             });
         });

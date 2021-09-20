@@ -127,9 +127,9 @@ export declare enum EineEventTypeStr {
     PROCESS_MESSAGE = "ProcessMessage"
 }
 /** 事件处理回调函数类型 */
-export declare type EventCallback = (params: Partial<EventCallbackParams> | any) => (EventHandleResult | Promise<EventHandleResult>) | void;
+export declare type EventCallback = (params: Partial<EventCallbackParams> | any) => (EventHandleResult | Promise<EventHandleResult | void>) | void;
 /** 中断 generator function 迭代器类型 */
-export declare type EventIterator = Generator<any, EventHandleResult | Promise<EventHandleResult> | void, any>;
+export declare type EventIterator = Generator<any, EventHandleResult | void, any> | AsyncGenerator<any, EventHandleResult | void, any>;
 /** 中断 generator */
 export declare type EventGenerator = () => EventIterator;
 /** 事件过滤器函数类型 */

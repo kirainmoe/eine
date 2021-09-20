@@ -138,7 +138,7 @@ export default class EinePainter {
      * @param radius 半径
      * @param fill 填充颜色 (true) 或只绘制边框 (false)
      */
-    circle: (center: [number, number], radius: number, fill?: boolean) => this;
+    circle: (center: [number, number], radius: number, fill?: boolean, sample?: number) => this;
     /**
      * 绘制圆角矩形，起点 (fromX, fromY)，尺寸 width * height，圆角半径为 radius
      * @param fromX

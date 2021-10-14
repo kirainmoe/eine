@@ -17,6 +17,13 @@ import { EineRouteHandlerType, EineWebsocketHandlerType } from "./routes/types";
 
 import { api, panel, ws } from './routes';
 
+type EineCustomRouteHandler = (params: EineRouteHandlerType) => any;
+
+interface EineCustomRouteItem {
+  url: string;
+  method: "GET" | "POST";
+  handler: EineCustomRouteHandler;
+}
 export default class EineServer {
   private eine: Eine;
   private db: EineDB;
@@ -58,14 +65,14 @@ export default class EineServer {
 
     // 设置静态目录
     this.app.use(express.static(path.join(__dirname, "build")));
-
-    // 注册路由
-    this.registerRouters();
   }
 
   /** 启动服务器 */
   startServer() {
     const { port, host } = this.serverConfig;
+
+    // 注册路由
+    this.registerRouters();
 
     return new Promise((resolve, reject) => {
       this.app.listen(port, host, () => {
@@ -77,6 +84,18 @@ export default class EineServer {
         this.eine.dispatch(EineEventTypeStr.AFTER_SERVER_START, null);
         resolve(null);
       });
+    });
+  }
+
+  /** 自定义路由 */
+  private routes: EineCustomRouteItem[] = [];
+  
+  /** 添加自定义路由 */
+  public addRoute(method: 'GET' | 'POST', url: string, handler: (params: EineRouteHandlerType) => any) {
+    this.routes.push({
+      method,
+      url,
+      handler,
     });
   }
 
@@ -128,6 +147,15 @@ export default class EineServer {
     this.app.get("/login", sendHtmlDirectly);
     this.app.get("/panel/:path", sendHtmlDirectly);
     this.app.get("/", sendHtmlDirectly);
+
+    for (const route of this.routes) {
+      if (route.method === "GET") {
+        this.app.get(route.url, wrapRouter(route.handler));
+      }
+      if (route.method === "POST") {
+        this.app.post(route.url, wrapRouter(route.handler));
+      }
+    }
 
     (this.app as any).ws('/ws', wrapWsRouter(ws.default));
   }

@@ -549,14 +549,17 @@ export class Eine {
           let filterResult = true;
           for (const filter of handler.filters) {
             filterResult = filterResult && (await filter(payload, extraParams.messageStr));
-            if (!filterResult)
-              break;
+            if (!filterResult) break;
           }
           if (!filterResult) continue;
         }
 
         // generator function: 中断类型的生成器函数只在主进程处理
-        if (Object.prototype.toString.call(handler.callback) === "[object GeneratorFunction]") {
+        if (
+          ["[object GeneratorFunction]", "[object AsyncGeneratorFunction]"].includes(
+            Object.prototype.toString.call(handler.callback)
+          )
+        ) {
           if (this.clusterRole !== ClusterRole.PRIMARY) {
             continue;
           }

@@ -490,7 +490,7 @@ var Eine = /** @class */ (function () {
         var _a;
         if (payload === void 0) { payload = null; }
         return __awaiter(this, void 0, void 0, function () {
-            var handlers, extraParams, group, interruptKey, interrupts, reservedInterrupts, currentTime, handleResult, i, interrupt, filterResult, _i, handlers_1, handler, filterResult, _b, _c, filter, _d, iterator, handleResult, cb, handleResult;
+            var handlers, extraParams, group, interruptKey, interrupts, reservedInterrupts, currentTime, handleResult, cachedLength, i, interrupt, filterResult, _i, handlers_1, handler, filterResult, _b, _c, filter, _d, iterator, handleResult, cb, handleResult;
             return __generator(this, function (_e) {
                 switch (_e.label) {
                     case 0:
@@ -526,10 +526,11 @@ var Eine = /** @class */ (function () {
                         if (!interrupts) return [3 /*break*/, 6];
                         this.isResolvingInterrupt = true;
                         handleResult = types_1.EventHandleResult.CONTINUE;
+                        cachedLength = interrupts.length;
                         i = 0;
                         _e.label = 1;
                     case 1:
-                        if (!(i < interrupts.length)) return [3 /*break*/, 5];
+                        if (!(i < cachedLength)) return [3 /*break*/, 5];
                         interrupt = interrupts[i];
                         // 中断已经过期，不再响应
                         if (interrupt.triggerTime + interrupt.lifetime < currentTime) {

@@ -513,7 +513,8 @@ export class Eine {
       if (interrupts) {
         this.isResolvingInterrupt = true;
         let handleResult = EventHandleResult.CONTINUE;
-        for (let i = 0; i < interrupts.length; i++) {
+        let cachedLength = interrupts.length;
+        for (let i = 0; i < cachedLength; i++) {
           const interrupt = interrupts[i];
           // 中断已经过期，不再响应
           if (interrupt.triggerTime + interrupt.lifetime < currentTime) {

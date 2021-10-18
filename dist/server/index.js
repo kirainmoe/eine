@@ -51,6 +51,8 @@ var EineServer = /** @class */ (function () {
     function EineServer(eine) {
         this.magicToken = "";
         this.expireTime = 0;
+        /** 自定义路由 */
+        this.routes = [];
         this.pushMessage = routes_1.ws.pushMessage;
         this.eine = eine;
         this.db = eine.db;
@@ -74,19 +76,27 @@ var EineServer = /** @class */ (function () {
         }
         // 设置静态目录
         this.app.use(express_1.default.static(path_1.default.join(__dirname, "build")));
-        // 注册路由
-        this.registerRouters();
     }
     /** 启动服务器 */
     EineServer.prototype.startServer = function () {
         var _this = this;
         var _a = this.serverConfig, port = _a.port, host = _a.host;
+        // 注册路由
+        this.registerRouters();
         return new Promise(function (resolve, reject) {
             _this.app.listen(port, host, function () {
                 _this.logger.info("{}{}", chalk_1.default.magenta("Eine admin server is running on "), chalk_1.default.cyan("http://" + host + ":" + port));
                 _this.eine.dispatch(types_1.EineEventTypeStr.AFTER_SERVER_START, null);
                 resolve(null);
             });
+        });
+    };
+    /** 添加自定义路由 */
+    EineServer.prototype.addRoute = function (method, url, handler) {
+        this.routes.push({
+            method: method,
+            url: url,
+            handler: handler,
         });
     };
     /** 注册路由 */
@@ -154,6 +164,15 @@ var EineServer = /** @class */ (function () {
         this.app.get("/login", sendHtmlDirectly);
         this.app.get("/panel/:path", sendHtmlDirectly);
         this.app.get("/", sendHtmlDirectly);
+        for (var _i = 0, _a = this.routes; _i < _a.length; _i++) {
+            var route = _a[_i];
+            if (route.method === "GET") {
+                this.app.get(route.url, wrapRouter(route.handler));
+            }
+            if (route.method === "POST") {
+                this.app.post(route.url, wrapRouter(route.handler));
+            }
+        }
         this.app.ws('/ws', wrapWsRouter(routes_1.ws.default));
     };
     EineServer.prototype.logRequestMiddleware = function (req, res, next) {

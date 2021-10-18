@@ -4,7 +4,7 @@ import { EineOption, LogLevel, MessagePullingMode } from "./types";
 export const EINE = "Eine";
 
 /** Framework 版本 */
-export const EINE_VERSION = "0.0.28";
+export const EINE_VERSION = "0.0.30";
 
 /** Eine Framework 实例化默认选项 */
 export const EINE_DEFAULT_OPTIONS: EineOption = {

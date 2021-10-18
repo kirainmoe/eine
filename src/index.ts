@@ -519,7 +519,7 @@ export class Eine {
           if (interrupt.triggerTime + interrupt.lifetime < currentTime) {
             continue;
           }
-          const filterResult = await interrupt.filter(payload, extraParams.messageStr);
+          const filterResult = await (interrupt.filter ? interrupt.filter(payload, extraParams.messageStr) : true);
           if (!filterResult || handleResult === EventHandleResult.DONE) {
             reservedInterrupts.push(interrupt);
             continue;

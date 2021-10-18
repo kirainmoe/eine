@@ -535,7 +535,7 @@ var Eine = /** @class */ (function () {
                         if (interrupt.triggerTime + interrupt.lifetime < currentTime) {
                             return [3 /*break*/, 4];
                         }
-                        return [4 /*yield*/, interrupt.filter(payload, extraParams.messageStr)];
+                        return [4 /*yield*/, (interrupt.filter ? interrupt.filter(payload, extraParams.messageStr) : true)];
                     case 2:
                         filterResult = _e.sent();
                         if (!filterResult || handleResult === types_1.EventHandleResult.DONE) {
@@ -589,7 +589,7 @@ var Eine = /** @class */ (function () {
                             return [3 /*break*/, 17];
                         _e.label = 13;
                     case 13:
-                        if (!(Object.prototype.toString.call(handler.callback) === "[object GeneratorFunction]")) return [3 /*break*/, 15];
+                        if (!["[object GeneratorFunction]", "[object AsyncGeneratorFunction]"].includes(Object.prototype.toString.call(handler.callback))) return [3 /*break*/, 15];
                         if (this.clusterRole !== types_1.ClusterRole.PRIMARY) {
                             return [3 /*break*/, 17];
                         }

@@ -551,6 +551,8 @@ var Eine = /** @class */ (function () {
                         i++;
                         return [3 /*break*/, 1];
                     case 5:
+                        if (cachedLength < interrupts.length)
+                            reservedInterrupts = reservedInterrupts.concat(interrupts.slice(cachedLength));
                         this.interruptQueue.set(interruptKey, reservedInterrupts);
                         this.isResolvingInterrupt = false;
                         if (handleResult === types_1.EventHandleResult.DONE) {

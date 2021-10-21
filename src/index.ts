@@ -508,7 +508,7 @@ export class Eine {
         type: payload.type,
       });
       const interrupts = this.interruptQueue.get(interruptKey); // 根据消息来源作为 key 获取中断向量
-      const reservedInterrupts = []; // eine.wait() 产生的中断有效期只有一次，当响应后会被移除
+      let reservedInterrupts = []; // eine.wait() 产生的中断有效期只有一次，当响应后会被移除
       const currentTime = +new Date();
       if (interrupts) {
         this.isResolvingInterrupt = true;
@@ -535,6 +535,8 @@ export class Eine {
             })
           ).value;
         }
+        if (cachedLength < interrupts.length)
+          reservedInterrupts = reservedInterrupts.concat(interrupts.slice(cachedLength));
         this.interruptQueue.set(interruptKey, reservedInterrupts);
         this.isResolvingInterrupt = false;
         if (handleResult === EventHandleResult.DONE) {
